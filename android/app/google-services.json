@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "258029301227",
+    "project_id": "vendastomate-7d706",
+    "storage_bucket": "vendastomate-7d706.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:258029301227:android:5774ca74f8831c2727fdae",
+        "android_client_info": {
+          "package_name": "com.tgfatec.tg_fatec"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0wsON1ZM8hJLcxURysIRrHU4gtj0htog"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:258029301227:android:c2c09836a4a91f6527fdae",
+        "android_client_info": {
+          "package_name": "com.vendasTomates.vendas_tomates"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0wsON1ZM8hJLcxURysIRrHU4gtj0htog"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
