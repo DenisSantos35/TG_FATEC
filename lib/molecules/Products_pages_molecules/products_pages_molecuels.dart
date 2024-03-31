@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tg_fatec/atoms/containers/containers_atoms.dart';
 import 'package:tg_fatec/atoms/imagens/images_atoms.dart';
-import 'package:tg_fatec/atoms/texts/texts_atoms.dart';
 
 class ProductsPage extends StatelessWidget {
   ProductsPage({Key? key}) : super(key: key);

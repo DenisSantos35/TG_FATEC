@@ -1,5 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:tg_fatec/atoms/texts/texts_atoms.dart';
+import 'package:tg_fatec/auth/Login/login_page.dart';
+import 'package:tg_fatec/models/user_model.dart';
 import 'package:tg_fatec/molecules/Tiles_molecules/tiles_molecules.dart';
 
 import '../HomeTabMolecules/moleculesHomeTab.dart';
@@ -20,9 +24,9 @@ class CustomDrawer extends StatelessWidget {
             padding: const EdgeInsets.only(left: 15.0, top: 25.0),
             children: [
               Container(
-                margin: const EdgeInsets.only(bottom: 8.0),
+                margin: const EdgeInsets.only(bottom: 15.0),
                 padding: const EdgeInsets.fromLTRB(0.0, 16.0, 16.0, 16.0),
-                height: 240,
+                height: 270,
                 child: Stack(
                   children: [
                     Positioned(
@@ -31,31 +35,94 @@ class CustomDrawer extends StatelessWidget {
                         child: textTitle(
                             label: "Legumes do \nChicão",
                             size: 34.0,
-                            fontWeight: FontWeight.bold, color: Colors.white)),
-                    SizedBox(height: 20),
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white)),
+                    SizedBox(height: 17),
                     Positioned(
                       left: 0.0,
                       bottom: 0.0,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          textTitle(label: "Seja Bem Vindo", size: 18.0, fontWeight: FontWeight.bold, color: Color(0xffffffff)),
-                          textTitle(label: "Dênis", size: 16.0, fontWeight: FontWeight.bold, color: Color(0xff0AE313))
-                        ],
+                      child: ScopedModelDescendant<UserModel>(
+                        builder: (context, child, model) {
+                          print(model.isLoggedIn());
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              textTitle(
+                                  label: "Seja Bem Vindo",
+                                  size: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xffffffff)),
+                              textTitle(
+                                  label:
+                                      "${!model.isLoggedIn() ? "" : model.userData["name"]}",
+                                  size: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xff0AE313)),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: GestureDetector(
+                                  child: Row(
+                                    children: [
+                                      Text("Sair", style: TextStyle(color: Color(0xff0616E1)),),
+                                      Icon(Icons.logout, color: Color(0xff0616E1),),
+                                    ],
+                                  ),
+                                  onTap: () {
+                                    model.signOut();
+
+                                  },
+                                ),
+                              )
+                            ],
+                          );
+                        },
                       ),
                     )
                   ],
                 ),
               ),
-              const Divider(endIndent: 20,height: 5,),
-              DrawerTile(icon: Icons.home_outlined, text: "Home",page: 0,controller: pageController),
-              Divider(endIndent: 20,height: 5,),
-              DrawerTile(icon: Icons.stacked_line_chart, text: "Produtos",page: 1,controller: pageController),
-              DrawerTile(icon: Icons.point_of_sale_rounded, text: "Vendas",page: 2,controller: pageController),
-              DrawerTile(icon: Icons.monetization_on_outlined, text: "Financeiro",page: 3,controller: pageController),
-              Divider(endIndent: 20,height: 5,),
-              DrawerTile(icon: Icons.person_pin_outlined, text: "Cadastrar Clientes",page: 4,controller: pageController),
-              DrawerTile(icon: Icons.person_add_outlined, text: "Cadastrar Fornecedores",page: 5,controller: pageController),
+              const Divider(
+                endIndent: 20,
+                height: 5,
+              ),
+              DrawerTile(
+                  icon: Icons.home_outlined,
+                  text: "Home",
+                  page: 0,
+                  controller: pageController),
+              Divider(
+                endIndent: 20,
+                height: 5,
+              ),
+              DrawerTile(
+                  icon: Icons.stacked_line_chart,
+                  text: "Produtos",
+                  page: 1,
+                  controller: pageController),
+              DrawerTile(
+                  icon: Icons.point_of_sale_rounded,
+                  text: "Vendas",
+                  page: 2,
+                  controller: pageController),
+              DrawerTile(
+                  icon: Icons.monetization_on_outlined,
+                  text: "Financeiro",
+                  page: 3,
+                  controller: pageController),
+              Divider(
+                endIndent: 20,
+                height: 5,
+              ),
+              DrawerTile(
+                  icon: Icons.person_pin_outlined,
+                  text: "Cadastrar Clientes",
+                  page: 4,
+                  controller: pageController),
+              DrawerTile(
+                  icon: Icons.person_add_outlined,
+                  text: "Cadastrar Fornecedores",
+                  page: 5,
+                  controller: pageController),
             ],
           )
         ],

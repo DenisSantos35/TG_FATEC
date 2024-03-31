@@ -22,7 +22,7 @@ class DrawerTile extends StatelessWidget {
         },
         child: Container(
           alignment: Alignment.centerLeft,
-          height: 90.0,
+          height: 80.0,
           child: Row(
             children: [
               Icon(icon, size: 32, color: controller.page!.round() == page? Colors.orange.shade100 : Colors.white,),
