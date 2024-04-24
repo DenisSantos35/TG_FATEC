@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:tg_fatec/atoms/dialog/dialog_atoms.dart';
 import 'package:tg_fatec/models/cart_model.dart';
+import 'package:tg_fatec/models/client_model.dart';
+import 'package:tg_fatec/models/product_model.dart';
 import 'package:tg_fatec/models/user_model.dart';
 import 'auth/introduction_page/introduction_page.dart';
 import 'firebase_options.dart';
@@ -25,15 +28,24 @@ class MyApp extends StatelessWidget {
         builder: (context, child, model){
           return ScopedModel<CartModel>(
             model: CartModel(model),
-            child: GetMaterialApp(
-              title: 'Flutter Demo',
-              theme: ThemeData(
-                colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
-                primaryColor: Colors.red,
-                useMaterial3: true,
-              ),
-              home: InitPage(),
-              //HomeScreen()
+            child: ScopedModel<ProductModel>(
+              model: ProductModel(),
+              child: ScopedModel<DialogDefault>(
+                model: DialogDefault(),
+                child: ScopedModel<ClienteModel>(
+                  model: ClienteModel(),
+                  child: GetMaterialApp(
+                    title: 'Flutter Demo',
+                    theme: ThemeData(
+                      colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
+                      primaryColor: Colors.red,
+                      useMaterial3: true,
+                    ),
+                    home: InitPage(),
+                    //HomeScreen()
+                  ),
+                )
+              )
             ),
           );
         },

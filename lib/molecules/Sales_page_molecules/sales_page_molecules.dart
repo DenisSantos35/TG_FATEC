@@ -51,6 +51,7 @@ class CardsTemplate extends StatelessWidget {
               label: labelTwo,
               color: colorButton,
               page: 1,
+              title: "RELATÓRIO DE VENDAS"
          ),
         ],
       ),

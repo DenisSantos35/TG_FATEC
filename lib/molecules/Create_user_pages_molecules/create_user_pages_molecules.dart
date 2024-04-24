@@ -6,7 +6,7 @@ import 'package:tg_fatec/models/user_model.dart';
 import '../../atoms/containers/containers_atoms.dart';
 import '../../atoms/sizedbox/SizedBox_atoms.dart';
 import '../../auth/Login/login_page.dart';
-import '../../screens/home_screen.dart';
+
 
 class CreateUserPage extends StatefulWidget {
   CreateUserPage({Key? key, required this.title}) : super(key: key);

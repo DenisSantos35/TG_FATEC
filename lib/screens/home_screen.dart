@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tg_fatec/atoms/buttons/buttons_atoms.dart';
 import 'package:tg_fatec/atoms/texts/texts_atoms.dart';
-import 'package:tg_fatec/auth/Login/login_page.dart';
 import 'package:tg_fatec/molecules/Client_pages_molecules/client_pages_molecules.dart';
 import 'package:tg_fatec/molecules/Sales_page_molecules/sales_page_molecules.dart';
 
@@ -109,7 +108,7 @@ class HomeScreen extends StatelessWidget {
             centerTitle: true,
           ),
           drawer: CustomDrawer(_pageController),
-          body: TemplateCadastroPagesMolecules(title: "CLIENTE"),
+          body: TemplateCadastroPagesMolecules(title: "CLIENTE",page: 0,),
         ),
         Scaffold(
           appBar: AppBar(
@@ -124,7 +123,7 @@ class HomeScreen extends StatelessWidget {
             centerTitle: true,
           ),
           drawer: CustomDrawer(_pageController),
-          body: TemplateCadastroPagesMolecules(title: "FORNECEDOR"),
+          body: TemplateCadastroPagesMolecules(title: "FORNECEDOR", page: 1,),
         ),
       ],
     );

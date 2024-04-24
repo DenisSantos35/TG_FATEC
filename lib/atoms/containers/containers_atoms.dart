@@ -4,8 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
+import 'package:tg_fatec/molecules/Edit_product_molecules/edit_product_molecules.dart';
+import 'package:tg_fatec/molecules/Edit_product_molecules/list_product_all_molecules.dart';
+import 'package:tg_fatec/molecules/Inactivate_product_molecules/inactivate_product_molecule.dart';
+import 'package:tg_fatec/molecules/Inactive_historic_molecules/inactive_historic_molecules.dart';
 
+import '../../molecules/Create_product_pages_molecules/create_product_molecules.dart';
 import '../imagens/images_atoms.dart';
 import '../texts/texts_atoms.dart';
 
@@ -40,21 +47,18 @@ Widget showTextTitle(
     alignment: Alignment.center,
     child: Text(
       label,
-      style: TextStyle(
-          color: color,
-          fontSize: size,
-          fontWeight: FontWeight.bold
-      ),
+      style:
+          TextStyle(color: color, fontSize: size, fontWeight: FontWeight.bold),
       textAlign: TextAlign.center,
     ),
   );
 }
 
-
-Widget menuContainer({required String image,
-  required String label,
-  required int page,
-  required Color color}) {
+Widget menuContainer(
+    {required String image,
+    required String label,
+    required int page,
+    required Color color}) {
   return GestureDetector(
     onTap: () => print(page),
     child: Container(
@@ -73,16 +77,27 @@ Widget menuContainer({required String image,
   );
 }
 
-Widget cardProducts({required BuildContext context,
-  required double width,
-  required double height,
-  required Color color,
-  required String image,
-  required String label,
-  required int page}) {
+Widget cardProducts(
+    {required BuildContext context,
+    required double width,
+    required double height,
+    required Color color,
+    required String image,
+    required String label,
+    required int page}) {
   return GestureDetector(
     onTap: () {
-      print(page);
+      switch (page) {
+        case 0:
+          Get.to(const CreateProductMolecules());
+        case 1:
+          Get.to(ListProductAll(title: "EDITAR PRODUTOS"));
+        case 2:
+          Get.to(InactivateProductScreen(title: "INATIVAR PRODUTOS"));
+        case 6:
+          Get.to(InactiveHistoricProductScreen(
+              title: "HISTÓRICO PRODUTOS\nINATIVOS"));
+      }
     },
     child: Card(
       shadowColor: Colors.black,
@@ -90,7 +105,7 @@ Widget cardProducts({required BuildContext context,
       child: Container(
         padding: EdgeInsets.only(left: 10, right: 10),
         width: width * 0.85,
-        height: height * 0.15,
+        height: height * 0.11,
         child: Row(
           children: [
             imageCard(context: context, image: image, opacity: 1),
@@ -106,22 +121,111 @@ Widget cardProducts({required BuildContext context,
           ],
         ),
       ),
+    ).animate().fade(duration: 1000.ms).scale(delay: 500.ms),
+  );
+}
+
+Widget ContainerTextFieldInt(
+    {required TextEditingController inputController,
+    required TextInputType type,
+    required String label,
+    required String hint,
+    required IconData icon}) {
+  return Container(
+    padding: EdgeInsets.only(left: 37, right: 25),
+    height: 100,
+    decoration: BoxDecoration(
+      color: Color(0xfff5f5f5),
+      borderRadius: BorderRadius.circular(30),
+    ),
+    child: TextFormField(
+      controller: inputController,
+      inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^[0-9]+$'))],
+      keyboardType: type,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return "Campo Obrigatório";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        border: InputBorder.none,
+        labelText: label,
+        hintText: hint,
+        labelStyle:
+            TextStyle(color: Color(0xff000000), fontWeight: FontWeight.bold),
+        hintStyle: TextStyle(
+          color: Color(0xffFFC4C4C4),
+        ),
+        suffixIcon: Icon(
+          icon,
+          color: Color(0xffff1717),
+          size: 30,
+        ),
+      ),
     ),
   );
 }
 
-Widget ContainerTextFieldText({
-  required TextEditingController inputController,
-  required TextInputType type,
-  required String label,
-  required String hint,
-  required IconData icon}) {
+// edit
+Widget ContainerTextFieldIntEdit(
+    {required TextEditingController quantidade,
+    required String product,
+    required TextInputType type,
+    required String label,
+    required String hint,
+    required IconData icon}) {
   return Container(
     padding: EdgeInsets.only(left: 37, right: 25),
-    height: 80,
+    height: 100,
     decoration: BoxDecoration(
       color: Color(0xfff5f5f5),
-      borderRadius: BorderRadius.circular(50),
+      borderRadius: BorderRadius.circular(30),
+    ),
+    child: TextFormField(
+      initialValue: product,
+      inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^[0-9]+$'))],
+      keyboardType: type,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return "Campo Obrigatório";
+        }
+        return null;
+      },
+      onChanged: (value) {
+        quantidade.text = value;
+      },
+      decoration: InputDecoration(
+        border: InputBorder.none,
+        labelText: label,
+        hintText: hint,
+        labelStyle:
+            TextStyle(color: Color(0xff000000), fontWeight: FontWeight.bold),
+        hintStyle: TextStyle(
+          color: Color(0xffFFC4C4C4),
+        ),
+        suffixIcon: Icon(
+          icon,
+          color: Color(0xffff1717),
+          size: 30,
+        ),
+      ),
+    ),
+  );
+}
+
+Widget ContainerTextFieldText(
+    {required TextEditingController inputController,
+    required TextInputType type,
+    required String label,
+    required String hint,
+    required IconData icon}) {
+  return Container(
+    padding: EdgeInsets.only(left: 37, right: 25),
+    height: 100,
+    decoration: BoxDecoration(
+      color: Color(0xfff5f5f5),
+      borderRadius: BorderRadius.circular(30),
     ),
     child: TextFormField(
       controller: inputController,
@@ -139,10 +243,135 @@ Widget ContainerTextFieldText({
         border: InputBorder.none,
         labelText: label,
         hintText: hint,
-        labelStyle: TextStyle(
-            color: Color(0xff000000),
-            fontWeight: FontWeight.bold
+        labelStyle:
+            TextStyle(color: Color(0xff000000), fontWeight: FontWeight.bold),
+        hintStyle: TextStyle(
+          color: Color(0xffFFC4C4C4),
         ),
+        suffixIcon: Icon(
+          icon,
+          color: Color(0xffff1717),
+          size: 30,
+        ),
+      ),
+    ),
+  );
+}
+
+// container edição
+Widget ContainerTextFieldTextEdit(
+    {required TextEditingController titulo,
+    required String product,
+    required TextInputType type,
+    required String label,
+    required String hint,
+    required IconData icon}) {
+  return Container(
+    padding: EdgeInsets.only(left: 37, right: 25, top: 20),
+    alignment: Alignment.center,
+    height: 70,
+    decoration: BoxDecoration(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(30),
+    ),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          child: Text(
+            product.toUpperCase(),
+            style:
+            TextStyle(color: Color(0xff000000), fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+        ),
+        Divider(),
+      ],
+    ),
+  );
+}
+
+Widget ContainerTextFieldDesc(
+    {required TextEditingController inputController,
+    required TextInputType type,
+    required String label,
+    required String hint,
+    required IconData icon}) {
+  return Container(
+    padding: EdgeInsets.only(left: 37, right: 25),
+    decoration: BoxDecoration(
+      color: Color(0xfff5f5f5),
+      borderRadius: BorderRadius.circular(20),
+    ),
+    child: TextFormField(
+      minLines: 3,
+      maxLines: 5,
+      controller: inputController,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-ZÀ-ú\s\-]'))
+      ],
+      keyboardType: type,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return "Campo Obrigatório";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        border: InputBorder.none,
+        labelText: label,
+        hintText: hint,
+        labelStyle:
+            TextStyle(color: Color(0xff000000), fontWeight: FontWeight.bold),
+        hintStyle: TextStyle(
+          color: Color(0xffFFC4C4C4),
+        ),
+        suffixIcon: Icon(
+          icon,
+          color: Color(0xffff1717),
+          size: 30,
+        ),
+      ),
+    ),
+  );
+}
+
+// edit
+Widget ContainerTextFieldDescEdit(
+    {required TextEditingController descripition,
+    required String product,
+    required TextInputType type,
+    required String label,
+    required String hint,
+    required IconData icon}) {
+  return Container(
+    padding: EdgeInsets.only(left: 37, right: 25),
+    decoration: BoxDecoration(
+      color: Color(0xfff5f5f5),
+      borderRadius: BorderRadius.circular(20),
+    ),
+    child: TextFormField(
+      minLines: 3,
+      maxLines: 5,
+      initialValue: product,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-ZÀ-ú\s\-]'))
+      ],
+      keyboardType: type,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return "Campo Obrigatório";
+        }
+        return null;
+      },
+      onChanged: (value) {
+        descripition.text = value;
+      },
+      decoration: InputDecoration(
+        border: InputBorder.none,
+        labelText: label,
+        hintText: hint,
+        labelStyle:
+            TextStyle(color: Color(0xff000000), fontWeight: FontWeight.bold),
         hintStyle: TextStyle(
           color: Color(0xffFFC4C4C4),
         ),
@@ -158,25 +387,21 @@ Widget ContainerTextFieldText({
 
 Widget ContainerTextFieldFormated(
     {required TextEditingController inputController,
-      required TextInputType type,
-      required String label,
-      required String hint,
-      required IconData icon,
-      required var inputFormater
-    }) {
+    required TextInputType type,
+    required String label,
+    required String hint,
+    required IconData icon,
+    required var inputFormater}) {
   return Container(
     padding: EdgeInsets.only(left: 37, right: 25),
-    height: 80,
+    height: 100,
     decoration: BoxDecoration(
       color: Color(0xfff5f5f5),
-      borderRadius: BorderRadius.circular(50),
+      borderRadius: BorderRadius.circular(30),
     ),
     child: TextFormField(
       controller: inputController,
-      inputFormatters: [
-        FilteringTextInputFormatter.digitsOnly,
-        inputFormater
-      ],
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly, inputFormater],
       keyboardType: type,
       validator: (value) {
         if (value!.isEmpty) {
@@ -188,10 +413,8 @@ Widget ContainerTextFieldFormated(
         border: InputBorder.none,
         labelText: label,
         hintText: hint,
-        labelStyle: TextStyle(
-            color: Color(0xffFF000000),
-            fontWeight: FontWeight.bold
-        ),
+        labelStyle:
+            TextStyle(color: Color(0xffFF000000), fontWeight: FontWeight.bold),
         hintStyle: TextStyle(
           color: Color(0xffFFC4C4C4),
         ),
@@ -205,19 +428,66 @@ Widget ContainerTextFieldFormated(
   );
 }
 
-Widget ContainerTextFieldNumber({
-  required TextEditingController inputController,
-  required TextInputType type,
-  required String label,
-  required String hint,
-  required IconData icon
-}) {
+// edit
+Widget ContainerTextFieldFormatedEdit(
+    {required TextEditingController preco,
+    required String product,
+    required TextInputType type,
+    required String label,
+    required String hint,
+    required IconData icon,
+    required var inputFormater}) {
   return Container(
     padding: EdgeInsets.only(left: 37, right: 25),
-    height: 80,
+    height: 100,
     decoration: BoxDecoration(
       color: Color(0xfff5f5f5),
-      borderRadius: BorderRadius.circular(50),
+      borderRadius: BorderRadius.circular(30),
+    ),
+    child: TextFormField(
+      initialValue: product,
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly, inputFormater],
+      keyboardType: type,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return "Campo Obrigatório";
+        }
+        return null;
+      },
+      onChanged: (value) {
+        preco.text = value;
+      },
+      decoration: InputDecoration(
+        border: InputBorder.none,
+        labelText: label,
+        hintText: hint,
+        labelStyle:
+            TextStyle(color: Color(0xffFF000000), fontWeight: FontWeight.bold),
+        hintStyle: TextStyle(
+          color: Color(0xffFFC4C4C4),
+        ),
+        suffixIcon: Icon(
+          icon,
+          color: Color(0xffff1717),
+          size: 30,
+        ),
+      ),
+    ),
+  );
+}
+
+Widget ContainerTextFieldNumber(
+    {required TextEditingController inputController,
+    required TextInputType type,
+    required String label,
+    required String hint,
+    required IconData icon}) {
+  return Container(
+    padding: EdgeInsets.only(left: 37, right: 25),
+    height: 100,
+    decoration: BoxDecoration(
+      color: Color(0xfff5f5f5),
+      borderRadius: BorderRadius.circular(30),
     ),
     child: TextFormField(
       controller: inputController,
@@ -252,18 +522,18 @@ Widget ContainerTextFieldNumber({
   );
 }
 
-Widget ContainerTextFieldEmail({required TextEditingController inputController,
-  required TextInputType type,
-  required String label,
-  required String hint,
-  required IconData icon
-}) {
+Widget ContainerTextFieldEmail(
+    {required TextEditingController inputController,
+    required TextInputType type,
+    required String label,
+    required String hint,
+    required IconData icon}) {
   return Container(
     padding: EdgeInsets.only(left: 37, right: 25),
-    height: 80,
+    height: 100,
     decoration: BoxDecoration(
       color: Color(0xfff5f5f5),
-      borderRadius: BorderRadius.circular(50),
+      borderRadius: BorderRadius.circular(30),
     ),
     child: TextFormField(
       controller: inputController,
@@ -295,13 +565,14 @@ Widget ContainerTextFieldEmail({required TextEditingController inputController,
   );
 }
 
-
-
 class InputPassword extends StatefulWidget {
-  const InputPassword({Key? key, required this.inputController,
-    required this.type,
-    required this.label,
-    required this.hint }) : super(key: key);
+  const InputPassword(
+      {Key? key,
+      required this.inputController,
+      required this.type,
+      required this.label,
+      required this.hint})
+      : super(key: key);
 
   final TextEditingController inputController;
   final TextInputType type;
@@ -314,14 +585,15 @@ class InputPassword extends StatefulWidget {
 
 class _InputPasswordState extends State<InputPassword> {
   bool security = true;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(left: 37, right: 25),
-      height: 80,
+      height: 100,
       decoration: BoxDecoration(
         color: Color(0xfff5f5f5),
-        borderRadius: BorderRadius.circular(50),
+        borderRadius: BorderRadius.circular(30),
       ),
       child: TextFormField(
         controller: widget.inputController,
@@ -346,29 +618,29 @@ class _InputPasswordState extends State<InputPassword> {
           ),
           suffixIcon: security
               ? IconButton(
-            onPressed: () {
-              setState(() {
-                security = false;
-              });
-            },
-            icon: Icon(
-              Icons.visibility_off_outlined,
-              color: Color(0xffff1717),
-              size: 30,
-            ),
-          )
+                  onPressed: () {
+                    setState(() {
+                      security = false;
+                    });
+                  },
+                  icon: Icon(
+                    Icons.visibility_off_outlined,
+                    color: Color(0xffff1717),
+                    size: 30,
+                  ),
+                )
               : IconButton(
-            onPressed: () {
-              setState(() {
-                security = true;
-              });
-            },
-            icon: Icon(
-              Icons.visibility_outlined,
-              color: Color(0xffff1717),
-              size: 30,
-            ),
-          ),
+                  onPressed: () {
+                    setState(() {
+                      security = true;
+                    });
+                  },
+                  icon: Icon(
+                    Icons.visibility_outlined,
+                    color: Color(0xffff1717),
+                    size: 30,
+                  ),
+                ),
         ),
       ),
     );

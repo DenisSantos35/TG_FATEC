@@ -44,6 +44,11 @@ dependencies:
   url_launcher: ^6.2.5
   get: ^4.6.6
   brasil_fields: ^1.14.3
+  flutter_launcher_icons: ^0.13.1
+  logger: ^2.2.0
+  flutter_animate: ^4.5.0
+  firebase_storage: ^11.7.0
+  image_picker: ^0.8.7+5
 
 dev_dependencies:
   flutter_test:
@@ -97,3 +102,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "icons/tomate.jpg"

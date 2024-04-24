@@ -7,15 +7,19 @@ class CartProduct{
   String? cid;
   String? category;
   String? pid;
+  String? product;
   int quantity = 0;
   ProductDataClass? productData;
   ClienteModel? clienteModel;
+
   CartProduct();
+
   CartProduct.fromDocument(DocumentSnapshot document){
     cid = document.id;
     category = document["category"];
     pid = document["pid"];
     quantity = document["quantity"];
+    product = document["product"];
   }
 
   Map<String, dynamic> toMap(){

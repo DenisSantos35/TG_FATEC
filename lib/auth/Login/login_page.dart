@@ -117,7 +117,7 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         style: OutlinedButton.styleFrom(
-                          backgroundColor: Color(0xffff1717),
+                          backgroundColor: Colors.green,
                         ),
                       ),
                     ),
@@ -134,16 +134,16 @@ class _LoginState extends State<Login> {
                           Get.to(CreateUserPage(
                             title: "USUÁRIO",
                           ));
-                          print('aqui');
+
                         },
                         child: Text(
-                          "CADASTRAR",
+                          "CADASTRE-SE",
                           style: TextStyle(
                             color: Color(0xffffffff),
                           ),
                         ),
                         style: OutlinedButton.styleFrom(
-                          backgroundColor: Colors.green,
+                          backgroundColor: Color(0xffFA8F00),
                         ),
                       ),
                     ),

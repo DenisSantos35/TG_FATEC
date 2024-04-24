@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:tg_fatec/screens/cart_screen.dart';
+import 'package:tg_fatec/screens/product_screen.dart';
 
 import '../../auth/Login/login_page.dart';
+import '../../models/user_model.dart';
 
 class CartButton extends StatelessWidget {
   const CartButton({Key? key}) : super(key: key);
@@ -23,6 +25,39 @@ class CartButton extends StatelessWidget {
     );
   }
 }
+
+class ReturnButton extends StatelessWidget {
+  const ReturnButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 30),
+      child: OutlinedButton(
+        onPressed: () {
+          Get.off(ProductScreen(title: "PRODUTOS"));
+
+        },
+        style: OutlinedButton.styleFrom(
+            backgroundColor: Colors.green),
+        child:  Container(
+          alignment: Alignment.center,
+          height: Get.height * 0.03,
+          width: Get.width,
+          child: Text(
+            UserModel.of(context).isLoggedIn()
+                ? "SELECIONAR PRODUTOS".toUpperCase()
+                : "Realize o Login Para Continuar",
+            style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 
 class buttonReturnLogin extends StatelessWidget {
   const buttonReturnLogin({Key? key}) : super(key: key);

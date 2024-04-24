@@ -6,10 +6,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:logger/logger.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:tg_fatec/datas_class/client.dart';
 import 'package:tg_fatec/models/cart_model.dart';
-import 'package:tg_fatec/models/client_model.dart';
 import 'package:tg_fatec/screens/product_screen.dart';
+import 'package:tg_fatec/screens/sales_report_screen.dart';
 
 import '../imagens/images_atoms.dart';
 import '../texts/texts_atoms.dart';
@@ -66,6 +68,11 @@ _pages({required int page, String? title}) {
       Get.to(ProductScreen(
         title: title!,
       ));
+      break;
+    case 1:
+      Get.to(SalesReportScreen(
+        title: title!,
+      ));
   }
 }
 
@@ -79,6 +86,7 @@ class SelectClient extends StatefulWidget {
 class _SelectClientState extends State<SelectClient> {
   String? hint = "Selecione um cliente";
   String? id;
+  String? nameClient;
 
   @override
   Widget build(BuildContext context) {
@@ -87,11 +95,11 @@ class _SelectClientState extends State<SelectClient> {
       child: ScopedModelDescendant<CartModel>(
         builder: (context, child, model) {
           model.updatePrices();
-          List<ClienteModel> cliente = model.clientes;
-          ClienteModel? _selectedItem;
+          List<Client> client = model.clientes;
+          Client? _selectedItem;
 
           return Center(
-            child: DropdownButton<ClienteModel>(
+            child: DropdownButton<Client>(
               padding: EdgeInsets.only(left: 10, right: 10, top: 8, bottom: 8),
               value: _selectedItem,
               hint: Text(hint!),
@@ -104,16 +112,70 @@ class _SelectClientState extends State<SelectClient> {
                 setState(() {
                   _selectedItem = newValue;
                   id = newValue?.id.toString() ?? "";
-                  CartModel.of(context).setClients(id!);
+                  nameClient = newValue!.razao_social.toString()??"";
+                  CartModel.of(context).setClients(id!,nameClient! );
                   hint = _selectedItem?.razao_social.toString();
                 });
               },
-              items: cliente
-                  .map<DropdownMenuItem<ClienteModel>>((ClienteModel value) {
-                return DropdownMenuItem<ClienteModel>(
+              items: client
+                  .map<DropdownMenuItem<Client>>((Client value) {
+                return DropdownMenuItem<Client>(
                     value: value,
                     child: Text(
                       "Razão Social: ${value.razao_social.toString()}",
+                      style: TextStyle(color: Colors.white),
+                    ));
+              }).toList(),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class SelectPayment extends StatefulWidget {
+  SelectPayment({Key? key}) : super(key: key);
+
+  @override
+  State<SelectPayment> createState() => _SelectPaymentState();
+}
+
+class _SelectPaymentState extends State<SelectPayment> {
+  String? hint = "Selecione Forma de Pagamento";
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+      child: ScopedModelDescendant<CartModel>(
+        builder: (context, child, model) {
+          model.updatePrices();
+          List<String> pyment = model.payment;
+          String? _selectedItem;
+
+          return Center(
+            child: DropdownButton<String>(
+              padding: EdgeInsets.only(left: 10, right: 10, top: 8, bottom: 8),
+              value: _selectedItem,
+              hint: Text(hint!),
+              dropdownColor: Colors.green,
+              elevation: 15,
+              isExpanded: true,
+              alignment: Alignment.centerLeft,
+              iconSize: 40,
+              onChanged: (newValue) {
+                setState(() {
+                  _selectedItem = newValue;
+                  CartModel.of(context).setPayment(_selectedItem!.toString());
+                  hint = _selectedItem?.toString();
+                });
+              },
+              items: pyment
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(
+                      "${value.toString()}",
                       style: TextStyle(color: Colors.white),
                     ));
               }).toList(),
@@ -266,7 +328,8 @@ class CardPrice extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                   style:
-                      OutlinedButton.styleFrom(backgroundColor: Colors.green),
+                      OutlinedButton.styleFrom(backgroundColor: Color(
+                          0xffF5AA02)),
                 )
               ],
             );

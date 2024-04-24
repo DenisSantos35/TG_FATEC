@@ -84,27 +84,36 @@ class _ProductOneScreenState extends State<ProductOneScreen> {
                       ),
                       SizeHeight(height: size.height, multiplier: 0.03),
                       OutlinedButton(
-                          onPressed: () {
-                            if(UserModel.of(context).isLoggedIn()){
-                              //adicionar produto ao carrinho
-                              CartProduct cartProduct = CartProduct();
-                              cartProduct.quantity = 1;
-                              cartProduct.pid = product.id;
-                              cartProduct.category = "Legumes";
-                              CartModel.of(context).addCartItem(cartProduct);
+                        onPressed: () {
+                          if (UserModel.of(context).isLoggedIn()) {
+                            //adicionar produto ao carrinho
+                            CartProduct cartProduct = CartProduct();
+                            cartProduct.quantity = 1;
+                            cartProduct.pid = product.id;
+                            cartProduct.category = "Legumes";
+                            CartModel.of(context).addCartItem(cartProduct);
 
-                              Get.to(CartScreen());
-
-                            }else{
-                              Get.to(Login());
-                            }
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: size.height * 0.06,
-                            width: size.width,
-                            child: Text(UserModel.of(context).isLoggedIn()? "Adicionar ao Carrinho".toUpperCase(): "Realize o Login Para Continuar", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-                          ), style: OutlinedButton.styleFrom(backgroundColor: Colors.green),)
+                            Get.to(CartScreen());
+                          } else {
+                            Get.to(Login());
+                          }
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: size.height * 0.06,
+                          width: size.width,
+                          child: Text(
+                            UserModel.of(context).isLoggedIn()
+                                ? "Adicionar ao Carrinho".toUpperCase()
+                                : "Realize o Login Para Continuar",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        style: OutlinedButton.styleFrom(
+                            backgroundColor: Colors.green),
+                      ),
                     ],
                   ),
                 ),

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tg_fatec/screens/home_screen.dart';
+import 'package:tg_fatec/screens/product_screen.dart';
+import 'package:get/get.dart';
 
 class OrderScreen extends StatelessWidget {
 
@@ -9,9 +12,12 @@ class OrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        //atualizar página que vai ser redirecionada
         backgroundColor: Colors.red.withOpacity(0.6),
-        title: Text("Pedido Realizado".toUpperCase(), ),
+        title: Text("Pedido Realizado".toUpperCase(), style: TextStyle(color: Colors.white),),
         centerTitle: true,
+        leading: IconButton(onPressed: (){Get.offAll(HomeScreen());}, icon: Icon(Icons.arrow_back, color: Colors.white,)),
       ),
       body: Container(
         padding: EdgeInsets.all(16.0),

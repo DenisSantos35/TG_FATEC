@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:tg_fatec/models/client_model.dart';
+import 'package:tg_fatec/datas_class/client.dart';
+import 'package:tg_fatec/datas_class/product_data_class.dart';
+
+import 'package:tg_fatec/models/payment_model.dart';
 import 'package:tg_fatec/models/user_model.dart';
 
 import '../datas_class/cart_product.dart';
@@ -11,11 +14,13 @@ import '../datas_class/cart_product.dart';
 class CartModel extends Model {
   UserModel user;
   List<CartProduct> products = [];
-  List<ClienteModel> clientes = [];
+  List<Client> clientes = [];
+  List<String> payment = [];
   bool isLoading = false;
-
   double discount = 0.0;
   String idClient = "";
+  String nameClient = "";
+  String paymentType = "";
 
   CartModel(this.user) {
     if (user.isLoggedIn()) {
@@ -25,8 +30,7 @@ class CartModel extends Model {
     ;
   }
 
-  static CartModel of(BuildContext context) =>
-      ScopedModel.of<CartModel>(context);
+  static CartModel of(context) => ScopedModel.of<CartModel>(context);
 
   void addCartItem(CartProduct cartProduct) {
     products.add(cartProduct);
@@ -75,8 +79,14 @@ class CartModel extends Model {
     notifyListeners();
   }
 
-  void setClients(String idCliente) {
+  void setClients(String idCliente, String nameCliente) {
     this.idClient = idCliente;
+    this.nameClient = nameCliente;
+    notifyListeners();
+  }
+
+  void setPayment(String payment) {
+    this.paymentType = payment;
     notifyListeners();
   }
 
@@ -100,6 +110,7 @@ class CartModel extends Model {
   }
 
   void updatePrices() {
+    _loadClientes();
     notifyListeners();
   }
 
@@ -109,14 +120,25 @@ class CartModel extends Model {
   }
 
   Future<String> finishOrder() async {
+    DateTime date = DateTime.now();
+    String dataFormatada = DateFormat('dd/MM/yyyy').format(date);
+    String horaFormatada = DateFormat('HH:mm').format(date);
     if (products.length == 0) return "";
     if (idClient.isEmpty || idClient == null) {
       Get.snackbar("Dados incorretos", "Selecione o cliente para finalizar",
           duration: Duration(seconds: 2),
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white
-      );
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
+      return "";
+    }
+    if (this.paymentType.isEmpty || this.paymentType == null) {
+      Get.snackbar(
+          "Dados incorretos", "Selecione a forma de pagamento para finalizar",
+          duration: Duration(seconds: 2),
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
       return "";
     }
 
@@ -130,6 +152,10 @@ class CartModel extends Model {
     DocumentReference refOrder =
         await FirebaseFirestore.instance.collection("VENDAS").add({
       "userId": user.firebaseUser!.uid,
+      "date": dataFormatada,
+      "hour": horaFormatada,
+      "paymentType": paymentType,
+      "nameClient": nameClient,
       "clientId": idClient,
       "products": products.map((cartPoduct) => cartPoduct.toMap()).toList(),
       "productsPrice": productsPrice,
@@ -143,6 +169,7 @@ class CartModel extends Model {
         .collection("CART")
         .get();
     for (DocumentSnapshot doc in query.docs) {
+
       doc.reference.delete();
     }
     products.clear();
@@ -166,9 +193,9 @@ class CartModel extends Model {
   void _loadClientes() async {
     QuerySnapshot query =
         await FirebaseFirestore.instance.collection("CLIENTES").get();
-
-    clientes = query.docs.map((doc) => ClienteModel.fromDocument(doc)).toList();
-    print(clientes.length);
+    PaymentModel payments = PaymentModel();
+    clientes = query.docs.map((doc) => Client.fromDocument(doc)).toList();
+    payment = payments.typePyment;
     notifyListeners();
   }
 }

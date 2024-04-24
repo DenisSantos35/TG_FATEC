@@ -9,8 +9,7 @@ class InitPage extends StatefulWidget {
   State<InitPage> createState() => _InitPageState();
 }
 
-class _InitPageState extends State<InitPage> {
-
+class _InitPageState extends State<InitPage>{
 
   @override
   Widget build(BuildContext context) {

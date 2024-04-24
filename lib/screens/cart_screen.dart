@@ -5,9 +5,9 @@ import 'package:tg_fatec/atoms/cards/cards.dart';
 import 'package:tg_fatec/models/cart_model.dart';
 import 'package:tg_fatec/models/user_model.dart';
 import 'package:tg_fatec/screens/final_screen.dart';
-
+import 'package:tg_fatec/screens/home_screen.dart';
+import 'package:tg_fatec/tabs/home_tab.dart';
 import '../atoms/buttons/buttons_atoms.dart';
-import '../auth/Login/login_page.dart';
 import '../molecules/Tiles_molecules/cart_tile.dart';
 
 class CartScreen extends StatelessWidget {
@@ -17,8 +17,18 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.red.withOpacity(0.6),
         toolbarHeight: 90,
+        leading: IconButton(
+            onPressed: () {
+              Get.offAll(HomeScreen());
+            },
+            icon: const Icon(
+              Icons.home_outlined,
+              color: Colors.white,
+              size: 30,
+            )),
         title: Text(
           "Meu Carrinho".toUpperCase(),
           style: TextStyle(color: Colors.white),
@@ -31,7 +41,7 @@ class CartScreen extends StatelessWidget {
                 int quantProduct = model.products.length;
                 return Text(
                   "${quantProduct ?? 0} ${quantProduct == 1 ? "ITEM" : "ITENS"}",
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Color(0xff10039F),
                       fontWeight: FontWeight.bold,
                       fontSize: 15),
@@ -59,13 +69,16 @@ class CartScreen extends StatelessWidget {
                   children: model.products.map((product) {
                 return CartTile(product);
               }).toList()),
+              ReturnButton(),
               SelectClient(),
               DiscountCard(),
-              CardPrice(()async{
+              SelectPayment(),
+              CardPrice(() async {
                 String orderId = await model.finishOrder();
-                if(orderId == "") return;
-                if(orderId != null)
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> OrderScreen(orderId)));
+                if (orderId == "") return;
+                if (orderId != null)
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => OrderScreen(orderId)));
               }),
             ]);
           }
