@@ -9,8 +9,10 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:tg_fatec/molecules/Edit_product_molecules/edit_product_molecules.dart';
 import 'package:tg_fatec/molecules/Edit_product_molecules/list_product_all_molecules.dart';
+import 'package:tg_fatec/molecules/Entrada_estoque_molecules/stock_entry_molecules.dart';
 import 'package:tg_fatec/molecules/Inactivate_product_molecules/inactivate_product_molecule.dart';
 import 'package:tg_fatec/molecules/Inactive_historic_molecules/inactive_historic_molecules.dart';
+import 'package:tg_fatec/molecules/Product_entry_historic_molecules/product_entry_historic_molecules.dart';
 
 import '../../molecules/Create_product_pages_molecules/create_product_molecules.dart';
 import '../imagens/images_atoms.dart';
@@ -90,17 +92,26 @@ Widget cardProducts(
       switch (page) {
         case 0:
           Get.to(const CreateProductMolecules());
+          break;
         case 1:
           Get.to(ListProductAll(title: "EDITAR PRODUTOS"));
+          break;
         case 2:
           Get.to(InactivateProductScreen(title: "INATIVAR PRODUTOS"));
+          break;
+        case 3:
+          Get.to(StockEntryMolecules(title: "CADASTRAR ESTOQUE"));
+          break;
+        case 5:
+          Get.to(ProductEntryHistory(title: "HISTÓRICO DE ENTRADA\n DE PRODUTOS"));
+
         case 6:
           Get.to(InactiveHistoricProductScreen(
               title: "HISTÓRICO PRODUTOS\nINATIVOS"));
       }
     },
     child: Card(
-      shadowColor: Colors.black,
+
       color: color,
       child: Container(
         padding: EdgeInsets.only(left: 10, right: 10),
@@ -149,7 +160,6 @@ Widget ContainerTextFieldInt(
         return null;
       },
       decoration: InputDecoration(
-        border: InputBorder.none,
         labelText: label,
         hintText: hint,
         labelStyle:
@@ -240,7 +250,7 @@ Widget ContainerTextFieldText(
         return null;
       },
       decoration: InputDecoration(
-        border: InputBorder.none,
+
         labelText: label,
         hintText: hint,
         labelStyle:
@@ -410,7 +420,6 @@ Widget ContainerTextFieldFormated(
         return null;
       },
       decoration: InputDecoration(
-        border: InputBorder.none,
         labelText: label,
         hintText: hint,
         labelStyle:
@@ -458,11 +467,59 @@ Widget ContainerTextFieldFormatedEdit(
         preco.text = value;
       },
       decoration: InputDecoration(
-        border: InputBorder.none,
+
         labelText: label,
         hintText: hint,
         labelStyle:
             TextStyle(color: Color(0xffFF000000), fontWeight: FontWeight.bold),
+        hintStyle: TextStyle(
+          color: Color(0xffFFC4C4C4),
+        ),
+        suffixIcon: Icon(
+          icon,
+          color: Color(0xffff1717),
+          size: 30,
+        ),
+      ),
+    ),
+  );
+}
+
+Widget ContainerTextFieldFormatedEditProduct(
+    {required TextEditingController preco,
+      required String product,
+      required TextInputType type,
+      required String label,
+      required String hint,
+      required IconData icon,
+      required var inputFormater,
+    required bool isInteger}) {
+  return Container(
+    padding: EdgeInsets.only(left: 37, right: 25),
+    height: 100,
+    decoration: BoxDecoration(
+      color: Color(0xfff5f5f5),
+      borderRadius: BorderRadius.circular(30),
+    ),
+    child: TextFormField(
+      controller: preco,
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly, isInteger?FilteringTextInputFormatter.allow(RegExp(r'^\d*$')) : inputFormater],
+      keyboardType: type,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return "Campo Obrigatório";
+        }
+        return null;
+      },
+      onChanged: (value) {
+        preco.text = value;
+      },
+      decoration: InputDecoration(
+
+        labelText: label,
+        hintText: hint,
+        labelStyle:
+        TextStyle(color: Color(0xffFF000000), fontWeight: FontWeight.bold),
         hintStyle: TextStyle(
           color: Color(0xffFFC4C4C4),
         ),
@@ -545,7 +602,6 @@ Widget ContainerTextFieldEmail(
         return null;
       },
       decoration: InputDecoration(
-        border: InputBorder.none,
         labelText: label,
         hintText: hint,
         labelStyle: TextStyle(
@@ -606,7 +662,7 @@ class _InputPasswordState extends State<InputPassword> {
           return null;
         },
         decoration: InputDecoration(
-          border: InputBorder.none,
+
           labelText: widget.label,
           hintText: widget.hint,
           labelStyle: TextStyle(

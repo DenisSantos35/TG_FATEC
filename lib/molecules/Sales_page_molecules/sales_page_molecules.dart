@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tg_fatec/atoms/cards/cards.dart';
 
 import '../../atoms/imagens/images_atoms.dart';
-import '../../atoms/texts/texts_atoms.dart';
+
 
 class CardsTemplate extends StatelessWidget {
   CardsTemplate(
@@ -13,6 +13,8 @@ class CardsTemplate extends StatelessWidget {
       required this.imageCardTwo,
       required this.labelOne,
       required this.labelTwo,
+        required this.firstPage,
+        required this.lastPage
       });
   //this.snapshot
   final String backgroundImage;
@@ -21,6 +23,8 @@ class CardsTemplate extends StatelessWidget {
   final String labelOne;
   final String labelTwo;
   final Color colorButton;
+  final int firstPage;
+  final int lastPage;
   // final DocumentSnapshot? snapshot;
 
   @override
@@ -38,7 +42,7 @@ class CardsTemplate extends StatelessWidget {
               height: size.height,
               label: labelOne,
               color: colorButton,
-              page: 0,
+              page: firstPage,
           title: "PRODUTOS"),
           SizedBox(
             height: size.height * 0.05,
@@ -50,7 +54,7 @@ class CardsTemplate extends StatelessWidget {
               height: size.height,
               label: labelTwo,
               color: colorButton,
-              page: 1,
+              page: lastPage,
               title: "RELATÓRIO DE VENDAS"
          ),
         ],

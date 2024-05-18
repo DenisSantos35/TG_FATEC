@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:tg_fatec/atoms/dialog/dialog_atoms.dart';
 import 'package:tg_fatec/datas_class/product_data_class.dart';
+import 'package:tg_fatec/molecules/Create_product_pages_molecules/edit_stock_product_molecules.dart';
 import 'package:tg_fatec/molecules/Edit_product_molecules/edit_product_molecules.dart';
 import 'package:tg_fatec/screens/product_screen.dart';
 
@@ -16,7 +17,7 @@ import '../../models/user_model.dart';
 import '../../screens/cart_screen.dart';
 import '../../screens/product_one_screen.dart';
 
-class ProductTile extends StatelessWidget {
+class ProductTile extends StatefulWidget {
   final String type;
   final ProductDataClass product;
   final bool? button;
@@ -26,26 +27,27 @@ class ProductTile extends StatelessWidget {
   final String? subtitle;
   final int? page;
 
-  ProductTile(
-      this.type,
-      this.product,
+  ProductTile(this.type, this.product,
       {this.button,
       this.label,
       this.color,
       this.title,
       this.subtitle,
       this.page});
+
+  @override
+  State<ProductTile> createState() => _ProductTileState();
+}
+
+class _ProductTileState extends State<ProductTile> {
   ProductDataClass dataProduct = ProductDataClass();
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        button != null ? null : addCart(context);
-      },
       child: Card(
           shadowColor: Colors.black,
-          child: type == 'grid'
+          child: widget.type == 'grid'
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -53,7 +55,7 @@ class ProductTile extends StatelessWidget {
                     AspectRatio(
                       aspectRatio: 1,
                       child: Image.network(
-                        product.image!,
+                        widget.product.image!,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -63,14 +65,18 @@ class ProductTile extends StatelessWidget {
                         child: Column(
                           children: [
                             Text(
-                              product.titulo!.toUpperCase(),
+                              widget.product.titulo!.toUpperCase(),
                               style: TextStyle(fontWeight: FontWeight.w900),
                             ),
                             Text(
-                              "Preço ${product.unidadeMedida}:\n R\$ ${product.price!.toStringAsFixed(2)}",
+                              widget.product.quantidade! <= 0
+                                  ? "Adicione produto\npara realizar venda! "
+                                  : "Preço ${widget.product.unidadeMedida}:\n R\$ ${widget.product.price!.toStringAsFixed(2)}",
                               style: TextStyle(
-                                  color: Color(0xff106910),
-                                  fontWeight: FontWeight.bold),
+                                color: Color(0xff106910),
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
                           ],
                         ),
@@ -78,7 +84,15 @@ class ProductTile extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        addCart(context);
+                        widget.product.quantidade! <= 0
+                            ? Get.showSnackbar(GetSnackBar(
+                                title: "Saldo insuficiente!",
+                                message:
+                                    "Produto não pode ser adicionado ao carrinho.",
+                                duration: Duration(seconds: 3),
+                                backgroundColor: Colors.red,
+                              ))
+                            : addCart(context);
                       },
                       child: Container(
                         margin: EdgeInsets.only(left: 15, right: 15, bottom: 8),
@@ -86,11 +100,15 @@ class ProductTile extends StatelessWidget {
                         height: Get.height * 0.06,
                         width: Get.width * 0.02,
                         decoration: BoxDecoration(
-                            color: Colors.green,
+                            color: widget.product.quantidade! <= 0
+                                ? Colors.red
+                                : Colors.green,
                             borderRadius: BorderRadius.circular(20)),
                         child: Text(
                           UserModel.of(context).isLoggedIn()
-                              ? "Adicionar\n ao Carrinho".toUpperCase()
+                              ? widget.product.quantidade! <= 0
+                                  ? "Saldo\ninsuficiente".toUpperCase()
+                                  : "Adicionar\n ao Carrinho".toUpperCase()
                               : "Realize o Login Para Continuar",
                           style: TextStyle(
                               fontSize: 10,
@@ -107,7 +125,7 @@ class ProductTile extends StatelessWidget {
                     Expanded(
                       flex: 1,
                       child: Image.network(
-                        product.image!,
+                        widget.product.image!,
                         fit: BoxFit.cover,
                         height: 250.0,
                       ),
@@ -120,69 +138,86 @@ class ProductTile extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              product.titulo!.toUpperCase(),
+                              widget.product.titulo!.toUpperCase(),
                               style: TextStyle(fontWeight: FontWeight.w900),
                             ),
                             Text(
-                              "Estoque: ${product.quantidade!.toStringAsFixed(0)} ${product.unidadeMedida}",
+                              "Estoque: ${widget.product.quantidade!.toStringAsFixed(0)} ${widget.product.unidadeMedida}",
                               style: TextStyle(fontWeight: FontWeight.w500),
                             ),
-                            button == null
+                            widget.button == null
                                 ? Text(
-                                    "Preço ${product.unidadeMedida}: \n R\$ ${product.price!.toStringAsFixed(2)}",
+                                    widget.product.quantidade! <= 0
+                                        ? "Adicione produto\npara realizar venda! "
+                                        : "Preço ${widget.product.unidadeMedida}:\n R\$ ${widget.product.price!.toStringAsFixed(2)}",
                                     style: const TextStyle(
                                         color: Color(0xff106910),
                                         fontWeight: FontWeight.bold),
                                   )
                                 : Text(
-                                    "Preço ${product.unidadeMedida}: R\$ ${product.price!.toStringAsFixed(2)}",
+                                    "Preço ${widget.product.unidadeMedida}: R\$ ${widget.product.price!.toStringAsFixed(2)}",
                                     style: const TextStyle(
                                         color: Color(0xff000000),
                                         fontWeight: FontWeight.normal,
                                         fontSize: 14),
                                   ),
                             SizedBox(height: Get.height * .02),
-                            button != null
+                            widget.button != null
                                 ? Container(
                                     alignment: Alignment.center,
                                     child: OutlinedButton(
                                       style: OutlinedButton.styleFrom(
-                                          backgroundColor: color),
+                                          backgroundColor: widget.color,
+                                        elevation: 3,
+                                        shadowColor: Colors.black
+
+                                      ),
                                       onPressed: () {
-                                        switch (page) {
+                                        switch (widget.page) {
                                           case 1:
                                           case 6:
                                             DialogDefault.of(context).GetDialog(
-                                                page: page!,
+                                                page: widget.page!,
                                                 context: context,
-                                                title: title!,
-                                                subTitle: subtitle!,
-                                                id: product.id,
+                                                title: widget.title!,
+                                                subTitle: widget.subtitle!,
+                                                id: widget.product.id,
                                                 status:
-                                                    page == 1 ? false : true);
+                                                    widget.page == 1 ? false : true);
                                             break;
                                           case 2:
-                                            Logger().e(product.toMap());
+                                            Logger().e(widget.product.toMap());
                                             Get.to(EditProductMolecules(
                                               product: ProductDataClass.fromMap(
-                                                  product.toMap(),),
-                                              reference: product.references,
+                                                widget.product.toMap(),
+                                              ),
+                                              reference: widget.product.references,
                                             ));
                                             break;
+                                        //fazer tabela para média de estoque
+                                          case 3:
+                                            Get.to(EditStockProductMolecules(
+                                              product: ProductDataClass.fromMap(
+                                                  widget.product.toMap()),
+                                              reference: widget.product.references,
+                                            ));
                                         }
                                       },
                                       child: Text(
-                                        label!,
-                                        style: TextStyle(color: Colors.white),
+                                        widget.label!,
+                                        style: TextStyle(color: Colors.white, ),textAlign: TextAlign.center,
                                       ),
                                     ),
                                   )
                                 : SizedBox(),
-                            button != null
+                            widget.button != null
                                 ? SizedBox()
                                 : GestureDetector(
                                     onTap: () {
-                                      addCart(context);
+                                      Logger().i(context);
+                                      widget.product.quantidade! <= 0
+                                          ? null
+                                          : addCart(context);
                                     },
                                     child: Container(
                                       margin: EdgeInsets.only(
@@ -191,13 +226,18 @@ class ProductTile extends StatelessWidget {
                                       height: Get.height * 0.06,
                                       width: Get.width * 0.3,
                                       decoration: BoxDecoration(
-                                          color: Colors.green,
+                                          color: widget.product.quantidade! <= 0
+                                              ? Colors.red
+                                              : Colors.green,
                                           borderRadius:
                                               BorderRadius.circular(20)),
                                       child: Text(
                                         UserModel.of(context).isLoggedIn()
-                                            ? "Adicionar\n ao Carrinho"
-                                                .toUpperCase()
+                                            ? widget.product.quantidade! <= 0
+                                                ? "Saldo\ninsuficiente"
+                                                    .toUpperCase()
+                                                : "Adicionar\n ao Carrinho"
+                                                    .toUpperCase()
                                             : "Realize o Login Para Continuar",
                                         style: TextStyle(
                                             fontSize: 10,
@@ -220,11 +260,19 @@ class ProductTile extends StatelessWidget {
     if (UserModel.of(context).isLoggedIn()) {
       //adicionar produto ao carrinho
       CartProduct cartProduct = CartProduct();
+      ProductDataClass dataProduct = ProductDataClass();
+      cartProduct.estoque = widget.product.quantidade;
       cartProduct.quantity = 1;
-      cartProduct.pid = product.id;
+      cartProduct.pid = widget.product.id;
       cartProduct.category = "Legumes";
+      dataProduct.titulo = widget.product.titulo;
+      dataProduct.quantidade = widget.product.quantidade;
+      dataProduct.description = widget.product.description;
+      dataProduct.price = widget.product.price;
+      dataProduct.image = widget.product.image;
+      Logger().e(dataProduct.toResumeMap());
 
-      CartModel.of(context).addCartItem(cartProduct);
+      CartModel.of(context).addCartItem(cartProduct, dataProduct);
 
       Get.to(CartScreen());
     } else {

@@ -29,6 +29,7 @@ Widget cardSales(
   return Center(
     child: GestureDetector(
       onTap: () {
+        Logger().e(page);
         _pages(page: page, title: title);
       },
       child: AnimatedContainer(
@@ -73,6 +74,19 @@ _pages({required int page, String? title}) {
       Get.to(SalesReportScreen(
         title: title!,
       ));
+      break;
+    case 2:
+      // criar relatorios detalhados
+      // Get.to(SalesReportScreen(
+      //   title: title!,
+      // ));
+      break;
+    case 3:
+      //criar relatorios detalhados
+      // Get.to(SalesReportScreen(
+      //   title: title!,
+      // ));
+      break;
   }
 }
 
@@ -112,13 +126,12 @@ class _SelectClientState extends State<SelectClient> {
                 setState(() {
                   _selectedItem = newValue;
                   id = newValue?.id.toString() ?? "";
-                  nameClient = newValue!.razao_social.toString()??"";
-                  CartModel.of(context).setClients(id!,nameClient! );
+                  nameClient = newValue!.razao_social.toString() ?? "";
+                  CartModel.of(context).setClients(id!, nameClient!);
                   hint = _selectedItem?.razao_social.toString();
                 });
               },
-              items: client
-                  .map<DropdownMenuItem<Client>>((Client value) {
+              items: client.map<DropdownMenuItem<Client>>((Client value) {
                 return DropdownMenuItem<Client>(
                     value: value,
                     child: Text(
@@ -143,6 +156,7 @@ class SelectPayment extends StatefulWidget {
 
 class _SelectPaymentState extends State<SelectPayment> {
   String? hint = "Selecione Forma de Pagamento";
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -170,8 +184,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                   hint = _selectedItem?.toString();
                 });
               },
-              items: pyment
-                  .map<DropdownMenuItem<String>>((String value) {
+              items: pyment.map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                     value: value,
                     child: Text(
@@ -327,9 +340,8 @@ class CardPrice extends StatelessWidget {
                     "FINALIZAR PEDIDO",
                     style: TextStyle(color: Colors.white),
                   ),
-                  style:
-                      OutlinedButton.styleFrom(backgroundColor: Color(
-                          0xffF5AA02)),
+                  style: OutlinedButton.styleFrom(
+                      backgroundColor: Color(0xffF5AA02)),
                 )
               ],
             );

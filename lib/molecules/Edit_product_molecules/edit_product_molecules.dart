@@ -76,22 +76,26 @@ class _CreateProductMoleculesState extends State<EditProductMolecules> {
                             hint: "Digite o Nome do Produto",
                             icon: Icons.apple),
                         SizeHeight(height: size.width, multiplier: 0.04),
-                        ContainerTextFieldFormatedEdit(
-                            preco: price,
-                            product: widget.product.price.toString(),
-                            label: "Preço do Produto:",
-                            type: TextInputType.number,
-                            hint: "Digite o Preço do Produto",
-                            icon: Icons.monetization_on_outlined,
-                            inputFormater: CentavosInputFormatter()),
+                        Card(
+                          child: ContainerTextFieldFormatedEdit(
+                              preco: price,
+                              product: widget.product.price.toString(),
+                              label: "Preço do Produto:",
+                              type: TextInputType.number,
+                              hint: "Digite o Preço do Produto",
+                              icon: Icons.monetization_on_outlined,
+                              inputFormater: CentavosInputFormatter()),
+                        ),
                         SizeHeight(height: size.width, multiplier: 0.04),
-                        ContainerTextFieldDescEdit(
-                          descripition: description,
-                          product: widget.product.description.toString(),
-                          label: "Descrição do Produto:",
-                          type: TextInputType.text,
-                          hint: "Digite uma Descrição",
-                          icon: Icons.text_fields,
+                        Card(
+                          child: ContainerTextFieldDescEdit(
+                            descripition: description,
+                            product: widget.product.description.toString(),
+                            label: "Descrição do Produto:",
+                            type: TextInputType.text,
+                            hint: "Digite uma Descrição",
+                            icon: Icons.text_fields,
+                          ),
                         ),
                         SizeHeight(height: size.width, multiplier: 0.04),
                         EditUploadImage(

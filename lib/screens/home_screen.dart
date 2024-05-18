@@ -71,6 +71,8 @@ class HomeScreen extends StatelessWidget {
             imageCardTwo: "assets/images/visualizar_vendas.png",
             labelOne: "Realizar Vendas",
             labelTwo: "Visualisar Vendas",
+            firstPage: 0,
+            lastPage: 1,
           ),
           floatingActionButton: CartButton(),
         ),
@@ -89,11 +91,14 @@ class HomeScreen extends StatelessWidget {
           drawer: CustomDrawer(_pageController),
           body: CardsTemplate(
             colorButton: Colors.green.withOpacity(0.5),
-              backgroundImage: "assets/images/tomate_desenho.png",
-              imageCardOne: "assets/images/relatorio_vendas.png",
-              imageCardTwo: "assets/images/relatorio-de-compras.png",
-              labelOne: "Relatório de Vendas",
-              labelTwo: "Relatório de Compras"),
+            backgroundImage: "assets/images/tomate_desenho.png",
+            imageCardOne: "assets/images/relatorio_vendas.png",
+            imageCardTwo: "assets/images/relatorio-de-compras.png",
+            labelOne: "Relatório de Vendas",
+            labelTwo: "Relatório de Compras",
+            firstPage: 2,
+            lastPage: 3,
+          ),
         ),
         Scaffold(
           appBar: AppBar(
@@ -108,7 +113,10 @@ class HomeScreen extends StatelessWidget {
             centerTitle: true,
           ),
           drawer: CustomDrawer(_pageController),
-          body: TemplateCadastroPagesMolecules(title: "CLIENTE",page: 0,),
+          body: TemplateCadastroPagesMolecules(
+            title: "CLIENTE",
+            page: 0,
+          ),
         ),
         Scaffold(
           appBar: AppBar(
@@ -123,7 +131,10 @@ class HomeScreen extends StatelessWidget {
             centerTitle: true,
           ),
           drawer: CustomDrawer(_pageController),
-          body: TemplateCadastroPagesMolecules(title: "FORNECEDOR", page: 1,),
+          body: TemplateCadastroPagesMolecules(
+            title: "FORNECEDOR",
+            page: 1,
+          ),
         ),
       ],
     );

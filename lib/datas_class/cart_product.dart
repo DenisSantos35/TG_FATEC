@@ -7,7 +7,8 @@ class CartProduct{
   String? cid;
   String? category;
   String? pid;
-  String? product;
+  double? estoque;
+  Map<String,dynamic>? product;
   int quantity = 0;
   ProductDataClass? productData;
   ClienteModel? clienteModel;
@@ -27,7 +28,8 @@ class CartProduct{
       "category": category,
       "pid": pid,
       "quantity": quantity,
-      "product": productData?.toResumeMap(),
+      "product": product,
+      "estoque": estoque,
     };
   }
 }

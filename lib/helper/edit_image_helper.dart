@@ -7,10 +7,11 @@ import 'package:logger/logger.dart';
 import 'package:tg_fatec/datas_class/product_data_class.dart';
 
 class EditUploadImage extends StatefulWidget {
-  EditUploadImage({required this.inputController, required this.image});
+  EditUploadImage({required this.inputController, required this.image, this.editProduct = false});
 
   TextEditingController inputController;
   String image;
+  bool editProduct;
 
   @override
   State<EditUploadImage> createState() => _UploadImageState();
@@ -40,7 +41,7 @@ class _UploadImageState extends State<EditUploadImage> {
       children: [
         Container(
           alignment: Alignment.center,
-          child: Text(
+          child: widget.editProduct?SizedBox() : Text(
             "Editar Imagem do Produto",
             style: TextStyle(
               color: Color(0xff000000),
@@ -49,14 +50,16 @@ class _UploadImageState extends State<EditUploadImage> {
             ),
           ),
         ),
-        Divider(),
+        widget.editProduct? SizedBox() : Divider(),
         SizedBox(
           height: 8,
         ),
         GestureDetector(
           onTap: () {
             setState(() {
-              criaBotao = !criaBotao;
+              if(!widget.editProduct){
+                criaBotao = !criaBotao;
+              }
             });
           },
           child: uploading
@@ -103,7 +106,10 @@ class _UploadImageState extends State<EditUploadImage> {
               ) :GestureDetector(
                 onTap: () {
                   setState(() {
-                    criaBotao = true;
+                    if(!widget.editProduct){
+                      criaBotao = true;
+                    }
+
                   });
                 },
                 child: Container(

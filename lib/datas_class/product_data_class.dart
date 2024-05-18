@@ -10,6 +10,8 @@ class ProductDataClass {
   double? quantidade;
   bool? status;
   String? categoria;
+  String? data;
+  String? hora;
   DocumentReference<Object?>? references;
 
   ProductDataClass(
@@ -20,7 +22,9 @@ class ProductDataClass {
       this.unidadeMedida,
       this.quantidade,
       this.status,
-      this.categoria});
+      this.categoria,
+      this.data,
+      this.hora});
 
   ProductDataClass.edit({
     required this.description,
@@ -29,6 +33,13 @@ class ProductDataClass {
   });
 
   ProductDataClass.cancel({required this.id, required this.status});
+
+  Map<String, dynamic> addStockMap(){
+    return {
+      "quantidade": quantidade,
+      "preco": price,
+    };
+  }
 
   ProductDataClass.fromDocument(DocumentSnapshot snapshot) {
     references = snapshot.reference;
@@ -62,6 +73,21 @@ class ProductDataClass {
       "status": status
     };
   }
+
+  Map<String, dynamic> historicToMap() {
+    return {
+      "id": id,
+      "description": description,
+      "images": image,
+      "preco": price,
+      "quantidade": quantidade,
+      "titulo": titulo,
+      "unidade_medida": unidadeMedida,
+      "status": status,
+      "data": data,
+      "hora": hora
+    };
+  }
   Map<String, dynamic> editProductMap(){
     return {
       "description": description,
@@ -75,6 +101,6 @@ class ProductDataClass {
   }
 
   Map<String, dynamic> toResumeMap() {
-    return {"titulo": titulo, "description": description, "price": price};
+    return {"titulo": titulo, "description": description, "price": price, "quantidade": quantidade};
   }
 }

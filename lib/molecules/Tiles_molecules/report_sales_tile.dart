@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:tg_fatec/datas_class/product_data_class.dart';
 import 'package:tg_fatec/datas_class/report_sales_class.dart';
+import 'package:tg_fatec/molecules/Tiles_molecules/detail._report_sales_molecules.dart';
 
 import '../../screens/product_one_screen.dart';
 
@@ -17,9 +19,13 @@ class ReportSalesTile extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        //Get.to(ProductOneScreen(product));
+
+        Logger().i(product!.toMap());
+        Logger().i(product!.toMap()["products"].length);
+        Get.to(DetailsReportSales(product: product,));
       },
       child: Card(
+        color: Color(0xffffffff).withOpacity(1),
         child: Row(
           children: [
             Expanded(

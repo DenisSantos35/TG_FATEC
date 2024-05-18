@@ -16,6 +16,7 @@ class Client extends Model {
   String? telefone;
   String? complemento;
 
+
   Client();
 
   Client.data(

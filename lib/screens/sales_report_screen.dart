@@ -83,8 +83,6 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                         String payment = doc['paymentType'].toUpperCase();
                         List listProduct =
                             doc['products'].map((e)=> e["product"]["titulo"].toUpperCase()).toList();
-                        print(listProduct);
-                      
 
                         return dataVenda.contains(_searchText) ||
                             nomeCliente.contains(_searchText.toUpperCase()) ||
@@ -98,17 +96,6 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                               filteredData[index].data()));
                         },
                       );
-
-                      // return ListView.builder(
-                      //     padding: EdgeInsets.all(4.0),
-                      //     itemCount: snapshot.data!.docs.length,
-                      //     itemBuilder: (context, index) {
-                      //       // Logger().e(ReportSalesClass.fromDocument(
-                      //       //     snapshot.data!.docs[index].data()));
-                      //       return ReportSalesTile(
-                      //           ReportSalesClass.fromDocument(
-                      //               snapshot.data!.docs[index].data()));
-                      //     });
                     }
                   },
                 ),

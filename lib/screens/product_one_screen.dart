@@ -85,18 +85,18 @@ class _ProductOneScreenState extends State<ProductOneScreen> {
                       SizeHeight(height: size.height, multiplier: 0.03),
                       OutlinedButton(
                         onPressed: () {
-                          if (UserModel.of(context).isLoggedIn()) {
-                            //adicionar produto ao carrinho
-                            CartProduct cartProduct = CartProduct();
-                            cartProduct.quantity = 1;
-                            cartProduct.pid = product.id;
-                            cartProduct.category = "Legumes";
-                            CartModel.of(context).addCartItem(cartProduct);
-
-                            Get.to(CartScreen());
-                          } else {
-                            Get.to(Login());
-                          }
+                          // if (UserModel.of(context).isLoggedIn()) {
+                          //   //adicionar produto ao carrinho
+                          //   CartProduct cartProduct = CartProduct();
+                          //   cartProduct.quantity = 1;
+                          //   cartProduct.pid = product.id;
+                          //   cartProduct.category = "Legumes";
+                          //   CartModel.of(context).addCartItem(cartProduct);
+                          //
+                          //   Get.to(CartScreen());
+                          // } else {
+                          //   Get.to(Login());
+                          // }
                         },
                         child: Container(
                           alignment: Alignment.center,

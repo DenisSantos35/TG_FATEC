@@ -34,6 +34,7 @@ class FinalPage extends StatelessWidget {
                 case 2:
                   Get.back();
                   Get.back();
+                  Get.back();
               }
             },
             icon: Icon(

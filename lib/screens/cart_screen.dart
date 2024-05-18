@@ -74,6 +74,7 @@ class CartScreen extends StatelessWidget {
               DiscountCard(),
               SelectPayment(),
               CardPrice(() async {
+
                 String orderId = await model.finishOrder();
                 if (orderId == "") return;
                 if (orderId != null)

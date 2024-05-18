@@ -11,13 +11,13 @@ class ProductsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Padding(
-      padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
+      padding: EdgeInsets.only(top: 8.0, bottom: 8.0, left: 16, right: 16),
       child: Stack(
           children: [
         imageDefault(
             context: context,
             image: "assets/images/tomate_desenho.png",
-            opacity: 0.3),
+            opacity: 0.2),
         ListView(
           children: [
             cardProducts(

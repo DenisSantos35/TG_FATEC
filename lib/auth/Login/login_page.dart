@@ -63,18 +63,22 @@ class _LoginState extends State<Login> {
                       key: formKey,
                       child: Column(
                         children: [
-                          ContainerTextFieldEmail(
-                              inputController: cpfEmailController,
-                              type: TextInputType.emailAddress,
-                              label: "E-mail",
-                              hint: "Digite o E-mail",
-                              icon: Icons.alternate_email),
+                          Card(
+                            child: ContainerTextFieldEmail(
+                                inputController: cpfEmailController,
+                                type: TextInputType.emailAddress,
+                                label: "E-mail",
+                                hint: "Digite o E-mail",
+                                icon: Icons.alternate_email),
+                          ),
                           SizeHeight(height: size.height, multiplier: 0.02),
-                          InputPassword(
-                              inputController: passwordController,
-                              type: TextInputType.visiblePassword,
-                              label: "Senha",
-                              hint: "Digite a Senha"),
+                          Card(
+                            child: InputPassword(
+                                inputController: passwordController,
+                                type: TextInputType.visiblePassword,
+                                label: "Senha",
+                                hint: "Digite a Senha"),
+                          ),
 
                           Align(
                             alignment: Alignment.centerRight,

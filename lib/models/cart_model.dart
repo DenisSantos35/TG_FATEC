@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:tg_fatec/datas_class/client.dart';
 import 'package:tg_fatec/datas_class/product_data_class.dart';
@@ -32,14 +33,25 @@ class CartModel extends Model {
 
   static CartModel of(context) => ScopedModel.of<CartModel>(context);
 
-  void addCartItem(CartProduct cartProduct) {
+  void addCartItem(CartProduct cartProduct, ProductDataClass dataProducts) async {
+    //ver se tem o produto no carrinho
+    // se tiver mostrar uma mensagem que produto ja foi adicionado
+    cartProduct.product = dataProducts.toResumeMap();
     products.add(cartProduct);
+    notifyListeners();
+    var verify = await FirebaseFirestore.instance.collection('USARIO').doc(user.firebaseUser!.uid).collection("CART").get();
+   for(var doc in verify.docs){
+     print(doc.data());
+   }
+
+    //Logger().i(cartProduct.productData);
     FirebaseFirestore.instance
         .collection("USUARIO")
         .doc(user.firebaseUser!.uid)
         .collection("CART")
         .add(cartProduct.toMap())
         .then((doc) {
+          //Logger().e(cartProduct.cid);
       cartProduct.cid = doc.id;
     });
     notifyListeners();
@@ -119,7 +131,22 @@ class CartModel extends Model {
     return 9.99;
   }
 
+
   Future<String> finishOrder() async {
+    Logger().d(products.map((cartPoduct) => cartPoduct.toMap()).toList());
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    products.forEach((cartPoduct) async {
+      Logger().e(cartPoduct.toMap()["product"]["quantidade"] - cartPoduct.toMap()["quantity"]);
+      await firestore
+          .collection("PRODUTOS")
+          .doc(cartPoduct.toMap()["pid"])
+          .update({
+        "quantidade": cartPoduct.toMap()["product"]["quantidade"] - cartPoduct.toMap()["quantity"],
+      });
+    });
+
+
     DateTime date = DateTime.now();
     String dataFormatada = DateFormat('dd/MM/yyyy').format(date);
     String horaFormatada = DateFormat('HH:mm').format(date);
@@ -168,10 +195,24 @@ class CartModel extends Model {
         .doc(user.firebaseUser!.uid)
         .collection("CART")
         .get();
-    for (DocumentSnapshot doc in query.docs) {
 
+    for (DocumentSnapshot doc in query.docs) {
+          await FirebaseFirestore.instance.collection("VENDAS_DETALHADAS").add({
+        "dataDetails": doc.data() as Map<String, dynamic>,
+        "userId": user.firebaseUser!.uid,
+        "date": dataFormatada,
+        "hour": horaFormatada,
+        "paymentType": paymentType,
+        "nameClient": nameClient,
+        "clientId": idClient,
+        "products": products.map((cartPoduct) => cartPoduct.toMap()).toList(),
+        "productsPrice": productsPrice,
+        "discount": discount,
+        "totalPrice": productsPrice - discount,
+      });
       doc.reference.delete();
     }
+
     products.clear();
     this.discount = 0.0;
     idClient = "";

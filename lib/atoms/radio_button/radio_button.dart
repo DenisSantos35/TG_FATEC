@@ -26,77 +26,81 @@ class _RadioButtonState extends State<RadioButton> {
     return Column(
       children: [
         textTitle(label: "Escolha á Unidade de Medida:", size: 16, fontWeight: FontWeight.bold, color: Colors.black),
-        Container(
-          padding: EdgeInsets.only(left: 37, right: 25),
-
-          decoration: BoxDecoration(
-            color: Color(0xfff5f5f5),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: ListTile(
-            horizontalTitleGap: 0.1,
-            title: Text(
-              widget.label1,
-              style: const TextStyle(
-                color: Color(0xff000000),
-                fontSize: 16,
-                fontWeight: FontWeight.bold
-              ),
+        Card(
+          child: Container(
+            padding: EdgeInsets.only(left: 37, right: 25),
+          
+            decoration: BoxDecoration(
+              color: Color(0xfff5f5f5),
+              borderRadius: BorderRadius.circular(20),
             ),
-            leading: Radio<UnitOfMensurement>(
-              visualDensity: VisualDensity.comfortable,
-              value: UnitOfMensurement.caixa,
-              groupValue: _unitOfMeasurement,
-              onChanged: (UnitOfMensurement? value) {
-                setState(() {
-                  _unitOfMeasurement = value!;
-                  widget.typeMensurament.text = _unitOfMeasurement.toString().replaceAll("UnitOfMensurement.", "");
-                });
-              },
-              fillColor: MaterialStateProperty.resolveWith((Set states) {
-                if (states.contains(MaterialState.selected)) {
+            child: ListTile(
+              horizontalTitleGap: 0.1,
+              title: Text(
+                widget.label1,
+                style: const TextStyle(
+                  color: Color(0xff000000),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold
+                ),
+              ),
+              leading: Radio<UnitOfMensurement>(
+                visualDensity: VisualDensity.comfortable,
+                value: UnitOfMensurement.caixa,
+                groupValue: _unitOfMeasurement,
+                onChanged: (UnitOfMensurement? value) {
+                  setState(() {
+                    _unitOfMeasurement = value!;
+                    widget.typeMensurament.text = _unitOfMeasurement.toString().replaceAll("UnitOfMensurement.", "");
+                  });
+                },
+                fillColor: MaterialStateProperty.resolveWith((Set states) {
+                  if (states.contains(MaterialState.selected)) {
+                    return Colors.black;
+                  }
                   return Colors.black;
-                }
-                return Colors.black;
-              }),
+                }),
+              ),
             ),
           ),
         ),
         SizedBox(height: 2,),
-        Container(
-          padding: EdgeInsets.only(left: 37, right: 25),
-
-          decoration: BoxDecoration(
-            color: Color(0xfff5f5f5),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: ListTile(
-            horizontalTitleGap: 0.1,
-            title: Text(
-              widget.label2,
-              style: const TextStyle(
-                color: Color(0xff000000),
-                fontSize: 16,
-                fontWeight: FontWeight.bold
-              ),
+        Card(
+          child: Container(
+            padding: EdgeInsets.only(left: 37, right: 25),
+          
+            decoration: BoxDecoration(
+              color: Color(0xfff5f5f5),
+              borderRadius: BorderRadius.circular(20),
             ),
-            leading: Radio<UnitOfMensurement>(
-              visualDensity: VisualDensity.comfortable,
-              value: UnitOfMensurement.kg,
-              groupValue: _unitOfMeasurement,
-              onChanged: (UnitOfMensurement? value) {
-                setState(() {
-                  _unitOfMeasurement = value!;
-                  widget.typeMensurament.text = _unitOfMeasurement.toString().replaceAll("UnitOfMensurement.", "");
-                  Logger().e(_unitOfMeasurement);
-                });
-              },
-              fillColor: MaterialStateProperty.resolveWith((Set states) {
-                if (states.contains(MaterialState.selected)) {
+            child: ListTile(
+              horizontalTitleGap: 0.1,
+              title: Text(
+                widget.label2,
+                style: const TextStyle(
+                  color: Color(0xff000000),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold
+                ),
+              ),
+              leading: Radio<UnitOfMensurement>(
+                visualDensity: VisualDensity.comfortable,
+                value: UnitOfMensurement.kg,
+                groupValue: _unitOfMeasurement,
+                onChanged: (UnitOfMensurement? value) {
+                  setState(() {
+                    _unitOfMeasurement = value!;
+                    widget.typeMensurament.text = _unitOfMeasurement.toString().replaceAll("UnitOfMensurement.", "");
+                    Logger().e(_unitOfMeasurement);
+                  });
+                },
+                fillColor: MaterialStateProperty.resolveWith((Set states) {
+                  if (states.contains(MaterialState.selected)) {
+                    return Colors.black;
+                  }
                   return Colors.black;
-                }
-                return Colors.black;
-              }),
+                }),
+              ),
             ),
           ),
         ),

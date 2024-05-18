@@ -44,9 +44,9 @@ class CartTile extends StatelessWidget {
                           icon: Icon(Icons.remove), color: Colors.red,),
                       Text(cartProduct.quantity.toString()),
                       IconButton(
-                          onPressed: (){
+                          onPressed:cartProduct.quantity < cartProduct.productData!.quantidade! ? (){
                             CartModel.of(context).incProduct(cartProduct);
-                          },
+                          } : null,
                           icon: Icon(Icons.add), color: Color(0xff10039F)),
                       TextButton(onPressed: (){
                         CartModel.of(context).removeCartItem(cartProduct);

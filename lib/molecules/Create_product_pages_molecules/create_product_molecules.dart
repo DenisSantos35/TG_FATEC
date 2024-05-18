@@ -62,35 +62,43 @@ class _CreateProductMoleculesState extends State<CreateProductMolecules> {
                     key: formKeyUser,
                     child: Column(
                       children: [
-                        ContainerTextFieldText(
-                            inputController: title,
-                            type: TextInputType.text,
-                            label: "Nome do Produto:",
-                            hint: "Digite o Nome do Produto",
-                            icon: Icons.apple),
-                        SizeHeight(height: size.width, multiplier: 0.04),
-                        ContainerTextFieldFormated(
-                            inputController: price,
-                            label: "Preço do Produto:",
-                            type: TextInputType.number,
-                            hint: "Digite o Preço do Produto",
-                            icon: Icons.monetization_on_outlined,
-                            inputFormater: CentavosInputFormatter()),
-                        SizeHeight(height: size.width, multiplier: 0.04),
-                        ContainerTextFieldInt(
-                          inputController: amount,
-                          label: "Quantidade de Produtos:",
-                          type: TextInputType.number,
-                          hint: "Digite a Quantidade de Produtos",
-                          icon: Icons.bar_chart,
+                        Card(
+                          child: ContainerTextFieldText(
+                              inputController: title,
+                              type: TextInputType.text,
+                              label: "Nome do Produto:",
+                              hint: "Digite o Nome do Produto",
+                              icon: Icons.apple),
                         ),
                         SizeHeight(height: size.width, multiplier: 0.04),
-                        ContainerTextFieldDesc(
-                          inputController: description,
-                          label: "Descrição do Produto:",
-                          type: TextInputType.text,
-                          hint: "Digite uma Descrição",
-                          icon: Icons.text_fields,
+                        Card(
+                          child: ContainerTextFieldFormated(
+                              inputController: price,
+                              label: "Preço do Produto:",
+                              type: TextInputType.number,
+                              hint: "Digite o Preço do Produto",
+                              icon: Icons.monetization_on_outlined,
+                              inputFormater: CentavosInputFormatter()),
+                        ),
+                        SizeHeight(height: size.width, multiplier: 0.04),
+                        Card(
+                          child: ContainerTextFieldInt(
+                            inputController: amount,
+                            label: "Quantidade de Produtos:",
+                            type: TextInputType.number,
+                            hint: "Digite a Quantidade de Produtos",
+                            icon: Icons.bar_chart,
+                          ),
+                        ),
+                        SizeHeight(height: size.width, multiplier: 0.04),
+                        Card(
+                          child: ContainerTextFieldDesc(
+                            inputController: description,
+                            label: "Descrição do Produto:",
+                            type: TextInputType.text,
+                            hint: "Digite uma Descrição",
+                            icon: Icons.text_fields,
+                          ),
                         ),
                         SizeHeight(height: size.width, multiplier: 0.04),
                         RadioButton(
