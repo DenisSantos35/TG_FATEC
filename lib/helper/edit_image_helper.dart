@@ -1,10 +1,13 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 import 'package:tg_fatec/datas_class/product_data_class.dart';
+
+import '../atoms/containers/containers_atoms.dart';
 
 class EditUploadImage extends StatefulWidget {
   EditUploadImage({required this.inputController, required this.image, this.editProduct = false});
@@ -39,20 +42,23 @@ class _UploadImageState extends State<EditUploadImage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          alignment: Alignment.center,
-          child: widget.editProduct?SizedBox() : Text(
-            "Editar Imagem do Produto",
-            style: TextStyle(
-              color: Color(0xff000000),
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
+        Divider(
+          height: Get.height * 0.03,
+          indent: 8,
+          endIndent: 8,
+          thickness: 2,
+          color: Colors.black,
         ),
-        widget.editProduct? SizedBox() : Divider(),
-        SizedBox(
-          height: 8,
+        containerTitles(
+            title: "EDITAR IMAGEM DO PRODUTO",
+            width: 0.85,
+            height: 0.03),
+        Divider(
+          height: Get.height * 0.03,
+          indent: 8,
+          endIndent: 8,
+          thickness: 2,
+          color: Colors.black,
         ),
         GestureDetector(
           onTap: () {
@@ -129,8 +135,15 @@ class _UploadImageState extends State<EditUploadImage> {
             ),
           ),
         ),
+        Divider(
+          height: Get.height * 0.03,
+          indent: 8,
+          endIndent: 8,
+          thickness: 2,
+          color: Colors.black,
+        ),
         SizedBox(
-          height: 16,
+          height: Get.height * 0.01,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

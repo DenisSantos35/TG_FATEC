@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:tg_fatec/atoms/texts/texts_atoms.dart';
+
+import '../containers/containers_atoms.dart';
 
 enum UnitOfMensurement { caixa, kg }
 
@@ -25,7 +28,24 @@ class _RadioButtonState extends State<RadioButton> {
     widget.typeMensurament.text = _unitOfMeasurement.toString().replaceAll("UnitOfMensurement.", "");
     return Column(
       children: [
-        textTitle(label: "Escolha á Unidade de Medida:", size: 16, fontWeight: FontWeight.bold, color: Colors.black),
+        Divider(
+          height: Get.height * 0.03,
+          indent: 8,
+          endIndent: 8,
+          thickness: 2,
+          color: Colors.black,
+        ),
+        containerTitles(
+            title: "ESCOLHA Á UNIDADE DE MEDIDA:",
+            width: 0.85,
+            height: 0.03),
+        Divider(
+          height: Get.height * 0.03,
+          indent: 8,
+          endIndent: 8,
+          thickness: 2,
+          color: Colors.black,
+        ),
         Card(
           child: Container(
             padding: EdgeInsets.only(left: 37, right: 25),

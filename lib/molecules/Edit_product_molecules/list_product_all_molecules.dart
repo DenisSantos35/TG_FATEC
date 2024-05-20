@@ -29,6 +29,18 @@ class ListProductAll extends StatelessWidget {
               centerTitle: true,
               backgroundColor: Colors.black.withOpacity(0.6),
             ),
+            bottomNavigationBar: BottomAppBar(
+              color: Colors.black.withOpacity(0.6),
+              child: Container(
+                alignment: Alignment.center,
+                child:const Text(
+                  "Legumes do Chicão",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
             body: FutureBuilder<QuerySnapshot>(
               future: FirebaseFirestore.instance.collection("PRODUTOS").get(),
               builder: (context, snapshot) {
@@ -43,8 +55,6 @@ class ListProductAll extends StatelessWidget {
                       padding: EdgeInsets.all(4.0),
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (context, index) {
-
-
                         return ProductTile(
                           page: 2,
                           title: "",

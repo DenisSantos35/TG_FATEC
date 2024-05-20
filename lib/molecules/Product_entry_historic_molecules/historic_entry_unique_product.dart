@@ -19,6 +19,18 @@ class HistoricEntryUniqueProduct extends StatelessWidget {
           style: TextStyle(color: Colors.white),),
         backgroundColor: Colors.black.withOpacity(0.6),
       ),
+        bottomNavigationBar: BottomAppBar(
+          color: Colors.black.withOpacity(0.6),
+          child: Container(
+            alignment: Alignment.center,
+            child:const Text(
+              "Legumes do Chicão",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
         body: SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(
@@ -36,9 +48,15 @@ class HistoricEntryUniqueProduct extends StatelessWidget {
             height: Get.height * 0.02,
           ),
           Container(
+            width: Get.width * 0.9,
             child: Text(
               "Histórico de entrada de produtos".toUpperCase(),
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(8),
             ),
           ),
           Divider(),

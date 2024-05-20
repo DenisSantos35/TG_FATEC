@@ -31,138 +31,145 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: Color(0xffffffff),
-        body: ScopedModelDescendant<UserModel>(
-          builder: (context, child, model){
-            if(model.isLoading) return Center(child: CircularProgressIndicator(),);
-            return SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(
-                    27, size.height * 0.03, 27, size.height * 0.03),
-                child: Column(
-                  children: [
-                    // ************* imagem inicial *************************
-                    imageLogin(
-                        context: context,
-                        image: "assets/images/tomate_desenho.png"),
-                    SizeHeight(height: size.height, multiplier: 0.03),
-                    // *************** texto bemvindo*******************************
-                    showTextTitle(
-                        label: "Bem-vindo",
-                        size: 25,
-                        color: const Color(0xff000000)),
-                    SizeHeight(height: size.width, multiplier: 0.02),
-                    showTextTitle(
-                        label: "LEGUMES DO CHICÃO", size: 20, color: Colors.red),
-                    SizeHeight(height: size.width, multiplier: 0.02),
-                    showText(
-                        "Para começar insira os dados de\n usuário e senha.", 16),
-                    SizeHeight(height: size.width, multiplier: 0.06),
-                    Form(
-                      key: formKey,
-                      child: Column(
-                        children: [
-                          Card(
-                            child: ContainerTextFieldEmail(
-                                inputController: cpfEmailController,
-                                type: TextInputType.emailAddress,
-                                label: "E-mail",
-                                hint: "Digite o E-mail",
-                                icon: Icons.alternate_email),
-                          ),
-                          SizeHeight(height: size.height, multiplier: 0.02),
-                          Card(
-                            child: InputPassword(
-                                inputController: passwordController,
-                                type: TextInputType.visiblePassword,
-                                label: "Senha",
-                                hint: "Digite a Senha"),
-                          ),
+      child: WillPopScope(
+        onWillPop: ()async{
+          return false;
+        },
+        child: Scaffold(
+          backgroundColor: Color(0xffffffff),
+          body: ScopedModelDescendant<UserModel>(
+            builder: (context, child, model){
+              if(model.isLoading) return Center(child: CircularProgressIndicator(),);
+              return SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(
+                      27, size.height * 0.03, 27, size.height * 0.03),
+                  child: Column(
+                    children: [
+                      // ************* imagem inicial *************************
+                      imageLogin(
+                          context: context,
+                          image: "assets/images/tomate_desenho.png"),
+                      SizeHeight(height: size.height, multiplier: 0.03),
+                      // *************** texto bemvindo*******************************
+                      showTextTitle(
+                          label: "Bem-vindo",
+                          size: 25,
+                          color: const Color(0xff000000)),
+                      SizeHeight(height: size.width, multiplier: 0.02),
+                      showTextTitle(
+                          label: "LEGUMES DO CHICÃO", size: 20, color: Colors.red),
+                      SizeHeight(height: size.width, multiplier: 0.02),
+                      showText(
+                          "Para começar insira os dados de\n usuário e senha.", 16),
+                      SizeHeight(height: size.width, multiplier: 0.06),
+                      Form(
+                        key: formKey,
+                        child: Column(
+                          children: [
+                            Card(
+                              child: ContainerTextFieldEmail(
+                                  inputController: cpfEmailController,
+                                  type: TextInputType.emailAddress,
+                                  label: "E-mail",
+                                  hint: "Digite o E-mail",
+                                  icon: Icons.alternate_email),
+                            ),
+                            SizeHeight(height: size.height, multiplier: 0.02),
+                            Card(
+                              child: InputPassword(
+                                  inputController: passwordController,
+                                  type: TextInputType.visiblePassword,
+                                  label: "Senha",
+                                  hint: "Digite a Senha"),
+                            ),
 
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: TextButton(
-                              onPressed: () {
-                                if(cpfEmailController.text.isEmpty){
-                                  _onEmailIsEmpry();
-                                }else{
-                                  model.recoverPass(cpfEmailController.text);
-                                  _onEmailIsSucess();
-                                }
-                              },
-                              child: Text(
-                                "Esqueci minha senha",
-                                style: TextStyle(color: Colors.black),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: TextButton(
+                                onPressed: () {
+                                  if(cpfEmailController.text.isEmpty){
+                                    _onEmailIsEmpry();
+                                  }else{
+                                    model.recoverPass(cpfEmailController.text);
+                                    _onEmailIsSucess();
+                                  }
+                                },
+                                child: Text(
+                                  "Esqueci minha senha",
+                                  style: TextStyle(color: Colors.black),
+                                ),
                               ),
                             ),
-                          ),
-                          SizeHeight(height: size.height, multiplier: 0.04),
-                        ],
+                            SizeHeight(height: size.height, multiplier: 0.04),
+                          ],
+                        ),
                       ),
-                    ),
 
-                    Container(
-                      width: size.width * 4,
-                      height: size.height * 0.06,
-                      child: OutlinedButton(
-                        onPressed: () {
-                          model.signin(
-                            email: cpfEmailController.text,
-                            pass: passwordController.text,
-                            onSucess: _onSucess,
-                            onFail: _onFail
-                          );
-                        },
-                        child: Text(
-                          "ENTRAR",
-                          style: TextStyle(
-                            color: Color(0xffffffff),
+                      Container(
+                        width: size.width * 0.50,
+                        height: size.height * 0.04,
+                        child: OutlinedButton(
+                          onPressed: () {
+                            model.signin(
+                              email: cpfEmailController.text,
+                              pass: passwordController.text,
+                              onSucess: _onSucess,
+                              onFail: _onFail
+                            );
+                          },
+                          child: Text(
+                            "ENTRAR",
+                            style: TextStyle(
+                              color: Color(0xffffffff),
+                            ),
+                          ),
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))
                           ),
                         ),
-                        style: OutlinedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                        ),
                       ),
-                    ),
-                    textTitle(
-                        label: "OU",
-                        size: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                    Container(
-                      width: size.width * 4,
-                      height: size.height * 0.06,
-                      child: OutlinedButton(
-                        onPressed: () {
-                          Get.to(CreateUserPage(
-                            title: "USUÁRIO",
-                          ));
+                      TextTitle(
+                          label: "OU",
+                          size: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                      Container(
+                        width: size.width * 0.5,
+                        height: size.height * 0.04,
+                        child: OutlinedButton(
+                          onPressed: () {
+                            Get.to(CreateUserPage(
+                              title: "USUÁRIO",
+                            ));
 
-                        },
-                        child: Text(
-                          "CADASTRE-SE",
-                          style: TextStyle(
-                            color: Color(0xffffffff),
+                          },
+                          child: Text(
+                            "CADASTRE-SE",
+                            style: TextStyle(
+                              color: Color(0xffffffff),
+                            ),
+                          ),
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: Color(0xffFA8F00),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))
                           ),
                         ),
-                        style: OutlinedButton.styleFrom(
-                          backgroundColor: Color(0xffFA8F00),
-                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
-        )
+              );
+            },
+          )
+        ),
       ),
     );
   }
 
   void _onSucess(){
-    Get.to(HomeScreen());
+    Get.offAll(HomeScreen());
   }
 
   void _onFail(){

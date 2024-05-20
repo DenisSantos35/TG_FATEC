@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
 Widget imageDefault({required BuildContext context, required String image,required double opacity}){
@@ -24,12 +25,15 @@ Widget imageCard({required BuildContext context, required String image,required 
 
   return  Center(
     child: Container(
-      width: size.height * 0.10,
-      height: size.height * 0.10,
+      padding: EdgeInsets.all(16),
+      width: size.height * 0.08,
+      height: size.height * 0.08,
       decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
         image: DecorationImage(
           opacity: opacity,
-          scale: 1,
+          scale: 2,
           image: AssetImage(image, bundle: rootBundle),
         ),
       ),

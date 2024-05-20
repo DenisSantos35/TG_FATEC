@@ -15,6 +15,7 @@ import 'package:tg_fatec/molecules/Inactive_historic_molecules/inactive_historic
 import 'package:tg_fatec/molecules/Product_entry_historic_molecules/product_entry_historic_molecules.dart';
 
 import '../../molecules/Create_product_pages_molecules/create_product_molecules.dart';
+import '../../molecules/Custo_medio_produtos_molecules/average_cost_of_products_molecules.dart';
 import '../imagens/images_atoms.dart';
 import '../texts/texts_atoms.dart';
 
@@ -25,6 +26,36 @@ Widget ContainerDegradee({required Color color1, required Color color2}) {
           colors: [color1, color2],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight),
+    ),
+  );
+}
+
+Widget containerRelatorio({required String title, required final subtitle }){
+  return Container(
+      padding: EdgeInsets.only(left: 32, right: 32),
+      alignment: Alignment.center,
+      child: Row(
+        children: [
+          Expanded(child: Text(title, style: TextStyle(fontWeight: FontWeight.w600),)),
+          Expanded(child: Text(subtitle,textAlign: TextAlign.end,)),
+        ],
+      )
+  );
+}
+
+Widget containerTitles({required String title, required double width, required double height }){
+  return Container(
+    width: Get.width * width,
+    height: Get.height * height,
+    decoration: BoxDecoration(
+      color: Colors.black,
+      borderRadius: BorderRadius.circular(8),
+    ),
+    child: Center(
+      child: Text(
+        title,
+        style: TextStyle(color: Colors.white, fontSize: 12),
+      ),
     ),
   );
 }
@@ -66,7 +97,7 @@ Widget menuContainer(
     child: Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(8),
         color: color,
         image: DecorationImage(image: AssetImage(image), scale: 5),
       ),
@@ -102,6 +133,9 @@ Widget cardProducts(
         case 3:
           Get.to(StockEntryMolecules(title: "CADASTRAR ESTOQUE"));
           break;
+        case 4:
+          Get.to(AverageCostProductsMolecules(title: "CUSTO MÉDIO",));
+          break;
         case 5:
           Get.to(ProductEntryHistory(title: "HISTÓRICO DE ENTRADA\n DE PRODUTOS"));
 
@@ -111,7 +145,6 @@ Widget cardProducts(
       }
     },
     child: Card(
-
       color: color,
       child: Container(
         padding: EdgeInsets.only(left: 10, right: 10),
@@ -124,7 +157,7 @@ Widget cardProducts(
               width: width * 0.03,
             ),
             Expanded(
-                child: textTitle(
+                child: TextTitle(
                     label: label,
                     size: 18,
                     fontWeight: FontWeight.normal,
@@ -147,7 +180,7 @@ Widget ContainerTextFieldInt(
     height: 100,
     decoration: BoxDecoration(
       color: Color(0xfff5f5f5),
-      borderRadius: BorderRadius.circular(30),
+      borderRadius: BorderRadius.circular(8),
     ),
     child: TextFormField(
       controller: inputController,
@@ -190,7 +223,7 @@ Widget ContainerTextFieldIntEdit(
     height: 100,
     decoration: BoxDecoration(
       color: Color(0xfff5f5f5),
-      borderRadius: BorderRadius.circular(30),
+      borderRadius: BorderRadius.circular(8),
     ),
     child: TextFormField(
       initialValue: product,
@@ -235,7 +268,7 @@ Widget ContainerTextFieldText(
     height: 100,
     decoration: BoxDecoration(
       color: Color(0xfff5f5f5),
-      borderRadius: BorderRadius.circular(30),
+      borderRadius: BorderRadius.circular(8),
     ),
     child: TextFormField(
       controller: inputController,
@@ -279,14 +312,15 @@ Widget ContainerTextFieldTextEdit(
   return Container(
     padding: EdgeInsets.only(left: 37, right: 25, top: 20),
     alignment: Alignment.center,
-    height: 70,
+    height: 85,
     decoration: BoxDecoration(
       color: Colors.transparent,
-      borderRadius: BorderRadius.circular(30),
+      borderRadius: BorderRadius.circular(8),
     ),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        Divider(color: Colors.black, thickness: 3,),
         Expanded(
           child: Text(
             product.toUpperCase(),
@@ -294,7 +328,7 @@ Widget ContainerTextFieldTextEdit(
             TextStyle(color: Color(0xff000000), fontWeight: FontWeight.bold, fontSize: 20),
           ),
         ),
-        Divider(),
+        Divider(color: Colors.black, thickness: 3,),
       ],
     ),
   );
@@ -310,7 +344,7 @@ Widget ContainerTextFieldDesc(
     padding: EdgeInsets.only(left: 37, right: 25),
     decoration: BoxDecoration(
       color: Color(0xfff5f5f5),
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(8),
     ),
     child: TextFormField(
       minLines: 3,
@@ -357,7 +391,7 @@ Widget ContainerTextFieldDescEdit(
     padding: EdgeInsets.only(left: 37, right: 25),
     decoration: BoxDecoration(
       color: Color(0xfff5f5f5),
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(8),
     ),
     child: TextFormField(
       minLines: 3,
@@ -407,7 +441,7 @@ Widget ContainerTextFieldFormated(
     height: 100,
     decoration: BoxDecoration(
       color: Color(0xfff5f5f5),
-      borderRadius: BorderRadius.circular(30),
+      borderRadius: BorderRadius.circular(8),
     ),
     child: TextFormField(
       controller: inputController,
@@ -451,7 +485,7 @@ Widget ContainerTextFieldFormatedEdit(
     height: 100,
     decoration: BoxDecoration(
       color: Color(0xfff5f5f5),
-      borderRadius: BorderRadius.circular(30),
+      borderRadius: BorderRadius.circular(8),
     ),
     child: TextFormField(
       initialValue: product,
@@ -499,7 +533,7 @@ Widget ContainerTextFieldFormatedEditProduct(
     height: 100,
     decoration: BoxDecoration(
       color: Color(0xfff5f5f5),
-      borderRadius: BorderRadius.circular(30),
+      borderRadius: BorderRadius.circular(8),
     ),
     child: TextFormField(
       controller: preco,
@@ -544,7 +578,7 @@ Widget ContainerTextFieldNumber(
     height: 100,
     decoration: BoxDecoration(
       color: Color(0xfff5f5f5),
-      borderRadius: BorderRadius.circular(30),
+      borderRadius: BorderRadius.circular(8),
     ),
     child: TextFormField(
       controller: inputController,
@@ -590,7 +624,7 @@ Widget ContainerTextFieldEmail(
     height: 100,
     decoration: BoxDecoration(
       color: Color(0xfff5f5f5),
-      borderRadius: BorderRadius.circular(30),
+      borderRadius: BorderRadius.circular(8),
     ),
     child: TextFormField(
       controller: inputController,
@@ -649,7 +683,7 @@ class _InputPasswordState extends State<InputPassword> {
       height: 100,
       decoration: BoxDecoration(
         color: Color(0xfff5f5f5),
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(8),
       ),
       child: TextFormField(
         controller: widget.inputController,

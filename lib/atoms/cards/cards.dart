@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -45,7 +47,7 @@ Widget cardSales(
             height: height * 0.3,
             child: Column(
               children: [
-                textTitle(
+                TextTitle(
                     label: label,
                     size: 20,
                     fontWeight: FontWeight.bold,
@@ -60,6 +62,52 @@ Widget cardSales(
         ),
       ),
     ),
+  );
+}
+// card personalizado do relatorio de média de custo
+Widget descripiontProduct({required String title, required String subTitle}) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Expanded(
+        child: Container(
+          alignment: Alignment.centerLeft,
+          child: Text(title,style: TextStyle(fontWeight: FontWeight.bold) ,textAlign: TextAlign.left,
+          ),
+        ),
+      ),
+      SizedBox(width: Get.width * 0.03,),
+      Expanded(
+        child: Container(
+          alignment: Alignment.centerLeft,
+          child: Text(subTitle, textAlign: TextAlign.left,),
+        ),
+      )
+    ],
+  );
+}
+
+Widget descripiontRelatorio({required String title, required String subTitle,required TextAlign text}) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Expanded(
+        child: Container(
+          alignment: Alignment.centerLeft,
+          child: Text(title,style: TextStyle(fontWeight: FontWeight.bold) ,textAlign: TextAlign.left,
+          ),
+        ),
+      ),
+      SizedBox(width: Get.width * 0.03,),
+      Expanded(
+        child: Container(
+          alignment: Alignment.centerLeft,
+          child: Text(subTitle, textAlign: TextAlign.left,),
+        ),
+      )
+    ],
   );
 }
 

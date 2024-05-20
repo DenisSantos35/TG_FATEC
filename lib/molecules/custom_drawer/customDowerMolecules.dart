@@ -32,7 +32,7 @@ class CustomDrawer extends StatelessWidget {
                     Positioned(
                         top: 4.0,
                         left: 0.0,
-                        child: textTitle(
+                        child: TextTitle(
                             label: "Legumes do \nChicão",
                             size: 34.0,
                             fontWeight: FontWeight.bold,
@@ -47,12 +47,12 @@ class CustomDrawer extends StatelessWidget {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              textTitle(
+                              TextTitle(
                                   label: "Seja Bem Vindo",
                                   size: 18.0,
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xffffffff)),
-                              textTitle(
+                              TextTitle(
                                   label:
                                       "${!model.isLoggedIn() ? "" : model.userData["name"]}",
                                   size: 16.0,

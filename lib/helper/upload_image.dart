@@ -1,10 +1,14 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 import 'package:tg_fatec/datas_class/product_data_class.dart';
+
+import '../atoms/containers/containers_atoms.dart';
 
 class UploadImage extends StatefulWidget {
   UploadImage(this.inputController);
@@ -37,19 +41,13 @@ class _UploadImageState extends State<UploadImage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            "Adicionar Imagem do Produto",
-            style: TextStyle(
-              color: Color(0xff000000),
-              fontWeight: FontWeight.w300,
-              fontSize: 16,
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 8,
+        containerTitles(title: "ADICIONAR IMAGEM DO PRODUTO", width: 0.85, height: 0.03),
+        Divider(
+          height: Get.height * 0.03,
+          indent: 8,
+          endIndent: 8,
+          thickness: 2,
+          color: Colors.black,
         ),
         GestureDetector(
           onTap: () {

@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
+import 'package:tg_fatec/models/product_model.dart';
 
 class ProductController extends GetxController{
 
@@ -21,6 +23,25 @@ class ProductController extends GetxController{
     DateFormat dateFormat = DateFormat(typeData);
     String newDate = dateFormat.format(date);
     return newDate;
+  }
+
+  Future selectPrice({required BuildContext context, required String id}){
+    final res = ProductModel.of(context).selectHistoricMedia(id: id);
+    return res;
+  }
+
+  double calculatePiceMedian({required List historicProduct}){
+    if(historicProduct.isEmpty){
+      return 0.0;
+    }
+    double sum = 0.0;
+    double median = 0.0;
+    historicProduct.forEach((element) {
+      sum += element["preco"];
+    });
+    median = sum / historicProduct.length;
+
+    return median;
   }
 
 }

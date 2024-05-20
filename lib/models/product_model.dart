@@ -79,17 +79,39 @@ class ProductModel extends Model {
       return false;
     }
   }
-  
-  selectHistoricProduct()async {
-    try{
+
+  selectHistoricProduct() async {
+    try {
       FirebaseFirestore firestore = await FirebaseFirestore.instance;
-      var response = await firestore.collection("HISTORICO_ENTRADA_PRODUTOS").orderBy("data",descending: true).get();
+      var response = await firestore
+          .collection("HISTORICO_ENTRADA_PRODUTOS")
+          .orderBy("data", descending: true)
+          .get();
       List res = response.docs;
       return res;
-    }catch(err){
+    } catch (err) {
       return [];
     }
   }
-  
-  
+
+  selectHistoricMedia({required String id}) async {
+    //criar a média dos produtos
+    try {
+      FirebaseFirestore firestore = await FirebaseFirestore.instance;
+      var response = await firestore
+          .collection("HISTORICO_ENTRADA_PRODUTOS")
+          .orderBy("id", descending: true)
+          .get();
+      List res = response.docs;
+      List listHistoric = [];
+      for (var i in res) {
+        if (i["id"] == id) {
+          listHistoric.add(i.data());
+        }
+      }
+      return listHistoric;
+    } catch (err) {
+      return [];
+    }
+  }
 }

@@ -103,7 +103,7 @@ class _ProductTileState extends State<ProductTile> {
                             color: widget.product.quantidade! <= 0
                                 ? Colors.red
                                 : Colors.green,
-                            borderRadius: BorderRadius.circular(20)),
+                            borderRadius: BorderRadius.circular(8)),
                         child: Text(
                           UserModel.of(context).isLoggedIn()
                               ? widget.product.quantidade! <= 0
@@ -124,11 +124,21 @@ class _ProductTileState extends State<ProductTile> {
                   children: [
                     Expanded(
                       flex: 1,
-                      child: Image.network(
-                        widget.product.image!,
-                        fit: BoxFit.cover,
-                        height: 250.0,
+                      child: Container(
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Image.network(
+                          widget.product.image!,
+                          fit: BoxFit.cover,
+                          height: 110.0,
+                        ),
                       ),
+                    ),
+                    Container(
+                      color: Colors.green,
+                      height: 110,
+                      width: 3,
                     ),
                     Expanded(
                       flex: 1,
@@ -139,38 +149,48 @@ class _ProductTileState extends State<ProductTile> {
                           children: [
                             Text(
                               widget.product.titulo!.toUpperCase(),
-                              style: TextStyle(fontWeight: FontWeight.w900),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w900, fontSize: 14),
                             ),
                             Text(
                               "Estoque: ${widget.product.quantidade!.toStringAsFixed(0)} ${widget.product.unidadeMedida}",
-                              style: TextStyle(fontWeight: FontWeight.w500),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 12),
                             ),
                             widget.button == null
                                 ? Text(
                                     widget.product.quantidade! <= 0
                                         ? "Adicione produto\npara realizar venda! "
-                                        : "Preço ${widget.product.unidadeMedida}:\n R\$ ${widget.product.price!.toStringAsFixed(2)}",
+                                        : "Preço ${widget.product.unidadeMedida}: R\$ ${widget.product.price!.toStringAsFixed(2)}",
                                     style: const TextStyle(
                                         color: Color(0xff106910),
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12),
                                   )
                                 : Text(
                                     "Preço ${widget.product.unidadeMedida}: R\$ ${widget.product.price!.toStringAsFixed(2)}",
                                     style: const TextStyle(
                                         color: Color(0xff000000),
                                         fontWeight: FontWeight.normal,
-                                        fontSize: 14),
+                                        fontSize: 12),
                                   ),
-                            SizedBox(height: Get.height * .02),
+                            Divider(
+                              color: Colors.green,
+                              thickness: 2,
+                            ),
                             widget.button != null
                                 ? Container(
+                                    width: 150,
+                                    height: 25,
                                     alignment: Alignment.center,
                                     child: OutlinedButton(
                                       style: OutlinedButton.styleFrom(
-                                          backgroundColor: widget.color,
-                                        elevation: 3,
-                                        shadowColor: Colors.black
-
+                                        backgroundColor: widget.color,
+                                        elevation: 5,
+                                        shadowColor: Colors.black,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8)),
                                       ),
                                       onPressed: () {
                                         switch (widget.page) {
@@ -182,30 +202,34 @@ class _ProductTileState extends State<ProductTile> {
                                                 title: widget.title!,
                                                 subTitle: widget.subtitle!,
                                                 id: widget.product.id,
-                                                status:
-                                                    widget.page == 1 ? false : true);
+                                                status: widget.page == 1
+                                                    ? false
+                                                    : true);
                                             break;
                                           case 2:
-                                            Logger().e(widget.product.toMap());
                                             Get.to(EditProductMolecules(
                                               product: ProductDataClass.fromMap(
                                                 widget.product.toMap(),
                                               ),
-                                              reference: widget.product.references,
+                                              reference:
+                                                  widget.product.references,
                                             ));
                                             break;
-                                        //fazer tabela para média de estoque
                                           case 3:
                                             Get.to(EditStockProductMolecules(
                                               product: ProductDataClass.fromMap(
                                                   widget.product.toMap()),
-                                              reference: widget.product.references,
+                                              reference:
+                                                  widget.product.references,
                                             ));
                                         }
                                       },
                                       child: Text(
                                         widget.label!,
-                                        style: TextStyle(color: Colors.white, ),textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
                                   )
@@ -221,22 +245,22 @@ class _ProductTileState extends State<ProductTile> {
                                     },
                                     child: Container(
                                       margin: EdgeInsets.only(
-                                          left: 15, right: 15, bottom: 8),
+                                          left: 2, right: 2, bottom: 8),
                                       alignment: Alignment.center,
-                                      height: Get.height * 0.06,
-                                      width: Get.width * 0.3,
+                                      height: Get.height * 0.04,
+                                      width: Get.width * 0.5,
                                       decoration: BoxDecoration(
                                           color: widget.product.quantidade! <= 0
                                               ? Colors.red
                                               : Colors.green,
                                           borderRadius:
-                                              BorderRadius.circular(20)),
+                                              BorderRadius.circular(8)),
                                       child: Text(
                                         UserModel.of(context).isLoggedIn()
                                             ? widget.product.quantidade! <= 0
-                                                ? "Saldo\ninsuficiente"
+                                                ? "Saldo insuficiente"
                                                     .toUpperCase()
-                                                : "Adicionar\n ao Carrinho"
+                                                : "Adicionar ao Carrinho"
                                                     .toUpperCase()
                                             : "Realize o Login Para Continuar",
                                         style: TextStyle(

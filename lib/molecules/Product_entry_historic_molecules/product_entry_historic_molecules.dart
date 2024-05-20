@@ -1,28 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:logger/logger.dart';
 import 'package:tg_fatec/models/product_model.dart';
 import 'package:tg_fatec/molecules/Product_entry_historic_molecules/historic_entry_unique_product.dart';
 
 class ProductEntryHistory extends StatefulWidget {
-  ProductEntryHistory({required this.title});
+  const ProductEntryHistory({super.key, required this.title});
 
-  String title;
+  final String title;
 
   @override
   State<ProductEntryHistory> createState() => _ProductEntryHistoryState();
 }
 
 class _ProductEntryHistoryState extends State<ProductEntryHistory> {
-  String _searchText = '';
 
   void _updateSearch(String newText) {
     setState(() {
-      _searchText = newText;
     });
   }
 
@@ -35,20 +29,32 @@ class _ProductEntryHistoryState extends State<ProductEntryHistory> {
         toolbarHeight: Get.height * 0.10,
         title: (Text(
           widget.title,
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
           textAlign: TextAlign.center,
         )),
         centerTitle: true,
         backgroundColor: Colors.black.withOpacity(0.6),
       ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.black.withOpacity(0.6),
+        child: Container(
+          alignment: Alignment.center,
+          child:const Text(
+            "Legumes do Chicão",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
       body: Padding(
-        padding: EdgeInsets.only(left: 10, top: 10, right: 10),
+        padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: TextField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     label: Text(
                       "PESQUISAR",
@@ -62,17 +68,17 @@ class _ProductEntryHistoryState extends State<ProductEntryHistory> {
                 future: FirebaseFirestore.instance.collection("PRODUTOS").get(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(),
                     );
                   } else {
                     return ListView.builder(
-                      padding: EdgeInsets.all(4.0),
+                      padding: const EdgeInsets.all(4.0),
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (context, index) {
                         return Card(
                           child: Padding(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: Container(
                               alignment: Alignment.topLeft,
                               height: 160,
@@ -101,14 +107,12 @@ class _ProductEntryHistoryState extends State<ProductEntryHistory> {
                                       ),
                                       InkWell(
                                         onTap: () async {
-                                          String id = snapshot
-                                              .data!.docs[index].reference.id;
                                           List response =
                                               await ProductModel.of(context)
                                                   .selectHistoricProduct();
                                           List historic = [];
                                           String nameProduct = "";
-                                          List res = response
+                                          response
                                               .map((element) => {
                                                     if (element.data()["id"] ==
                                                         snapshot
@@ -124,13 +128,22 @@ class _ProductEntryHistoryState extends State<ProductEntryHistory> {
                                                       }
                                                   })
                                               .toList();
+                                          if(historic.isEmpty){
+                                            Get.showSnackbar(GetSnackBar(
+                                              title: "Não há histórico para este produto!",
+                                              message: "Cadastre um estoque para verificar o histórico.",
+                                              backgroundColor: Colors.red,
+                                              duration: Duration(seconds: 2),
+                                            ));
+                                            return;
+                                          }
                                           Get.to(HistoricEntryUniqueProduct(
                                               historicProduct: historic,
                                               title:
                                                   nameProduct));
                                         },
                                         child: Container(
-                                          padding: EdgeInsets.all(3),
+                                          padding: const EdgeInsets.all(3),
                                           alignment: Alignment.center,
                                           height: 40,
                                           width: 110,
@@ -138,16 +151,16 @@ class _ProductEntryHistoryState extends State<ProductEntryHistory> {
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                               color: Colors.amber),
-                                          child: Row(
+                                          child: const Row(
                                             children: [
                                               Expanded(
+                                                flex: 2,
                                                 child: Text(
                                                   "VER MAIS",
                                                   style:
                                                       TextStyle(fontSize: 10),
                                                   textAlign: TextAlign.center,
                                                 ),
-                                                flex: 2,
                                               ),
                                               Expanded(child: Icon(Icons.add)),
                                             ],
@@ -156,7 +169,15 @@ class _ProductEntryHistoryState extends State<ProductEntryHistory> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
+                                    width: 16,
+                                  ),
+                                  Container(
+                                    color: Colors.green,
+                                    width: 3,
+                                    height: 150,
+                                  ),
+                                  const SizedBox(
                                     width: 16,
                                   ),
                                   Column(
@@ -164,27 +185,55 @@ class _ProductEntryHistoryState extends State<ProductEntryHistory> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        "${snapshot.data!.docs[index]["titulo"].toUpperCase()}",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
+                                      Container(
+                                        child: Text(
+                                          "${snapshot.data!.docs[index]["titulo"].toUpperCase()}",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold, color: Colors.white),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        width: 200,
+                                        decoration: BoxDecoration(
+                                          color: Colors.black,
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
                                       ),
-                                      Divider(
+                                      SizedBox(height: 5,),
+                                      Container(
                                         color: Colors.black,
+                                        width: 200,
+                                        height: 2,
                                       ),
+                                      SizedBox(height: 15,),
                                       Text(
                                         "Valor: R\$ ${snapshot.data!.docs[index]["preco"].toStringAsFixed(2).replaceAll(".", ",")}",
-                                        style: TextStyle(
-                                            color: Colors.green,
-                                            fontWeight: FontWeight.bold),
+                                        style: const TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.normal),
                                       ),
-                                      Divider(
+                                      Container(
                                         color: Colors.black,
+                                        width: 200,
+                                        height: 1,
                                       ),
+                                      SizedBox(height: 5,),
                                       Text(
                                         "Estoque: ${snapshot.data!.docs[index]["quantidade"].toStringAsFixed(0)} Caixas",
-                                        style: TextStyle(
-                                            color: Colors.blue,
+                                        style: const TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.normal),
+                                      ),
+                                      SizedBox(height: 15,),
+                                      Container(
+                                        color: Colors.green,
+                                        width: 200,
+                                        height: 3,
+                                      ),
+                                      SizedBox(height: 5,),
+                                      Text(
+                                        "Total:   R\$ ${(snapshot.data!.docs[index]["quantidade"] * snapshot.data!.docs[index]["preco"]).toStringAsFixed(2).replaceAll('.', ',')} ",
+                                        style: const TextStyle(
+                                            color: Colors.black,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ],

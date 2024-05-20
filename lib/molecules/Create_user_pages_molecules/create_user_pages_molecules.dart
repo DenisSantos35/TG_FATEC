@@ -26,6 +26,9 @@ class _CreateUserPageState extends State<CreateUserPage> {
   final confirmPassword = TextEditingController();
   final phoneNumber = TextEditingController();
 
+  //fazer tratamento de senha e confirmar senha
+  //buscar endereço na via cep
+  //criar um cabeçalho
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -117,8 +120,8 @@ class _CreateUserPageState extends State<CreateUserPage> {
                         ),
                       ),
                       Container(
-                        width: size.width * 4,
-                        height: size.height * 0.06,
+                        width: size.width * 0.5,
+                        height: size.height * 0.04,
                         child: OutlinedButton(
                           onPressed: () {
                             Map<String, dynamic> userData = {
@@ -141,6 +144,7 @@ class _CreateUserPageState extends State<CreateUserPage> {
                           ),
                           style: OutlinedButton.styleFrom(
                             backgroundColor: Colors.green,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                           ),
                         ),
                       ),

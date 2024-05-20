@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tg_fatec/atoms/buttons/buttons_atoms.dart';
 import 'package:tg_fatec/atoms/texts/texts_atoms.dart';
@@ -20,28 +21,33 @@ class HomeScreen extends StatelessWidget {
       //animate to page jupin to page mudam as paginas
       physics: const NeverScrollableScrollPhysics(),
       children: <Widget>[
-        Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.red.withOpacity(0.9),
-            iconTheme: const IconThemeData(color: Colors.white, size: 35),
-            toolbarHeight: 90,
-            title: textTitle(
-                label: "LEGUMES DO CHICÃO",
-                size: 22,
-                fontWeight: FontWeight.bold,
-                color: Color(0xffffffff)),
-            centerTitle: true,
+        WillPopScope(
+          onWillPop: ()async{
+            return false;
+          },
+          child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.red.withOpacity(0.9),
+              iconTheme: const IconThemeData(color: Colors.white, size: 35),
+              toolbarHeight: 90,
+              title: TextTitle(
+                  label: "LEGUMES DO CHICÃO",
+                  size: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xffffffff)),
+              centerTitle: true,
+            ),
+            body: HomeTab(),
+            drawer: CustomDrawer(_pageController),
+            floatingActionButton: CartButton(),
           ),
-          body: HomeTab(),
-          drawer: CustomDrawer(_pageController),
-          floatingActionButton: CartButton(),
         ),
         Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.black.withOpacity(0.6),
             iconTheme: const IconThemeData(color: Colors.white, size: 35),
             toolbarHeight: 90,
-            title: textTitle(
+            title: TextTitle(
                 label: "PRODUTOS",
                 size: 22,
                 fontWeight: FontWeight.bold,
@@ -56,7 +62,7 @@ class HomeScreen extends StatelessWidget {
             backgroundColor: Colors.red.withOpacity(0.9),
             iconTheme: const IconThemeData(color: Colors.white, size: 35),
             toolbarHeight: 90,
-            title: textTitle(
+            title: TextTitle(
                 label: "VENDAS",
                 size: 22,
                 fontWeight: FontWeight.bold,
@@ -81,7 +87,7 @@ class HomeScreen extends StatelessWidget {
             backgroundColor: Color(0xff267228).withOpacity(0.6),
             iconTheme: const IconThemeData(color: Colors.white, size: 35),
             toolbarHeight: 90,
-            title: textTitle(
+            title: TextTitle(
                 label: "FINANCEIRO",
                 size: 22,
                 fontWeight: FontWeight.bold,
@@ -105,7 +111,7 @@ class HomeScreen extends StatelessWidget {
             backgroundColor: Color(0xffAF9530),
             iconTheme: const IconThemeData(color: Colors.white, size: 35),
             toolbarHeight: 90,
-            title: textTitle(
+            title: TextTitle(
                 label: "CLIENTES",
                 size: 22,
                 fontWeight: FontWeight.bold,
@@ -123,7 +129,7 @@ class HomeScreen extends StatelessWidget {
             backgroundColor: Color(0xffAF9530),
             iconTheme: const IconThemeData(color: Colors.white, size: 35),
             toolbarHeight: 90,
-            title: textTitle(
+            title: TextTitle(
                 label: "FORNECEDORES",
                 size: 22,
                 fontWeight: FontWeight.bold,

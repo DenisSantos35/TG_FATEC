@@ -44,22 +44,34 @@ class _EditStockProductMoleculesState extends State<EditStockProductMolecules> {
         backgroundColor: Colors.black.withOpacity(0.6),
         iconTheme: const IconThemeData(color: Colors.white, size: 35),
         toolbarHeight: 90,
-        title: textTitle(
+        title: TextTitle(
             label: "EDITAR PRODUTOS",
             size: 22,
             fontWeight: FontWeight.bold,
             color: Colors.white),
         centerTitle: true,
       ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.black.withOpacity(0.6),
+        child: Container(
+          alignment: Alignment.center,
+          child:const Text(
+            "Legumes do Chicão",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
       body: ScopedModelDescendant<UserModel>(
         builder: (context, child, model) {
           return SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.fromLTRB(
-                  27, size.height * 0.03, 27, size.height * 0.03),
+                  27, 0, 27, size.height * 0.03),
               child: Column(
                 children: [
-                  SizeHeight(height: size.width, multiplier: 0.08),
+                  SizeHeight(height: size.width, multiplier: 0.01),
                   Form(
                     key: formKeyUser,
                     child: Column(
@@ -77,7 +89,7 @@ class _EditStockProductMoleculesState extends State<EditStockProductMolecules> {
                           image: widget.product.image.toString(),
                           editProduct: true,
                         ),
-                        SizeHeight(height: size.width, multiplier: 0.08),
+                        SizeHeight(height: size.width, multiplier: 0.01),
                         Card(
                           child: ContainerTextFieldFormatedEditProduct(
                               isInteger: false,
@@ -108,8 +120,8 @@ class _EditStockProductMoleculesState extends State<EditStockProductMolecules> {
                   ),
                   SizeHeight(height: size.width, multiplier: 0.04),
                   Container(
-                    width: size.width * 4,
-                    height: size.height * 0.06,
+                    width: size.width * 0.50,
+                    height: size.height * 0.04,
                     child: OutlinedButton(
                       onPressed: () async {
 
@@ -177,6 +189,7 @@ class _EditStockProductMoleculesState extends State<EditStockProductMolecules> {
                       ),
                       style: OutlinedButton.styleFrom(
                         backgroundColor: Colors.green,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                       ),
                     ),
                   ),

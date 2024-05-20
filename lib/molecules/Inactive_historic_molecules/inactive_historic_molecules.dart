@@ -36,6 +36,19 @@ class _InactiveHistoricProductScreenState extends State<InactiveHistoricProductS
               centerTitle: true,
               backgroundColor: Colors.black.withOpacity(0.6),
             ),
+          bottomNavigationBar: BottomAppBar(
+            color: Colors.black.withOpacity(0.6),
+            child: Container(
+              alignment: Alignment.center,
+              child:const Text(
+                "Legumes do Chicão",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+
             body: FutureBuilder<QuerySnapshot>(
               future: FirebaseFirestore.instance.collection("PRODUTOS").get(),
               builder: (context, snapshot) {
