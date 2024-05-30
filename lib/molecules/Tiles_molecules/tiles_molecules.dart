@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tg_fatec/atoms/texts/texts_atoms.dart';
+import 'package:tg_fatec/datas_class/colors.dart';
 
 class DrawerTile extends StatelessWidget {
   final IconData icon;
@@ -25,9 +26,9 @@ class DrawerTile extends StatelessWidget {
           height: 80.0,
           child: Row(
             children: [
-              Icon(icon, size: 32, color: controller.page!.round() == page? Colors.orange.shade100 : Colors.white,),
+              Icon(icon, size: 32, color: controller.page!.round() == page? ColorsApp.orangeColor() : Colors.white,),
               SizedBox(width: 32.0,),
-              TextTitle(label: text, size: 14, fontWeight: FontWeight.bold, color: controller.page!.round() == page? Colors.orange.shade100  : Colors.white)
+              TextTitle(label: text, size: 14, fontWeight: FontWeight.bold, color: controller.page!.round() == page? ColorsApp.orangeColor()  : Colors.white)
             ],
           ),
         ),

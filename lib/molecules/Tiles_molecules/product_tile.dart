@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:tg_fatec/atoms/dialog/dialog_atoms.dart';
+import 'package:tg_fatec/datas_class/colors.dart';
 import 'package:tg_fatec/datas_class/product_data_class.dart';
 import 'package:tg_fatec/molecules/Create_product_pages_molecules/edit_stock_product_molecules.dart';
 import 'package:tg_fatec/molecules/Edit_product_molecules/edit_product_molecules.dart';
@@ -46,17 +47,21 @@ class _ProductTileState extends State<ProductTile> {
   Widget build(BuildContext context) {
     return InkWell(
       child: Card(
+        color: ColorsApp.blueColorOpacity2(),
           shadowColor: Colors.black,
           child: widget.type == 'grid'
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    AspectRatio(
-                      aspectRatio: 1,
-                      child: Image.network(
-                        widget.product.image!,
-                        fit: BoxFit.cover,
+                    Padding(
+                      padding: EdgeInsets.all(8),
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: Image.network(
+                          widget.product.image!,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Expanded(
@@ -68,12 +73,13 @@ class _ProductTileState extends State<ProductTile> {
                               widget.product.titulo!.toUpperCase(),
                               style: TextStyle(fontWeight: FontWeight.w900),
                             ),
+                            Divider(color: Colors.green, indent: 32, endIndent: 32, thickness: 2,),
                             Text(
                               widget.product.quantidade! <= 0
                                   ? "Adicione produto\npara realizar venda! "
                                   : "Preço ${widget.product.unidadeMedida}:\n R\$ ${widget.product.price!.toStringAsFixed(2)}",
                               style: TextStyle(
-                                color: Color(0xff106910),
+                                color: ColorsApp.whiteColor(),
                                 fontWeight: FontWeight.bold,
                               ),
                               textAlign: TextAlign.center,
@@ -97,7 +103,7 @@ class _ProductTileState extends State<ProductTile> {
                       child: Container(
                         margin: EdgeInsets.only(left: 15, right: 15, bottom: 8),
                         alignment: Alignment.center,
-                        height: Get.height * 0.06,
+                        height: Get.height * 0.05,
                         width: Get.width * 0.02,
                         decoration: BoxDecoration(
                             color: widget.product.quantidade! <= 0
@@ -155,15 +161,15 @@ class _ProductTileState extends State<ProductTile> {
                             Text(
                               "Estoque: ${widget.product.quantidade!.toStringAsFixed(0)} ${widget.product.unidadeMedida}",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 12),
+                                  fontWeight: FontWeight.w500, fontSize: 12, color: ColorsApp.whiteColor()),
                             ),
                             widget.button == null
                                 ? Text(
                                     widget.product.quantidade! <= 0
                                         ? "Adicione produto\npara realizar venda! "
                                         : "Preço ${widget.product.unidadeMedida}: R\$ ${widget.product.price!.toStringAsFixed(2)}",
-                                    style: const TextStyle(
-                                        color: Color(0xff106910),
+                                    style: TextStyle(
+                                        color: ColorsApp.whiteColor(),
                                         fontWeight: FontWeight.bold,
                                         fontSize: 12),
                                   )
@@ -238,7 +244,6 @@ class _ProductTileState extends State<ProductTile> {
                                 ? SizedBox()
                                 : GestureDetector(
                                     onTap: () {
-                                      Logger().i(context);
                                       widget.product.quantidade! <= 0
                                           ? null
                                           : addCart(context);
@@ -276,7 +281,8 @@ class _ProductTileState extends State<ProductTile> {
                       ),
                     ),
                   ],
-                )),
+                ),
+      ),
     );
   }
 
@@ -294,7 +300,6 @@ class _ProductTileState extends State<ProductTile> {
       dataProduct.description = widget.product.description;
       dataProduct.price = widget.product.price;
       dataProduct.image = widget.product.image;
-      Logger().e(dataProduct.toResumeMap());
 
       CartModel.of(context).addCartItem(cartProduct, dataProduct);
 

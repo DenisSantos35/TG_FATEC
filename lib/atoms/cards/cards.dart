@@ -11,7 +11,9 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:logger/logger.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:tg_fatec/datas_class/client.dart';
+import 'package:tg_fatec/datas_class/colors.dart';
 import 'package:tg_fatec/models/cart_model.dart';
+import 'package:tg_fatec/molecules/Report_sales_molecules/reporte_sales_molecule.dart';
 import 'package:tg_fatec/screens/product_screen.dart';
 import 'package:tg_fatec/screens/sales_report_screen.dart';
 
@@ -64,6 +66,7 @@ Widget cardSales(
     ),
   );
 }
+
 // card personalizado do relatorio de média de custo
 Widget descripiontProduct({required String title, required String subTitle}) {
   return Row(
@@ -73,22 +76,34 @@ Widget descripiontProduct({required String title, required String subTitle}) {
       Expanded(
         child: Container(
           alignment: Alignment.centerLeft,
-          child: Text(title,style: TextStyle(fontWeight: FontWeight.bold) ,textAlign: TextAlign.left,
+          child: Text(
+            title,
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+            textAlign: TextAlign.left,
           ),
         ),
       ),
-      SizedBox(width: Get.width * 0.03,),
+      SizedBox(
+        width: Get.width * 0.03,
+      ),
       Expanded(
         child: Container(
           alignment: Alignment.centerLeft,
-          child: Text(subTitle, textAlign: TextAlign.left,),
+          child: Text(
+            subTitle,
+            textAlign: TextAlign.left,
+            style: TextStyle(color: Colors.white),
+          ),
         ),
       )
     ],
   );
 }
 
-Widget descripiontRelatorio({required String title, required String subTitle,required TextAlign text}) {
+Widget descripiontRelatorio(
+    {required String title,
+    required String subTitle,
+    required TextAlign text}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.center,
@@ -96,15 +111,23 @@ Widget descripiontRelatorio({required String title, required String subTitle,req
       Expanded(
         child: Container(
           alignment: Alignment.centerLeft,
-          child: Text(title,style: TextStyle(fontWeight: FontWeight.bold) ,textAlign: TextAlign.left,
+          child: Text(
+            title,
+            style: TextStyle(fontWeight: FontWeight.bold),
+            textAlign: TextAlign.left,
           ),
         ),
       ),
-      SizedBox(width: Get.width * 0.03,),
+      SizedBox(
+        width: Get.width * 0.03,
+      ),
       Expanded(
         child: Container(
           alignment: Alignment.centerLeft,
-          child: Text(subTitle, textAlign: TextAlign.left,),
+          child: Text(
+            subTitle,
+            textAlign: TextAlign.left,
+          ),
         ),
       )
     ],
@@ -125,9 +148,8 @@ _pages({required int page, String? title}) {
       break;
     case 2:
       // criar relatorios detalhados
-      // Get.to(SalesReportScreen(
-      //   title: title!,
-      // ));
+    print("aqui");
+      Get.to(ReportSaleFinancialMolecules());
       break;
     case 3:
       //criar relatorios detalhados
@@ -153,6 +175,7 @@ class _SelectClientState extends State<SelectClient> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: ColorsApp.blueColorOpacity2(),
       margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       child: ScopedModelDescendant<CartModel>(
         builder: (context, child, model) {
@@ -162,10 +185,14 @@ class _SelectClientState extends State<SelectClient> {
 
           return Center(
             child: DropdownButton<Client>(
+              iconEnabledColor: ColorsApp.whiteColor(),
               padding: EdgeInsets.only(left: 10, right: 10, top: 8, bottom: 8),
               value: _selectedItem,
-              hint: Text(hint!),
-              dropdownColor: Colors.green,
+              hint: Text(
+                hint!,
+                style: TextStyle(color: Colors.white),
+              ),
+              dropdownColor: ColorsApp.blueColor(),
               elevation: 15,
               isExpanded: true,
               alignment: Alignment.centerLeft,
@@ -208,6 +235,7 @@ class _SelectPaymentState extends State<SelectPayment> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: ColorsApp.blueColorOpacity2(),
       margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       child: ScopedModelDescendant<CartModel>(
         builder: (context, child, model) {
@@ -217,10 +245,14 @@ class _SelectPaymentState extends State<SelectPayment> {
 
           return Center(
             child: DropdownButton<String>(
+              iconEnabledColor: ColorsApp.whiteColor(),
               padding: EdgeInsets.only(left: 10, right: 10, top: 8, bottom: 8),
               value: _selectedItem,
-              hint: Text(hint!),
-              dropdownColor: Colors.green,
+              hint: Text(
+                hint!,
+                style: TextStyle(color: ColorsApp.whiteColor()),
+              ),
+              dropdownColor: ColorsApp.blueColor(),
               elevation: 15,
               isExpanded: true,
               alignment: Alignment.centerLeft,
@@ -254,27 +286,48 @@ class DiscountCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: ColorsApp.blueColorOpacity2(),
       margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       child: ExpansionTile(
         title: Text(
           "Desconto",
           textAlign: TextAlign.start,
-          style:
-              TextStyle(fontWeight: FontWeight.w500, color: Colors.grey[700]),
+          style: TextStyle(
+              fontWeight: FontWeight.w500, color: ColorsApp.whiteColor()),
         ),
-        leading: Icon(Icons.card_giftcard),
-        trailing: Icon(Icons.add),
+        leading: Icon(
+          Icons.card_giftcard,
+          color: ColorsApp.orangeColor(),
+        ),
+        trailing: Icon(
+          Icons.add,
+          color: ColorsApp.whiteColor(),
+        ),
         children: [
           Padding(
             padding: EdgeInsets.all(8.0),
             child: TextFormField(
+              style: TextStyle(color: ColorsApp.whiteColor()),
               keyboardType: TextInputType.number,
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
                 CentavosInputFormatter(),
               ],
               decoration: InputDecoration(
-                  border: OutlineInputBorder(), hintText: "Digite o desconto"),
+                fillColor: ColorsApp.whiteColor(),
+                labelStyle: TextStyle(color: ColorsApp.whiteColor()),
+                hintStyle: TextStyle(color: ColorsApp.whiteColor()),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                hintText: "Digite o desconto",
+              ),
               onFieldSubmitted: (text) {
                 if (text.isNotEmpty) {
                   try {
@@ -324,6 +377,7 @@ class CardPrice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: ColorsApp.blueColorOpacity2(),
       margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       child: Container(
         padding: EdgeInsets.all(16.0),
@@ -335,10 +389,25 @@ class CardPrice extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
-                  "Resumo do Pedido",
-                  textAlign: TextAlign.start,
-                  style: TextStyle(fontWeight: FontWeight.w500),
+                Container(
+                  height: Get.height * 0.04,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(8)),
+                  child: Text(
+                    "Resumo do Pedido".toUpperCase(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: ColorsApp.whiteColor()),
+                  ),
+                ),
+                Divider(
+                  thickness: 3,
+                  color: Colors.black,
+                  indent: 8,
+                  endIndent: 8,
                 ),
                 SizedBox(
                   height: 12.0,
@@ -346,16 +415,16 @@ class CardPrice extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Subtotal"),
-                    Text("R\$ ${price.toStringAsFixed(2)}")
+                    Text("Subtotal", style: TextStyle(color: ColorsApp.whiteColor()),),
+                    Text("R\$ ${price.toStringAsFixed(2)}", style: TextStyle(color: ColorsApp.whiteColor()),)
                   ],
                 ),
                 Divider(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Desconto"),
-                    Text("- R\$ ${discount.toStringAsFixed(2)}")
+                    Text("Desconto", style: TextStyle(color: ColorsApp.whiteColor()),),
+                    Text("- R\$ ${discount.toStringAsFixed(2)}", style: TextStyle(color: ColorsApp.whiteColor()),)
                   ],
                 ),
                 Divider(),
@@ -369,27 +438,38 @@ class CardPrice extends StatelessWidget {
                       "Total",
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
-                          color: Colors.black,
+                          color: ColorsApp.whiteColor(),
                           fontSize: 16.0),
                     ),
                     Text("R\$ ${(price - discount).toStringAsFixed(2)}",
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            color: Color(0xff10039F),
+                            color: ColorsApp.orangeColor(),
                             fontSize: 16.0))
                   ],
                 ),
-                SizedBox(
-                  height: 35.0,
+                Divider(
+                  thickness: 3,
+                  color: Colors.black,
+                  indent: 8,
+                  endIndent: 8,
                 ),
-                OutlinedButton(
-                  onPressed: buy,
-                  child: Text(
-                    "FINALIZAR PEDIDO",
-                    style: TextStyle(color: Colors.white),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 50),
+                  child: OutlinedButton(
+                    onPressed: buy,
+                    child: Text(
+                      "FINALIZAR PEDIDO",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    style: OutlinedButton.styleFrom(
+                        backgroundColor: Color(0xffF5AA02),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8))),
                   ),
-                  style: OutlinedButton.styleFrom(
-                      backgroundColor: Color(0xffF5AA02)),
                 )
               ],
             );

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:tg_fatec/datas_class/colors.dart';
 
 import '../../atoms/message/message_atoms.dart';
 import '../../datas_class/product_data_class.dart';
@@ -26,10 +27,11 @@ class StockEntryMolecules extends StatelessWidget {
                style: TextStyle(color: Colors.white),
              )),
              centerTitle: true,
-             backgroundColor: Colors.black.withOpacity(0.6),
+             backgroundColor: ColorsApp.blueColor(),
            ),
            bottomNavigationBar: BottomAppBar(
-             color: Colors.black.withOpacity(0.6),
+             height: 50,
+             color: ColorsApp.blueColor(),
              child: Container(
                alignment: Alignment.center,
                child:const Text(

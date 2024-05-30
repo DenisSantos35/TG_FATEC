@@ -49,6 +49,8 @@ dependencies:
   flutter_animate: ^4.5.0
   firebase_storage: ^11.7.0
   image_picker: ^0.8.7+5
+  gif: ^2.3.0
+  fl_chart: ^0.68.0
 
 dev_dependencies:
   flutter_test:
@@ -105,4 +107,4 @@ flutter:
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "icons/tomate.jpg"
+  image_path: "icons/img.png"

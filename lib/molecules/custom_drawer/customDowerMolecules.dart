@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:tg_fatec/atoms/texts/texts_atoms.dart';
 import 'package:tg_fatec/auth/Login/login_page.dart';
+import 'package:tg_fatec/datas_class/colors.dart';
 import 'package:tg_fatec/models/user_model.dart';
 import 'package:tg_fatec/molecules/Tiles_molecules/tiles_molecules.dart';
 
@@ -19,14 +20,14 @@ class CustomDrawer extends StatelessWidget {
       child: Stack(
         children: [
           buildBodyBack(
-              color1: const Color(0xffF81506), color2: const Color(0xffe89d98)),
+              color1: ColorsApp.blueColor(), color2: ColorsApp.blueColorOpacity2()),
           ListView(
             padding: const EdgeInsets.only(left: 15.0, top: 25.0),
             children: [
               Container(
                 margin: const EdgeInsets.only(bottom: 15.0),
                 padding: const EdgeInsets.fromLTRB(0.0, 16.0, 16.0, 16.0),
-                height: 270,
+                height: 300,
                 child: Stack(
                   children: [
                     Positioned(
@@ -51,20 +52,22 @@ class CustomDrawer extends StatelessWidget {
                                   label: "Seja Bem Vindo",
                                   size: 18.0,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xffffffff)),
+                                  color: ColorsApp.orangeColor()),
+                              SizedBox(height: 8,),
                               TextTitle(
                                   label:
                                       "${!model.isLoggedIn() ? "" : model.userData["name"]}",
                                   size: 16.0,
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xff0AE313)),
+                              SizedBox(height: 8,),
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: GestureDetector(
                                   child: Row(
                                     children: [
-                                      Text("Sair", style: TextStyle(color: Color(0xff0616E1)),),
-                                      Icon(Icons.logout, color: Color(0xff0616E1),),
+                                      Text("Sair", style: TextStyle(color: Colors.white),),
+                                      Icon(Icons.logout, color: ColorsApp.whiteColor(),),
                                     ],
                                   ),
                                   onTap: () {
@@ -118,11 +121,11 @@ class CustomDrawer extends StatelessWidget {
                   text: "Cadastrar Clientes",
                   page: 4,
                   controller: pageController),
-              DrawerTile(
-                  icon: Icons.person_add_outlined,
-                  text: "Cadastrar Fornecedores",
-                  page: 5,
-                  controller: pageController),
+              // DrawerTile(
+              //     icon: Icons.person_add_outlined,
+              //     text: "Cadastrar Fornecedores",
+              //     page: 5,
+              //     controller: pageController),
             ],
           )
         ],

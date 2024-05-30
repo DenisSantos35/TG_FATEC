@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:tg_fatec/controllers/product_controlers.dart';
+import 'package:tg_fatec/datas_class/colors.dart';
 import 'package:tg_fatec/molecules/Custo_medio_produtos_molecules/Details_historic_cost_molecules.dart';
 
 class AverageCostProductsMolecules extends StatelessWidget {
@@ -25,11 +26,11 @@ class AverageCostProductsMolecules extends StatelessWidget {
           textAlign: TextAlign.center,
         )),
         centerTitle: true,
-        backgroundColor: Colors.black.withOpacity(0.6),
+        backgroundColor: ColorsApp.blueColor(),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.black.withOpacity(0.6),
-        height: Get.height * 0.10,
+        color: ColorsApp.blueColor(),
+        height: 50,
         child: Container(
           alignment: Alignment.center,
           child: Text("Legumes do Chicão", style: TextStyle(color: Colors.white)),
@@ -43,108 +44,117 @@ class AverageCostProductsMolecules extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else {
-            return GridView.count(
-              crossAxisCount: 2,
-              children: snapshot.data!.docs
-                  .map((e) => Padding(
-                        padding: EdgeInsets.only(
-                            left: 4, right: 4, top: 4, bottom: 4),
-                        child: Card(
-                          child: Center(
-                              child: Column(
+            return Container(
+              height: Get.height,
+              child: GridView.count(
+                physics: BouncingScrollPhysics(),
+                shrinkWrap: true,
+                crossAxisCount: 2,
+                mainAxisSpacing: 2,
+                childAspectRatio: 0.7,
+                children: snapshot.data!.docs
+                    .map((e) => Card(
+                      color: ColorsApp.blueColorOpacity2(),
+                      child: Container(
+                        padding: EdgeInsets.only(left: 8, right: 8),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                        Container(
+                          padding: EdgeInsets.all(8),
+                          height: 150,
+                          width: Get.width * 0.8,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Image.network(
+                            e["images"],
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        SizedBox(height: 3,),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               Container(
-                                height: 100,
-                                width: Get.width * 0.8,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
+                                child: Text(
+                                  "Produto: ${e["titulo"].toUpperCase()}",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600, color: ColorsApp.whiteColor()),
                                 ),
-                                child: Image.network(
-                                  e["images"],
-                                  fit: BoxFit.cover,
+                                alignment: Alignment.centerLeft,
+                              ),
+                              Divider(color: Colors.green,),
+                              Container(
+                                child: Text(
+                                  "Preço Atual: R\$ ${e["preco"].toStringAsFixed(2).replaceAll('.', ',')}",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600, color: ColorsApp.whiteColor()),
+                                ),
+                                alignment: Alignment.centerLeft,
+                              ),
+                              Divider(color: Colors.green,),
+                              SizedBox(
+                                height: Get.height * 0.01,
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  final listHistorics =
+                                      await controller.selectPrice(
+                                          context: context,
+                                          id: e.reference.id);
+                                  Get.to(
+                                    DetailsHistoricoCost(
+                                      title: "RELATÓRIO MÉDIA\n CUSTO",
+                                      historics: listHistorics,
+                                      dataProduct: e.data() as Map<String, dynamic>,
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(3),
+                                  alignment: Alignment.center,
+                                  height: 30,
+                                  width: 130,
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.circular(8),
+                                      color: Colors.amber),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          "VER CUSTO",
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              fontWeight:
+                                                  FontWeight.bold),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        flex: 2,
+                                      ),
+                                      Expanded(
+                                          child: Icon(Icons
+                                              .description_outlined)),
+                                    ],
+                                  ),
                                 ),
                               ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      child: Text(
-                                        "Produto: ${e["titulo"].toUpperCase()}",
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                      alignment: Alignment.centerLeft,
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "Preço Atual: R\$ ${e["preco"].toStringAsFixed(2).replaceAll('.', ',')}",
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                      alignment: Alignment.centerLeft,
-                                    ),
-                                    SizedBox(
-                                      height: Get.height * 0.01,
-                                    ),
-                                    InkWell(
-                                      onTap: () async {
-                                        Logger().e(e.reference.id);
-                                        final listHistorics =
-                                            await controller.selectPrice(
-                                                context: context,
-                                                id: e.reference.id);
-                                        Logger().i(listHistorics);
-                                        Logger().e(e.data());
-                                        Get.to(
-                                          DetailsHistoricoCost(
-                                            title: "RELATÓRIO MÉDIA\n CUSTO",
-                                            historics: listHistorics,
-                                            dataProduct: e.data() as Map<String, dynamic>,
-                                          ),
-                                        );
-                                      },
-                                      child: Container(
-                                        padding: EdgeInsets.all(3),
-                                        alignment: Alignment.center,
-                                        height: 30,
-                                        width: 130,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            color: Colors.amber),
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              child: Text(
-                                                "VER CUSTO",
-                                                style: TextStyle(
-                                                    fontSize: 10,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              flex: 2,
-                                            ),
-                                            Expanded(
-                                                child: Icon(Icons
-                                                    .description_outlined)),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
                             ],
-                          )),
-                        ),
-                      ))
-                  .toList(),
+                          ),
+                        )
+                                                  ],
+                                                ),
+                      ),
+                    ))
+                    .toList(),
+              ),
             );
           }
         },

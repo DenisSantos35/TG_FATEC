@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tg_fatec/datas_class/colors.dart';
 import 'package:tg_fatec/datas_class/product_data_class.dart';
 import 'package:tg_fatec/helper/list_snapshot_status.dart';
 
@@ -34,10 +35,11 @@ class _InactiveHistoricProductScreenState extends State<InactiveHistoricProductS
                 style: TextStyle(color: Colors.white),textAlign: TextAlign.center,
               )),
               centerTitle: true,
-              backgroundColor: Colors.black.withOpacity(0.6),
+              backgroundColor: ColorsApp.blueColor(),
             ),
           bottomNavigationBar: BottomAppBar(
-            color: Colors.black.withOpacity(0.6),
+            height: 50,
+            color: ColorsApp.blueColor(),
             child: Container(
               alignment: Alignment.center,
               child:const Text(

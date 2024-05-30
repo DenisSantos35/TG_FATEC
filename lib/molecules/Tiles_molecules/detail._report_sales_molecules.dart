@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
+import 'package:tg_fatec/datas_class/colors.dart';
 
 import '../../datas_class/report_sales_class.dart';
 
@@ -20,19 +20,39 @@ class DetailsReportSales extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         )),
         centerTitle: true,
-        backgroundColor: Colors.red.withOpacity(0.6),
+        backgroundColor: ColorsApp.blueColor(),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        height: 50,
+        color: ColorsApp.blueColor(),
+        child: Container(
+          alignment: Alignment.center,
+          child:const Text(
+            "Legumes do Chicão",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
             children: [
+              SizedBox(height: Get.height * 0.03,),
               Container(
-                padding: const EdgeInsets.only(top: 20),
+                height: Get.height * 0.04,
+                width: 250,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+
                 alignment: Alignment.center,
-                child: const Text(
+                child:  Text(
                   "RELATÓRIO DE VENDAS",
                   style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold),
+                      color: ColorsApp.whiteColor(), fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -50,6 +70,9 @@ class DetailsReportSales extends StatelessWidget {
               ),
               const Divider(
                 color: Colors.black,
+                indent: 32,
+                endIndent: 32,
+                thickness: 2,
               ),
               Card(
                 margin:
@@ -87,7 +110,7 @@ class DetailsReportSales extends StatelessWidget {
                   itemCount: product!.toMap()["products"].length,
                   itemBuilder: (BuildContext context, int index) {
                     int lastValue = product!.toMap()["products"].length;
-                    Logger().e(lastValue);
+
                     return Column(children: [
                       Row(
                         children: [
@@ -174,8 +197,14 @@ class DetailsReportSales extends StatelessWidget {
                   ),
                 ),
               ),
+              const Divider(
+                color: Colors.black,
+                indent: 32,
+                endIndent: 32,
+                thickness: 2,
+              ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               Row(
                 children: [
@@ -317,9 +346,6 @@ class DetailsReportSales extends StatelessWidget {
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.red.withOpacity(0.6),
       ),
     );
   }

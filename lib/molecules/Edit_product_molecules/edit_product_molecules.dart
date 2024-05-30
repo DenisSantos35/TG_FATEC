@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:logger/logger.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:tg_fatec/datas_class/colors.dart';
 import 'package:tg_fatec/datas_class/product_data_class.dart';
 import 'package:tg_fatec/helper/edit_image_helper.dart';
 import 'package:tg_fatec/models/user_model.dart';
@@ -46,7 +47,7 @@ class _CreateProductMoleculesState extends State<EditProductMolecules> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black.withOpacity(0.6),
+        backgroundColor: ColorsApp.blueColor(),
         iconTheme: const IconThemeData(color: Colors.white, size: 35),
         toolbarHeight: 90,
         title: TextTitle(
@@ -57,7 +58,8 @@ class _CreateProductMoleculesState extends State<EditProductMolecules> {
         centerTitle: true,
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.black.withOpacity(0.6),
+        height: 50,
+        color: ColorsApp.blueColor(),
         child: Container(
           alignment: Alignment.center,
           child:const Text(

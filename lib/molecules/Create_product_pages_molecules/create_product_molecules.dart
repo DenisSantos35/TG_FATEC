@@ -6,6 +6,7 @@ import 'package:logger/logger.dart';
 
 import 'package:scoped_model/scoped_model.dart';
 import 'package:tg_fatec/atoms/radio_button/radio_button.dart';
+import 'package:tg_fatec/datas_class/colors.dart';
 import 'package:tg_fatec/datas_class/product_data_class.dart';
 import 'package:tg_fatec/models/product_model.dart';
 import 'package:tg_fatec/models/user_model.dart';
@@ -40,7 +41,7 @@ class _CreateProductMoleculesState extends State<CreateProductMolecules> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black.withOpacity(0.6),
+        backgroundColor: ColorsApp.blueColor(),
         iconTheme: const IconThemeData(color: Colors.white, size: 35),
         toolbarHeight: 90,
         title: TextTitle(
@@ -51,7 +52,8 @@ class _CreateProductMoleculesState extends State<CreateProductMolecules> {
         centerTitle: true,
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.black.withOpacity(0.6),
+        height: 50,
+        color: ColorsApp.blueColor(),
         child: Container(
           alignment: Alignment.center,
           child:const Text(
@@ -79,7 +81,7 @@ class _CreateProductMoleculesState extends State<CreateProductMolecules> {
                     containerTitles(
                         title: "PREENCHA TODOS OS DADOS",
                         width: 0.85,
-                        height: 0.03),
+                        height: 0.04),
                     Divider(
                       height: Get.height * 0.03,
                       indent: 8,
@@ -102,6 +104,7 @@ class _CreateProductMoleculesState extends State<CreateProductMolecules> {
                           ),
                           SizeHeight(height: size.width, multiplier: 0.01),
                           Card(
+                            color: ColorsApp.blueColorOpacity2(),
                             child: ContainerTextFieldFormated(
                                 inputController: price,
                                 label: "Preço do Produto:",

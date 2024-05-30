@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:tg_fatec/datas_class/colors.dart';
 import 'package:tg_fatec/datas_class/product_data_class.dart';
 import 'package:tg_fatec/helper/list_snapshot_status.dart';
 import '../molecules/Tiles_molecules/product_tile.dart';
@@ -26,15 +27,28 @@ class ProductScreen extends StatelessWidget {
               }, icon: Icon(Icons.arrow_back, color: Colors.white,)),
               title: (Text(title, style: TextStyle(color: Colors.white),)),
               centerTitle: true,
-              backgroundColor: Colors.red.withOpacity(0.6),
+              backgroundColor: ColorsApp.blueColor(),
               bottom: TabBar(
                 indicatorColor: Colors.white,
                 tabs: [
                   Tab(icon: Icon(Icons.grid_on, color: Colors.white, size: 30,)),
                   Tab(
-                    icon: Icon(Icons.list, color: Colors.black,size: 35,),
+                    icon: Icon(Icons.list, color: Colors.white,size: 35,),
                   )
                 ],
+              ),
+            ),
+            bottomNavigationBar: BottomAppBar(
+              height: 50,
+              color: ColorsApp.blueColor(),
+              child: Container(
+                alignment: Alignment.center,
+                child:const Text(
+                  "Legumes do Chicão",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
             body: FutureBuilder<QuerySnapshot>(

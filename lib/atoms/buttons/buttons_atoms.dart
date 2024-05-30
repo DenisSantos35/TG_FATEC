@@ -33,14 +33,16 @@ class ReturnButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 30),
+      padding: EdgeInsets.symmetric(horizontal: 70),
       child: OutlinedButton(
         onPressed: () {
           Get.off(ProductScreen(title: "PRODUTOS"));
 
         },
         style: OutlinedButton.styleFrom(
-            backgroundColor: Colors.green),
+            backgroundColor: Colors.green,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))
+        ),
         child:  Container(
           alignment: Alignment.center,
           height: Get.height * 0.03,

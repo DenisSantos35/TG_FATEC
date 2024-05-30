@@ -2,6 +2,7 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:tg_fatec/datas_class/colors.dart';
 import 'package:tg_fatec/models/user_model.dart';
 import '../../atoms/containers/containers_atoms.dart';
 import '../../atoms/sizedbox/SizedBox_atoms.dart';
@@ -37,12 +38,20 @@ class _CreateUserPageState extends State<CreateUserPage> {
           backgroundColor: Color(0xffffffff),
           appBar: AppBar(
             centerTitle: true,
-            backgroundColor: Colors.red,
+            backgroundColor: ColorsApp.blueColor(),
             toolbarHeight: size.height * 0.1,
             title: showTextTitle(
                 label: "CADASTRAR ${widget.title}",
                 size: 20,
                 color: Colors.white),
+          ),
+          bottomNavigationBar: BottomAppBar(
+            color: ColorsApp.blueColor(),
+            height: 50,
+            child: Container(
+              alignment: Alignment.center,
+              child: Text("Legumes do Chicão", style: TextStyle(color: Colors.white)),
+            ),
           ),
           body: ScopedModelDescendant<UserModel>(
             builder: (context, child, model) {

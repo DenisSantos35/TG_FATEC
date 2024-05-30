@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:logger/logger.dart';
+import 'package:tg_fatec/datas_class/colors.dart';
 import '../atoms/text_field/text_field_atoms.dart';
 import '../datas_class/report_sales_class.dart';
 import '../molecules/Tiles_molecules/report_sales_tile.dart';
@@ -42,20 +43,34 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                 Icons.arrow_back,
                 color: Colors.white,
               )),
+
           title: (Text(
             widget.title,
             style: TextStyle(color: Colors.white),
           )),
           centerTitle: true,
-          backgroundColor: Colors.red.withOpacity(0.6),
+          backgroundColor: ColorsApp.blueColor(),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          height: 50,
+          color: ColorsApp.blueColor(),
+          child: Container(
+            alignment: Alignment.center,
+            child:const Text(
+              "Legumes do Chicão",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
         ),
         body: Padding(
           padding: EdgeInsets.only(left: 10, top: 10, right: 10),
           child: Column(
             children: [
               Container(
+                height: 50,
                 padding: EdgeInsets.symmetric(horizontal: 10),
-
                 child: TextField(
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -66,6 +81,21 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                   onChanged: _updateSearch,
                 ),
               ),
+              SizedBox(height: 15,),
+              Container(
+                height: Get.height * 0.04,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  "RELATÓRIOS DETALHADO POR VENDA",
+                  style: TextStyle(
+                      color: ColorsApp.whiteColor(), fontWeight: FontWeight.w900, fontSize: 14),
+                ),
+              ),
+              Divider(color: Colors.black, thickness: 2,),
               Expanded(
                 child: FutureBuilder<QuerySnapshot>(
                   future: FirebaseFirestore.instance.collection("VENDAS").orderBy("date", descending: true).get(),
@@ -100,6 +130,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                   },
                 ),
               ),
+
             ],
           ),
         ),

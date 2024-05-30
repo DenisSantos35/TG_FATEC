@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:tg_fatec/datas_class/colors.dart';
 
 import '../../atoms/cards/cards.dart';
 import '../../atoms/containers/containers_atoms.dart';
@@ -18,8 +19,6 @@ class DetailsHistoricoCost extends StatelessWidget {
   Map<String, dynamic> dataProduct;
   ProductController controller = Get.put(ProductController());
 
-
-
   @override
   Widget build(BuildContext context) {
     double priceMedian = controller.calculatePiceMedian(historicProduct: historics);
@@ -34,11 +33,11 @@ class DetailsHistoricoCost extends StatelessWidget {
           textAlign: TextAlign.center,
         )),
         centerTitle: true,
-        backgroundColor: Colors.black.withOpacity(0.6),
+        backgroundColor: ColorsApp.blueColor(),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.black.withOpacity(0.6),
-        height: Get.height * 0.10,
+        color: ColorsApp.blueColor(),
+        height: 50,
         child: Container(
           alignment: Alignment.center,
           child: Text("Legumes do Chicão", style: TextStyle(color: Colors.white)),
@@ -48,56 +47,59 @@ class DetailsHistoricoCost extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Container(
-                    width: 100,
+            Card(
+              color: ColorsApp.blueColorOpacity2(),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Container(
+                      width: 100,
+                      height: 120,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Image.network(
+                        dataProduct["images"],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: Get.width * 0.03,
+                  ),
+                  Container(
                     height: 120,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Image.network(
-                      dataProduct["images"],
-                      fit: BoxFit.cover,
-                    ),
+                    width: 5,
+                    color: Colors.green,
                   ),
-                ),
-                SizedBox(
-                  width: Get.width * 0.03,
-                ),
-                Container(
-                  height: 120,
-                  width: 5,
-                  color: Colors.green,
-                ),
-                SizedBox(
-                  width: Get.width * 0.03,
-                ),
-                Container(
-                  width: Get.width * 0.55,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      descripiontProduct(
-                          title: "Produto:",
-                          subTitle: dataProduct["titulo"].toUpperCase()),
-                      descripiontProduct(
-                          title: "Estoque: ",
-                          subTitle:
-                              dataProduct["quantidade"].toStringAsFixed(0)),
-                      descripiontProduct(
-                          title: "Unid. Med.:",
-                          subTitle: dataProduct["unidade_medida"]),
-                      descripiontProduct(
-                          title: "Preco: ",
-                          subTitle:
-                              "R\$ ${dataProduct["preco"].toStringAsFixed(2).replaceAll(".", ", ")}"),
-                    ],
+                  SizedBox(
+                    width: Get.width * 0.03,
                   ),
-                )
-              ],
+                  Container(
+                    width: Get.width * 0.55,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        descripiontProduct(
+                            title: "Produto:",
+                            subTitle: dataProduct["titulo"].toUpperCase()),
+                        descripiontProduct(
+                            title: "Estoque: ",
+                            subTitle:
+                                dataProduct["quantidade"].toStringAsFixed(0)),
+                        descripiontProduct(
+                            title: "Unid. Med.:",
+                            subTitle: dataProduct["unidade_medida"]),
+                        descripiontProduct(
+                            title: "Preco: ",
+                            subTitle:
+                                "R\$ ${dataProduct["preco"].toStringAsFixed(2).replaceAll(".", ", ")}"),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
             Divider(
               height: Get.height * 0.03,

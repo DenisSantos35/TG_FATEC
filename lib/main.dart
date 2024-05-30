@@ -5,6 +5,7 @@ import 'package:tg_fatec/atoms/dialog/dialog_atoms.dart';
 import 'package:tg_fatec/models/cart_model.dart';
 import 'package:tg_fatec/models/client_model.dart';
 import 'package:tg_fatec/models/product_model.dart';
+import 'package:tg_fatec/models/report_model.dart';
 import 'package:tg_fatec/models/user_model.dart';
 import 'auth/introduction_page/introduction_page.dart';
 import 'firebase_options.dart';
@@ -34,16 +35,19 @@ class MyApp extends StatelessWidget {
                 model: DialogDefault(),
                 child: ScopedModel<ClienteModel>(
                   model: ClienteModel(),
-                  child: GetMaterialApp(
-                    title: 'Flutter Demo',
-                    theme: ThemeData(
-                      colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
-                      primaryColor: Colors.red,
-                      useMaterial3: true,
+                  child: ScopedModel<ReportModel>(
+                    model: ReportModel(),
+                    child: GetMaterialApp(
+                      title: 'Flutter Demo',
+                      theme: ThemeData(
+                        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
+                        primaryColor: Colors.red,
+                        useMaterial3: true,
+                      ),
+                      home: InitPage(),
+                      //HomeScreen()
                     ),
-                    home: InitPage(),
-                    //HomeScreen()
-                  ),
+                  )
                 )
               )
             ),

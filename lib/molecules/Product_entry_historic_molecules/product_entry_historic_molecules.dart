@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tg_fatec/datas_class/colors.dart';
 import 'package:tg_fatec/models/product_model.dart';
 import 'package:tg_fatec/molecules/Product_entry_historic_molecules/historic_entry_unique_product.dart';
 
@@ -33,10 +34,11 @@ class _ProductEntryHistoryState extends State<ProductEntryHistory> {
           textAlign: TextAlign.center,
         )),
         centerTitle: true,
-        backgroundColor: Colors.black.withOpacity(0.6),
+        backgroundColor: ColorsApp.blueColor(),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.black.withOpacity(0.6),
+        height: 50,
+        color: ColorsApp.blueColor(),
         child: Container(
           alignment: Alignment.center,
           child:const Text(
@@ -77,6 +79,7 @@ class _ProductEntryHistoryState extends State<ProductEntryHistory> {
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (context, index) {
                         return Card(
+                          color: ColorsApp.blueColorOpacity2(),
                           child: Padding(
                             padding: const EdgeInsets.all(10),
                             child: Container(

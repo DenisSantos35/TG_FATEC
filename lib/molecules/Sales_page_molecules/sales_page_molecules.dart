@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tg_fatec/atoms/cards/cards.dart';
+import 'package:tg_fatec/datas_class/colors.dart';
 
 import '../../atoms/imagens/images_atoms.dart';
 
@@ -30,35 +31,61 @@ class CardsTemplate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Stack(children: [
-      imageDefault(context: context, image: backgroundImage, opacity: 0.3),
-      ListView(
-        padding: EdgeInsets.only(top: size.height * 0.1, left: 40, right: 40),
-        children: [
-          cardSales(
-              context: context,
-              image: imageCardOne,
-              width: size.width,
-              height: size.height,
-              label: labelOne,
-              color: colorButton,
-              page: firstPage,
-          title: "PRODUTOS"),
-          SizedBox(
-            height: size.height * 0.05,
+    return Scaffold(
+      backgroundColor: ColorsApp.blueColor(),
+      bottomNavigationBar: BottomAppBar(
+
+        color: ColorsApp.blueColor(),
+        child: Container(
+          alignment: Alignment.center,
+          child:const Text(
+            "Legumes do Chicão",
+            style: TextStyle(
+              color: Colors.white,
+            ),
           ),
-          cardSales(
-              context: context,
-              image: imageCardTwo,
-              width: size.width,
-              height: size.height,
-              label: labelTwo,
-              color: colorButton,
-              page: lastPage,
-              title: "RELATÓRIO DE VENDAS"
-         ),
-        ],
+        ),
       ),
-    ]);
+      body: Padding(
+        padding: EdgeInsets.only(left: 16, right: 16),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(32),
+            color: Colors.white,
+          ),
+          child: Stack(children: [
+            imageDefault(context: context, image: backgroundImage, opacity: 0.3),
+            ListView(
+              padding: EdgeInsets.only(top: size.height * 0.05, left: 40, right: 40),
+              children: [
+                cardSales(
+                    context: context,
+                    image: imageCardOne,
+                    width: size.width,
+                    height: size.height,
+                    label: labelOne,
+                    color: colorButton,
+                    page: firstPage,
+                title: "PRODUTOS"),
+                SizedBox(
+                  height: size.height * 0.05,
+                ),
+                cardSales(
+                    context: context,
+                    image: imageCardTwo,
+                    width: size.width,
+                    height: size.height,
+                    label: labelTwo,
+                    color: colorButton,
+                    page: lastPage,
+                    title: "RELATÓRIO DE VENDAS"
+               ),
+
+              ],
+            ),
+          ]),
+        ),
+      ),
+    );
   }
 }

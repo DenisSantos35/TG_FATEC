@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:logger/logger.dart';
 import 'package:tg_fatec/atoms/imagens/images_atoms.dart';
 import 'package:tg_fatec/atoms/message/message_atoms.dart';
+import 'package:tg_fatec/datas_class/colors.dart';
 import 'package:tg_fatec/datas_class/product_data_class.dart';
 import 'package:tg_fatec/helper/list_snapshot_status.dart';
 import '../Tiles_molecules/product_tile.dart';
@@ -30,10 +31,11 @@ class InactivateProductScreen extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               )),
               centerTitle: true,
-              backgroundColor: Colors.black.withOpacity(0.6),
+              backgroundColor: ColorsApp.blueColor(),
             ),
             bottomNavigationBar: BottomAppBar(
-              color: Colors.black.withOpacity(0.6),
+              height: 50,
+              color: ColorsApp.blueColor(),
               child: Container(
                 alignment: Alignment.center,
                 child:const Text(
