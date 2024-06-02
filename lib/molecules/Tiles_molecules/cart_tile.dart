@@ -56,7 +56,7 @@ class CartTile extends StatelessWidget {
                           color: Colors.white),
                     ),
                     Text(
-                      "Preço Caixa: R\$ ${cartProduct.productData!.price!}",
+                      "Preço Caixa: R\$ ${cartProduct.productData!.price!.toStringAsFixed(2).replaceAll('.', ',')}",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16.0,

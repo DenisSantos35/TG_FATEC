@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:intl/date_symbol_data_file.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:tg_fatec/atoms/dialog/dialog_atoms.dart';
 import 'package:tg_fatec/models/cart_model.dart';
@@ -11,9 +12,14 @@ import 'auth/introduction_page/introduction_page.dart';
 import 'firebase_options.dart';
 import 'package:get/get.dart';
 
+import 'package:intl/intl.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Initialize localization for date formatting
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Inicialize a formatação de data para pt_BR
+  // await initializeDateFormatting('pt_BR',"");
   runApp(MyApp());
 }
 

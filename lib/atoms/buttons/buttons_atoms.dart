@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:tg_fatec/screens/cart_screen.dart';
@@ -33,29 +34,36 @@ class ReturnButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 70),
+      padding: EdgeInsets.symmetric(horizontal: 8),
       child: OutlinedButton(
         onPressed: () {
           Get.off(ProductScreen(title: "PRODUTOS"));
-
         },
         style: OutlinedButton.styleFrom(
             backgroundColor: Colors.green,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))
         ),
-        child:  Container(
-          alignment: Alignment.center,
-          height: Get.height * 0.03,
-          width: Get.width,
-          child: Text(
-            UserModel.of(context).isLoggedIn()
-                ? "SELECIONAR PRODUTOS".toUpperCase()
-                : "Realize o Login Para Continuar",
-            style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold),
-          ),
-        ),
+        child:  Row(
+          children: [
+            Expanded(
+              flex: 3,
+              child: Container(
+                alignment: Alignment.centerRight,
+                height: Get.height * 0.03,
+                width: Get.width,
+                child: Text(
+                  UserModel.of(context).isLoggedIn()
+                      ? "SELECIONAR PRODUTOS".toUpperCase()
+                      : "Realize o Login Para Continuar",
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            Expanded(child: Container( alignment: Alignment.center, child: Icon(Icons.shopping_cart_outlined, color: Colors.white,))),
+          ],
+        )
       ),
     );
   }

@@ -107,8 +107,8 @@ class _LoginState extends State<Login> {
                       ),
 
                       Container(
-                        width: size.width * 0.50,
-                        height: size.height * 0.04,
+                        width: size.width * 0.90,
+                        height: size.height * 0.05,
                         child: OutlinedButton(
                           onPressed: () {
                             model.signin(
@@ -136,8 +136,8 @@ class _LoginState extends State<Login> {
                           fontWeight: FontWeight.bold,
                           color: Colors.black),
                       Container(
-                        width: size.width * 0.5,
-                        height: size.height * 0.04,
+                        width: size.width * 0.9,
+                        height: size.height * 0.05,
                         child: OutlinedButton(
                           onPressed: () {
                             Get.to(CreateUserPage(

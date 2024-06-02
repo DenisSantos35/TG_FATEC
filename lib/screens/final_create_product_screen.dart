@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tg_fatec/datas_class/colors.dart';
 import 'package:tg_fatec/molecules/Edit_product_molecules/list_product_all_molecules.dart';
 import 'package:tg_fatec/screens/home_screen.dart';
 import 'package:tg_fatec/screens/product_screen.dart';
@@ -15,9 +16,10 @@ class FinalPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 90,
         automaticallyImplyLeading: false,
         //atualizar página que vai ser redirecionada
-        backgroundColor: Colors.red.withOpacity(0.6),
+        backgroundColor: ColorsApp.blueColor(),
         title: Text(
           label.toUpperCase(),
           style: TextStyle(color: Colors.white),
@@ -42,22 +44,37 @@ class FinalPage extends StatelessWidget {
               color: Colors.white,
             )),
       ),
-      body: Container(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.check_circle_outline,
-              color: Colors.green,
-              size: 80.0,
+      bottomNavigationBar: BottomAppBar(
+        height: 50,
+        color: ColorsApp.blueColor(),
+        child: Container(
+          alignment: Alignment.center,
+          child:const Text(
+            "Legumes do Chicão",
+            style: TextStyle(
+              color: Colors.white,
             ),
-            Text(
-              title,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-              textAlign: TextAlign.center,
-            )
-          ],
+          ),
+        ),
+      ),
+      body: Center(
+        child: Container(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.check_circle_outline,
+                color: Colors.green,
+                size: 80.0,
+              ),
+              Text(
+                title,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                textAlign: TextAlign.center,
+              )
+            ],
+          ),
         ),
       ),
     );
