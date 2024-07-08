@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
+import 'package:tg_fatec/atoms/containers/containers_atoms.dart';
 import 'package:tg_fatec/atoms/graficos/line_chart.dart';
 import 'package:tg_fatec/atoms/graficos/piechart.dart';
 import 'package:tg_fatec/controllers/reporte_controller.dart';
@@ -67,22 +68,7 @@ class _ReportSaleFinancialMoleculesState
             SizedBox(
               height: Get.height * 0.02,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16),
-              child: Container(
-                height: Get.height * 0.04,
-                decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(8)),
-                padding: const EdgeInsets.only(right: 16, left: 16),
-                child: const Center(
-                  child: Text(
-                    'DASHBORD DE VENDAS',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
-            ),
+            TitleReport(title: 'DASHBORD DE VENDAS'),
             const Divider(
               color: Colors.black,
               indent: 16,
@@ -97,7 +83,6 @@ class _ReportSaleFinancialMoleculesState
                     ..sort((a, b) => DateFormat('MMM/yyyy')
                         .parse(a)
                         .compareTo(DateFormat('MMM/yyyy').parse(b)));
-                  Logger().e(chartDataList);
                   if (!snapshot.hasData) {
                     return const SizedBox();
                   } else {
@@ -116,70 +101,7 @@ class _ReportSaleFinancialMoleculesState
                     }
                     return Column(
                       children: [
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          height: Get.height * 0.16,
-                          padding: const EdgeInsets.only(right: 16, left: 16),
-                          child: Card(
-                            color: ColorsApp.blueColorOpacity2(),
-                            child: Container(
-                              width: Get.width,
-                              padding: const EdgeInsets.only(
-                                  left: 32, right: 32, top: 16, bottom: 16),
-                              child: Column(
-                                children: [
-                                  const Row(children: [
-                                    Expanded(
-                                      child: Text(
-                                        "Quant. Produtos ",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        "Total R\$",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ]),
-                                  const Divider(
-                                    color: Colors.green,
-                                  ),
-                                  SizedBox(
-                                    height: Get.height * 0.01,
-                                  ),
-                                  Row(children: [
-                                    Expanded(
-                                      child: Text(
-                                        "${resultProd["totalProd"]} Caixas",
-                                        style: const TextStyle(
-                                            color: Colors.white),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        "R\$ ${result["total"]}",
-                                        style: const TextStyle(
-                                            color: Colors.white),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ]),
-                                  const Divider(
-                                    color: Colors.green,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+                        TotalReport(totalProduc: result["total"] , quantProduct: resultProd["totalProd"]),
                         SizedBox(
                           height: 127,
                           child: GridView.count(
@@ -440,40 +362,40 @@ class _ReportSaleFinancialMoleculesState
                           ],
                         ),
                         const SizedBox(height: 8),
-                        InkWell(
-                          onTap: () {
-                            //TODO: 'Bt p detalhes compra a vista e a prazo'
-                            Logger().i('RELATÓRIO DETALHADO');
-                          },
-                          child: Container(
-                            height: Get.height * 0.06,
-                            padding: const EdgeInsets.only(right: 16, left: 16),
-                            child: const Card(
-                              color: Colors.green,
-                              child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: Padding(
-                                        padding: EdgeInsets.only(left: 40),
-                                        child: Text(
-                                          'RELATÓRIO DETALHADO',
-                                          style: TextStyle(color: Colors.white),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Icon(
-                                        Icons.edit_document,
-                                        color: Colors.white,
-                                      ),
-                                    )
-                                  ]),
-                            ),
-                          ),
-                        ),
+                        // InkWell(
+                        //   onTap: () {
+                        //     //TODO: 'Bt p detalhes compra a vista e a prazo'
+                        //     Logger().i('RELATÓRIO DETALHADO');
+                        //   },
+                        //   child: Container(
+                        //     height: Get.height * 0.06,
+                        //     padding: const EdgeInsets.only(right: 16, left: 16),
+                        //     child: const Card(
+                        //       color: Colors.green,
+                        //       child: Row(
+                        //           crossAxisAlignment: CrossAxisAlignment.center,
+                        //           children: [
+                        //             Expanded(
+                        //               flex: 2,
+                        //               child: Padding(
+                        //                 padding: EdgeInsets.only(left: 40),
+                        //                 child: Text(
+                        //                   'RELATÓRIO DETALHADO',
+                        //                   style: TextStyle(color: Colors.white),
+                        //                   textAlign: TextAlign.center,
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //             Expanded(
+                        //               child: Icon(
+                        //                 Icons.edit_document,
+                        //                 color: Colors.white,
+                        //               ),
+                        //             )
+                        //           ]),
+                        //     ),
+                        //   ),
+                        // ),
                         const Divider(
                           color: Colors.black,
                           indent: 16,
@@ -545,42 +467,42 @@ class _ReportSaleFinancialMoleculesState
                             ),
                           ),
                         ),
-                        InkWell(
-                          onTap: () {
-                            //TODO: 'Bt para relatorio de maior menor detalhado'
-
-                            Logger().i(
-                                'Bt para relatorio de maior menor detalhado');
-                          },
-                          child: Container(
-                            height: Get.height * 0.06,
-                            padding: const EdgeInsets.only(right: 16, left: 16),
-                            child: const Card(
-                              color: Colors.green,
-                              child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: Padding(
-                                        padding: EdgeInsets.only(left: 40),
-                                        child: Text(
-                                          'RELATÓRIO DETALHADO',
-                                          style: TextStyle(color: Colors.white),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Icon(
-                                        Icons.edit_document,
-                                        color: Colors.white,
-                                      ),
-                                    )
-                                  ]),
-                            ),
-                          ),
-                        ),
+                        // InkWell(
+                        //   onTap: () {
+                        //     //TODO: 'Bt para relatorio de maior menor detalhado'
+                        //
+                        //     Logger().i(
+                        //         'Bt para relatorio de maior menor detalhado');
+                        //   },
+                        //   child: Container(
+                        //     height: Get.height * 0.06,
+                        //     padding: const EdgeInsets.only(right: 16, left: 16),
+                        //     child: const Card(
+                        //       color: Colors.green,
+                        //       child: Row(
+                        //           crossAxisAlignment: CrossAxisAlignment.center,
+                        //           children: [
+                        //             Expanded(
+                        //               flex: 2,
+                        //               child: Padding(
+                        //                 padding: EdgeInsets.only(left: 40),
+                        //                 child: Text(
+                        //                   'RELATÓRIO DETALHADO',
+                        //                   style: TextStyle(color: Colors.white),
+                        //                   textAlign: TextAlign.center,
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //             Expanded(
+                        //               child: Icon(
+                        //                 Icons.edit_document,
+                        //                 color: Colors.white,
+                        //               ),
+                        //             )
+                        //           ]),
+                        //     ),
+                        //   ),
+                        // ),
                         const Divider(
                           color: Colors.black,
                           indent: 16,
@@ -615,42 +537,42 @@ class _ReportSaleFinancialMoleculesState
                                   labels),
                               ),
                         ),
-                        InkWell(
-                          onTap: () {
-                            //TODO: 'Botao para relatorio detalhes por periodo'
-                            Logger()
-                                .i('Botao para relatorio detalhes por periodo');
-                            controller.salesMounth(snapshot.data);
-                          },
-                          child: Container(
-                            height: Get.height * 0.06,
-                            padding: const EdgeInsets.only(right: 16, left: 16),
-                            child: const Card(
-                              color: Colors.green,
-                              child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: Padding(
-                                        padding: EdgeInsets.only(left: 40),
-                                        child: Text(
-                                          'RELATÓRIO DETALHADO',
-                                          style: TextStyle(color: Colors.white),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Icon(
-                                        Icons.edit_document,
-                                        color: Colors.white,
-                                      ),
-                                    )
-                                  ]),
-                            ),
-                          ),
-                        ),
+                        // InkWell(
+                        //   onTap: () {
+                        //     //TODO: 'Botao para relatorio detalhes por periodo'
+                        //     Logger()
+                        //         .i('Botao para relatorio detalhes por periodo');
+                        //     controller.salesMounth(snapshot.data);
+                        //   },
+                        //   child: Container(
+                        //     height: Get.height * 0.06,
+                        //     padding: const EdgeInsets.only(right: 16, left: 16),
+                        //     child: const Card(
+                        //       color: Colors.green,
+                        //       child: Row(
+                        //           crossAxisAlignment: CrossAxisAlignment.center,
+                        //           children: [
+                        //             Expanded(
+                        //               flex: 2,
+                        //               child: Padding(
+                        //                 padding: EdgeInsets.only(left: 40),
+                        //                 child: Text(
+                        //                   'RELATÓRIO DETALHADO',
+                        //                   style: TextStyle(color: Colors.white),
+                        //                   textAlign: TextAlign.center,
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //             Expanded(
+                        //               child: Icon(
+                        //                 Icons.edit_document,
+                        //                 color: Colors.white,
+                        //               ),
+                        //             )
+                        //           ]),
+                        //     ),
+                        //   ),
+                        // ),
                         const Divider(
                           color: Colors.black,
                           indent: 16,

@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -14,10 +15,308 @@ import 'package:tg_fatec/molecules/Inactivate_product_molecules/inactivate_produ
 import 'package:tg_fatec/molecules/Inactive_historic_molecules/inactive_historic_molecules.dart';
 import 'package:tg_fatec/molecules/Product_entry_historic_molecules/product_entry_historic_molecules.dart';
 
+import '../../datas_class/colors.dart';
 import '../../molecules/Create_product_pages_molecules/create_product_molecules.dart';
 import '../../molecules/Custo_medio_produtos_molecules/average_cost_of_products_molecules.dart';
 import '../imagens/images_atoms.dart';
 import '../texts/texts_atoms.dart';
+
+Widget TitleReport({required String title}) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 16, right: 16),
+    child: Container(
+      height: Get.height * 0.04,
+      decoration: BoxDecoration(
+          color: Colors.black, borderRadius: BorderRadius.circular(8)),
+      padding: const EdgeInsets.only(right: 16, left: 16),
+      child: Center(
+        child: Text(
+          title,
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+    ),
+  );
+}
+
+Widget ReportDetails(
+    {required String titleComp,
+    required String subtitle,
+    required String titleSale,
+    required String totalProductComp,
+    required String quantProductComp,
+    required String quantProductSales,
+    required String totalProductSales,
+    required String titleDiscount,
+    required String subtitleDiscount,
+    required String titleSubTotal,
+    required String subTotal}) {
+  return Container(
+    alignment: Alignment.centerLeft,
+    height: Get.height * 0.63,
+    padding: const EdgeInsets.only(right: 16, left: 16),
+    child: Card(
+      color: ColorsApp.blueColorOpacity2(),
+      child: Container(
+        width: Get.width,
+        padding:
+            const EdgeInsets.only(left: 32, right: 32, top: 16, bottom: 16),
+        child: Column(
+          children: [
+            TitleReport(title: 'COMPRAS'),
+            const Divider(
+              color: Colors.black,
+              thickness: 3,
+            ),
+            SizedBox(
+              height: Get.height * 0.01,
+            ),
+            Row(children: [
+              Expanded(
+                flex: 2,
+                child: Text(
+                  titleComp,
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  subtitle,
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ]),
+            const Divider(
+              color: Colors.green,
+            ),
+            SizedBox(
+              height: Get.height * 0.01,
+            ),
+            Row(children: [
+              Expanded(
+                child: Text(
+                  "${quantProductComp} Caixas",
+                  style: const TextStyle(color: Colors.white),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  "R\$ ${totalProductComp}",
+                  style: const TextStyle(color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ]),
+            const Divider(
+              color: Colors.black,
+              thickness: 2,
+            ),
+            SizedBox(
+              height: Get.height * 0.03,
+            ),
+            TitleReport(title: 'VENDAS'),
+            const Divider(
+              color: Colors.black,
+              thickness: 3,
+            ),
+            Row(children: [
+              Expanded(
+                flex: 2,
+                child: Text(
+                  titleSale,
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  subtitle,
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ]),
+            const Divider(
+              color: Colors.green,
+            ),
+            SizedBox(
+              height: Get.height * 0.01,
+            ),
+            Row(children: [
+              Expanded(
+                child: Text(
+                  "${quantProductSales} Caixas",
+                  style: const TextStyle(color: Colors.white),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  "R\$ ${totalProductSales}",
+                  style: const TextStyle(color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ]),
+            const Divider(
+              color: Colors.green,
+            ),
+            SizedBox(
+              height: Get.height * 0.01,
+            ),
+            Row(children: [
+              Expanded(
+                child: Text(
+                  titleDiscount,
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  subtitleDiscount,
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ]),
+            const Divider(
+              color: Colors.black,
+              thickness: 2,
+            ),
+            SizedBox(
+              height: Get.height * 0.02,
+            ),
+            Row(children: [
+              Expanded(
+                child: Text(
+                  titleSubTotal,
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.w300),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  subTotal,
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.w300),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ]),
+            const Divider(
+              color: Colors.black,
+              thickness: 2,
+            ),
+            SizedBox(
+              height: Get.height * 0.01,
+            ),
+            Row(children: [
+              Expanded(
+                child: Text(
+                  "Total: ",
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  subTotal,
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ]),
+            const Divider(
+              color: Colors.black,
+              thickness: 2,
+            ),
+            SizedBox(
+              height: Get.height * 0.03,
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Widget TotalReport(
+    {required String totalProduc, required String quantProduct}) {
+  return Container(
+    alignment: Alignment.centerLeft,
+    height: Get.height * 0.16,
+    padding: const EdgeInsets.only(right: 16, left: 16),
+    child: Card(
+      color: ColorsApp.blueColorOpacity2(),
+      child: Container(
+        width: Get.width,
+        padding:
+            const EdgeInsets.only(left: 32, right: 32, top: 16, bottom: 16),
+        child: Column(
+          children: [
+            const Row(children: [
+              Expanded(
+                flex: 2,
+                child: Text(
+                  "Produtos Comprados ",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  "Total R\$",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ]),
+            const Divider(
+              color: Colors.green,
+            ),
+            SizedBox(
+              height: Get.height * 0.01,
+            ),
+            Row(children: [
+              Expanded(
+                child: Text(
+                  "${quantProduct} Caixas",
+                  style: const TextStyle(color: Colors.white),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  "R\$ ${totalProduc}",
+                  style: const TextStyle(color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ]),
+            const Divider(
+              color: Colors.green,
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
 
 Widget ContainerDegradee({required Color color1, required Color color2}) {
   return Container(
@@ -30,20 +329,28 @@ Widget ContainerDegradee({required Color color1, required Color color2}) {
   );
 }
 
-Widget containerRelatorio({required String title, required final subtitle }){
+Widget containerRelatorio({required String title, required final subtitle}) {
   return Container(
       padding: EdgeInsets.only(left: 32, right: 32),
       alignment: Alignment.center,
       child: Row(
         children: [
-          Expanded(child: Text(title, style: TextStyle(fontWeight: FontWeight.w600),)),
-          Expanded(child: Text(subtitle,textAlign: TextAlign.end,)),
+          Expanded(
+              child: Text(
+            title,
+            style: TextStyle(fontWeight: FontWeight.w600),
+          )),
+          Expanded(
+              child: Text(
+            subtitle,
+            textAlign: TextAlign.end,
+          )),
         ],
-      )
-  );
+      ));
 }
 
-Widget containerTitles({required String title, required double width, required double height }){
+Widget containerTitles(
+    {required String title, required double width, required double height}) {
   return Container(
     width: Get.width * width,
     height: Get.height * height,
@@ -134,10 +441,13 @@ Widget cardProducts(
           Get.to(StockEntryMolecules(title: "CADASTRAR ESTOQUE"));
           break;
         case 4:
-          Get.to(AverageCostProductsMolecules(title: "CUSTO MÉDIO",));
+          Get.to(AverageCostProductsMolecules(
+            title: "CUSTO MÉDIO",
+          ));
           break;
         case 5:
-          Get.to(ProductEntryHistory(title: "HISTÓRICO DE ENTRADA\n DE PRODUTOS"));
+          Get.to(
+              ProductEntryHistory(title: "HISTÓRICO DE ENTRADA\n DE PRODUTOS"));
 
         case 6:
           Get.to(InactiveHistoricProductScreen(
@@ -283,7 +593,6 @@ Widget ContainerTextFieldText(
         return null;
       },
       decoration: InputDecoration(
-
         labelText: label,
         hintText: hint,
         labelStyle:
@@ -320,15 +629,23 @@ Widget ContainerTextFieldTextEdit(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Divider(color: Colors.black, thickness: 3,),
+        Divider(
+          color: Colors.black,
+          thickness: 3,
+        ),
         Expanded(
           child: Text(
             product.toUpperCase(),
-            style:
-            TextStyle(color: Color(0xff000000), fontWeight: FontWeight.bold, fontSize: 20),
+            style: TextStyle(
+                color: Color(0xff000000),
+                fontWeight: FontWeight.bold,
+                fontSize: 20),
           ),
         ),
-        Divider(color: Colors.black, thickness: 3,),
+        Divider(
+          color: Colors.black,
+          thickness: 3,
+        ),
       ],
     ),
   );
@@ -501,7 +818,6 @@ Widget ContainerTextFieldFormatedEdit(
         preco.text = value;
       },
       decoration: InputDecoration(
-
         labelText: label,
         hintText: hint,
         labelStyle:
@@ -521,12 +837,12 @@ Widget ContainerTextFieldFormatedEdit(
 
 Widget ContainerTextFieldFormatedEditProduct(
     {required TextEditingController preco,
-      required String product,
-      required TextInputType type,
-      required String label,
-      required String hint,
-      required IconData icon,
-      required var inputFormater,
+    required String product,
+    required TextInputType type,
+    required String label,
+    required String hint,
+    required IconData icon,
+    required var inputFormater,
     required bool isInteger}) {
   return Container(
     padding: EdgeInsets.only(left: 37, right: 25),
@@ -537,7 +853,12 @@ Widget ContainerTextFieldFormatedEditProduct(
     ),
     child: TextFormField(
       controller: preco,
-      inputFormatters: [FilteringTextInputFormatter.digitsOnly, isInteger?FilteringTextInputFormatter.allow(RegExp(r'^\d*$')) : inputFormater],
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+        isInteger
+            ? FilteringTextInputFormatter.allow(RegExp(r'^\d*$'))
+            : inputFormater
+      ],
       keyboardType: type,
       validator: (value) {
         if (value!.isEmpty) {
@@ -549,11 +870,10 @@ Widget ContainerTextFieldFormatedEditProduct(
         preco.text = value;
       },
       decoration: InputDecoration(
-
         labelText: label,
         hintText: hint,
         labelStyle:
-        TextStyle(color: Color(0xffFF000000), fontWeight: FontWeight.bold),
+            TextStyle(color: Color(0xffFF000000), fontWeight: FontWeight.bold),
         hintStyle: TextStyle(
           color: Color(0xffFFC4C4C4),
         ),
@@ -696,7 +1016,6 @@ class _InputPasswordState extends State<InputPassword> {
           return null;
         },
         decoration: InputDecoration(
-
           labelText: widget.label,
           hintText: widget.hint,
           labelStyle: TextStyle(

@@ -13,6 +13,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:tg_fatec/datas_class/client.dart';
 import 'package:tg_fatec/datas_class/colors.dart';
 import 'package:tg_fatec/models/cart_model.dart';
+import 'package:tg_fatec/molecules/Report_sales_molecules/Product_purchase_report_molecules.dart';
 import 'package:tg_fatec/molecules/Report_sales_molecules/reporte_sales_molecule.dart';
 import 'package:tg_fatec/screens/product_screen.dart';
 import 'package:tg_fatec/screens/sales_report_screen.dart';
@@ -33,7 +34,6 @@ Widget cardSales(
   return Center(
     child: GestureDetector(
       onTap: () {
-        Logger().e(page);
         _pages(page: page, title: title);
       },
       child: AnimatedContainer(
@@ -147,15 +147,10 @@ _pages({required int page, String? title}) {
       ));
       break;
     case 2:
-      // criar relatorios detalhados
-    print("aqui");
       Get.to(ReportSaleFinancialMolecules());
       break;
     case 3:
-      //criar relatorios detalhados
-      // Get.to(SalesReportScreen(
-      //   title: title!,
-      // ));
+      Get.to(ProductPurchaseReport());
       break;
   }
 }
