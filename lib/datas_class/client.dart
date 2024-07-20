@@ -15,6 +15,7 @@ class Client extends Model {
   String? rua;
   String? telefone;
   String? complemento;
+  List? data;
 
 
   Client();
@@ -33,8 +34,8 @@ class Client extends Model {
       required this.cidade,
       required this.categoria});
 
-  Client.fromDocument(DocumentSnapshot document) {
-    id = document.id;
+  Client.fromDocument(final document) {
+    //id = document.id??"";
     razao_social = document["razao_social"];
     bairro = document["bairro"];
     categoria = document["categoria"];

@@ -121,11 +121,11 @@ class CustomDrawer extends StatelessWidget {
                   text: "Cadastrar Clientes",
                   page: 4,
                   controller: pageController),
-              // DrawerTile(
-              //     icon: Icons.person_add_outlined,
-              //     text: "Cadastrar Fornecedores",
-              //     page: 5,
-              //     controller: pageController),
+              DrawerTile(
+                  icon: Icons.person_add_outlined,
+                  text: "Acessar Clientes",
+                  page: 5,
+                  controller: pageController),
             ],
           )
         ],

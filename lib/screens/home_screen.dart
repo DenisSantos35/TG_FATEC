@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gif/gif.dart';
 import 'package:tg_fatec/atoms/buttons/buttons_atoms.dart';
 import 'package:tg_fatec/atoms/texts/texts_atoms.dart';
@@ -7,6 +8,7 @@ import 'package:tg_fatec/datas_class/colors.dart';
 import 'package:tg_fatec/molecules/Client_pages_molecules/client_pages_molecules.dart';
 import 'package:tg_fatec/molecules/Sales_page_molecules/sales_page_molecules.dart';
 
+import '../molecules/Client_pages_molecules/data_clientes_moleculres.dart';
 import '../molecules/Products_pages_molecules/products_pages_molecuels.dart';
 import '../molecules/custom_drawer/customDowerMolecules.dart';
 import '../tabs/home_tab.dart';
@@ -31,10 +33,9 @@ class _HomeScreenState extends State<HomeScreen> {
       //animate to page jupin to page mudam as paginas
       physics: const NeverScrollableScrollPhysics(),
       children: <Widget>[
-        WillPopScope(
-          onWillPop: ()async{
-            return false;
-          },
+        PopScope(
+         canPop: false,
+          onPopInvoked: (didPop) => false,
           child: Scaffold(
             appBar: AppBar(
               backgroundColor: ColorsApp.blueColor(),
@@ -156,24 +157,37 @@ class _HomeScreenState extends State<HomeScreen> {
             page: 0,
           ),
         ),
-        // Scaffold(
-        //   appBar: AppBar(
-        //     backgroundColor: Color(0xffAF9530),
-        //     iconTheme: const IconThemeData(color: Colors.white, size: 35),
-        //     toolbarHeight: 90,
-        //     title: TextTitle(
-        //         label: "FORNECEDORES",
-        //         size: 22,
-        //         fontWeight: FontWeight.bold,
-        //         color: Colors.white),
-        //     centerTitle: true,
-        //   ),
-        //   drawer: CustomDrawer(_pageController),
-        //   body: TemplateCadastroPagesMolecules(
-        //     title: "FORNECEDOR",
-        //     page: 1,
-        //   ),
-        // ),
+        Scaffold(
+          appBar: AppBar(
+            backgroundColor: ColorsApp.blueColor(),
+            iconTheme: const IconThemeData(color: Colors.white, size: 35),
+            toolbarHeight: 90,
+            title: TextTitle(
+                label: "CLIENTES",
+                size: 22,
+                fontWeight: FontWeight.bold,
+                color: Colors.white),
+            centerTitle: true,
+          ),
+          bottomNavigationBar: BottomAppBar(
+            height: 50,
+            color: ColorsApp.blueColor(),
+            child: Container(
+              alignment: Alignment.center,
+              child:const Text(
+                "Legumes do Chicão",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          drawer: CustomDrawer(_pageController),
+          body: ClientesPagesMolecules(
+            title: "CLIENTE",
+            page: 1,
+          ),
+        ),
       ],
     );
   }

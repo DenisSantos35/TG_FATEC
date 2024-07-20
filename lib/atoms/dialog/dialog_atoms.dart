@@ -71,4 +71,30 @@ class DialogDefault extends Model {
         });
   }
 
+  GetDelete(
+      {
+        required BuildContext context,
+        required String title,
+        required String subTitle,
+     }) {
+    return Get.defaultDialog(
+        title: title,
+        titleStyle: TextStyle(
+            fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+        middleText: subTitle,
+        backgroundColor: Colors.blue,
+        middleTextStyle: TextStyle(color: Colors.white),
+        textCancel: "Cancelar",
+        textConfirm: "Confirmar",
+        cancelTextColor: Colors.white,
+        buttonColor: Colors.red,
+        radius: 10,
+        onConfirm: () {
+         Get.back(result: true);
+        },
+      onCancel: (){
+          Get.back(result: false);
+      }
+    );
+  }
 }
