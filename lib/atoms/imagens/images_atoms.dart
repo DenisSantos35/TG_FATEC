@@ -59,6 +59,24 @@ Widget imageCardSale({required BuildContext context, required String image,requi
   );
 }
 
+Widget viewImageCardSale({required BuildContext context, required String image,required double opacity}){
+  var size = MediaQuery.of(context).size;
+
+  return  Center(
+    child: Container(
+      width: size.width * 0.4,
+      height: size.height * 0.10,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          opacity: opacity,
+          scale: 1,
+          image: AssetImage(image, bundle: rootBundle),
+        ),
+      ),
+    ),
+  );
+}
+
 Widget imageLogin({required BuildContext context, required String image}){
   var size = MediaQuery.of(context).size;
   return Container(

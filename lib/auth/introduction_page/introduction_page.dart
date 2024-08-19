@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tg_fatec/datas_class/colors.dart';
 
 import '../Login/login_page.dart';
 
@@ -15,7 +16,7 @@ class _InitPageState extends State<InitPage>{
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color(0xffef3f45),
+      backgroundColor: ColorsApp.blueColor(),
       
       body: SingleChildScrollView(
         child: Center(
@@ -24,7 +25,7 @@ class _InitPageState extends State<InitPage>{
             width: size.width * 0.8,
             height: size.height * 0.8,
             decoration: BoxDecoration(
-                color: Color(0xffef3f45),
+                color: ColorsApp.blueColor(),
                 image: DecorationImage(
                   image: AssetImage('assets/images/tomate_desenho.png'),
                 )

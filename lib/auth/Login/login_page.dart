@@ -4,6 +4,7 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:gif/gif.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:tg_fatec/atoms/imagens/images_atoms.dart';
 import 'package:tg_fatec/atoms/sizedbox/SizedBox_atoms.dart';
@@ -21,20 +22,27 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginState extends State<Login> with TickerProviderStateMixin {
   // ***************** formulario e controladores ****************************
   final formKey = GlobalKey<FormState>();
   final cpfEmailController = TextEditingController();
   final passwordController = TextEditingController();
+  late GifController gifController;
+
+  @override
+  void initState() {
+    gifController = GifController(vsync: this, );
+    gifController.repeat(max: 1, min: 1, period: Duration(seconds: 1),);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return SafeArea(
-      child: WillPopScope(
-        onWillPop: ()async{
-          return false;
-        },
+      child: PopScope(
+        canPop: false,
+        onPopInvoked: (didPop) => false,
         child: Scaffold(
           backgroundColor: Color(0xffffffff),
           body: ScopedModelDescendant<UserModel>(
@@ -50,6 +58,12 @@ class _LoginState extends State<Login> {
                       imageLogin(
                           context: context,
                           image: "assets/images/tomate_desenho.png"),
+                      // Gif(
+                      //   autostart: Autostart.loopdenis
+                      //   placeholder: (context) =>
+                      //   const Center(child: CircularProgressIndicator()),
+                      //   image: const AssetImage('assets/images/tomato.gif'),
+                      // ),
                       SizeHeight(height: size.height, multiplier: 0.03),
                       // *************** texto bemvindo*******************************
                       showTextTitle(

@@ -425,7 +425,7 @@ Widget cardProducts(
     required String image,
     required String label,
     required int page}) {
-  return GestureDetector(
+  return InkWell(
     onTap: () {
       switch (page) {
         case 0:
@@ -456,22 +456,35 @@ Widget cardProducts(
     },
     child: Card(
       color: color,
+      elevation: 3,
+      shadowColor: Colors.black,
       child: Container(
-        padding: EdgeInsets.only(left: 10, right: 10),
-        width: width * 0.85,
-        height: height * 0.11,
-        child: Row(
+        padding: EdgeInsets.all(10.0),
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1), // Cor da sombra com opacidade
+              spreadRadius: 0, // Não espalha a sombra
+              blurRadius: 15, // Define a intensidade da sombra
+              offset: Offset(0, 4), // Define a posição da sombra
+            ),
+          ],
+        ),
+        child: Column(
           children: [
             imageCard(context: context, image: image, opacity: 1),
             SizedBox(
-              width: width * 0.03,
+              height: width * 0.01,
             ),
             Expanded(
-                child: TextTitle(
-                    label: label,
-                    size: 18,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.white))
+                child: Container(
+                  alignment: Alignment.center,
+                  child: TextTitle(
+                      label: label,
+                      size: 14,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.white),
+                ))
           ],
         ),
       ),

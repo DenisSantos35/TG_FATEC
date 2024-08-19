@@ -15,9 +15,11 @@ import 'package:tg_fatec/datas_class/colors.dart';
 import 'package:tg_fatec/models/cart_model.dart';
 import 'package:tg_fatec/molecules/Report_sales_molecules/Product_purchase_report_molecules.dart';
 import 'package:tg_fatec/molecules/Report_sales_molecules/reporte_sales_molecule.dart';
+import 'package:tg_fatec/screens/UpdateStateSales.dart';
 import 'package:tg_fatec/screens/product_screen.dart';
 import 'package:tg_fatec/screens/sales_report_screen.dart';
 
+import '../../controllers/reporte_controller.dart';
 import '../imagens/images_atoms.dart';
 import '../texts/texts_atoms.dart';
 
@@ -32,7 +34,7 @@ Widget cardSales(
     String? title}) {
   bool toque = false;
   return Center(
-    child: GestureDetector(
+    child: InkWell(
       onTap: () {
         _pages(page: page, title: title);
       },
@@ -40,13 +42,12 @@ Widget cardSales(
         duration: Duration(microseconds: 300),
         curve: Curves.easeInOut,
         child: Card(
-          elevation: 20,
+          elevation: 3,
           shadowColor: Colors.black,
           color: color,
           child: Container(
             padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-            width: width * 0.85,
-            height: height * 0.3,
+
             child: Column(
               children: [
                 TextTitle(
@@ -55,9 +56,54 @@ Widget cardSales(
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
                 SizedBox(
-                  height: height * 0.03,
+                  height: height * 0.01,
                 ),
                 imageCardSale(context: context, image: image, opacity: 1),
+              ],
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+Widget viewCardSales(
+    {required BuildContext context,
+      required String image,
+      required double width,
+      required double height,
+      required String label,
+      required Color color,
+      required int page,
+      String? title}) {
+  bool toque = false;
+  return Center(
+    child: InkWell(
+      onTap: () {
+        _pages(page: page, title: title);
+      },
+      child: AnimatedContainer(
+        duration: Duration(microseconds: 300),
+        curve: Curves.easeInOut,
+        child: Card(
+          elevation: 3,
+          shadowColor: Colors.black,
+          color: color,
+          child: Container(
+            padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+
+            child: Column(
+              children: [
+                TextTitle(
+                    label: label,
+                    size: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+                SizedBox(
+                  height: height * 0.01,
+                ),
+                viewImageCardSale(context: context, image: image, opacity: 1),
               ],
             ),
           ),
@@ -152,6 +198,11 @@ _pages({required int page, String? title}) {
     case 3:
       Get.to(ProductPurchaseReport());
       break;
+    case 4:
+      Get.lazyPut(()=> ReportController());
+      Get.to(UpdateStateSales(controller: ReportController(),));
+      Logger().i("criar a atualização de vendas");
+      break;
   }
 }
 
@@ -216,6 +267,70 @@ class _SelectClientState extends State<SelectClient> {
     );
   }
 }
+
+class EditTypePayment extends StatefulWidget {
+  final String type;
+  EditTypePayment({required this.type}) ;
+
+  @override
+  State<EditTypePayment> createState() => _EditTypePaymentState(type: type);
+}
+
+class _EditTypePaymentState extends State<EditTypePayment> {
+
+
+  String type;
+  _EditTypePaymentState({required this.type});
+  late String? hint = type;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: ColorsApp.blueColorOpacity2(),
+      margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+      child: ScopedModelDescendant<CartModel>(
+        builder: (context, child, model) {
+          model.updatePrices();
+          List<String> pyment = model.payment;
+          String? _selectedItem;
+
+          return Center(
+            child: DropdownButton<String>(
+              iconEnabledColor: ColorsApp.whiteColor(),
+              padding: EdgeInsets.only(left: 10, right: 10, top: 8, bottom: 8),
+              value: _selectedItem,
+              hint: Text(
+                hint!,
+                style: TextStyle(color: ColorsApp.whiteColor()),
+              ),
+              dropdownColor: ColorsApp.blueColor(),
+              elevation: 15,
+              isExpanded: true,
+              alignment: Alignment.centerLeft,
+              iconSize: 40,
+              onChanged: (newValue) {
+                setState(() {
+                  _selectedItem = newValue;
+                  CartModel.of(context).setPayment(_selectedItem!.toString());
+                  hint = _selectedItem?.toString();
+                });
+              },
+              items: pyment.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(
+                      "${value.toString()}",
+                      style: TextStyle(color: Colors.white),
+                    ));
+              }).toList(),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+
 
 class SelectPayment extends StatefulWidget {
   SelectPayment({Key? key}) : super(key: key);

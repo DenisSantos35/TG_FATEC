@@ -17,10 +17,30 @@ class ReportController extends GetxController {
     touchedValue.value = point.y;
   }
 
+  final firebase = FirebaseFirestore.instance;
+
   @override
-  void onInit() async {
+  void onInit() {
     // TODO: implement onInit
     super.onInit();
+
+  }
+
+  Future <List<Map<String, dynamic>>> getSalesPrazo() async {
+    try{
+      final result = await firebase.collection("VENDAS").get();
+      List<Map<String, dynamic>> data = [];
+      data.clear();
+      result.docs.forEach((element) {
+        if(element["paymentType"] == "A Prazo"){
+          data.add(element.data());
+        }
+      });
+      Logger().e(data);
+      return data;
+    }catch(err){
+      rethrow;
+    }
   }
 
   Map<String, dynamic> totalStock(

@@ -10,6 +10,7 @@ import 'package:tg_fatec/molecules/Sales_page_molecules/sales_page_molecules.dar
 
 import '../molecules/Client_pages_molecules/data_clientes_moleculres.dart';
 import '../molecules/Products_pages_molecules/products_pages_molecuels.dart';
+import '../molecules/Sales_page_molecules/view_sales_page_molecules.dart';
 import '../molecules/custom_drawer/customDowerMolecules.dart';
 import '../tabs/home_tab.dart';
 
@@ -73,7 +74,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.white),
             centerTitle: true,
           ),
-
+          bottomNavigationBar: BottomAppBar(
+            height: 50,
+            color: ColorsApp.blueColor(),
+            child: Container(
+              alignment: Alignment.center,
+              child:const Text(
+                "Legumes do Chicão",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
           drawer: CustomDrawer(_pageController),
           body: ProductsPage(),
         ),
@@ -90,15 +103,18 @@ class _HomeScreenState extends State<HomeScreen> {
             centerTitle: true,
           ),
           drawer: CustomDrawer(_pageController),
-          body: CardsTemplate(
+          body: ViewSalesPage(
             colorButton: ColorsApp.blueColorOpacity2(),
             backgroundImage: "assets/images/tomate_desenho.png",
             imageCardOne: "assets/images/realizar_vendas.png",
             imageCardTwo: "assets/images/visualizar_vendas.png",
+            imageCardThree: "assets/images/contabilidade.png",
             labelOne: "Realizar Vendas",
             labelTwo: "Visualisar Vendas",
+            labelThree: "Atualizar Status Pagamento",
             firstPage: 0,
             lastPage: 1,
+            midllePage: 4,
           ),
           floatingActionButton: CartButton(),
         ),

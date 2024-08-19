@@ -11,8 +11,8 @@ import 'package:tg_fatec/models/user_model.dart';
 import 'auth/introduction_page/introduction_page.dart';
 import 'firebase_options.dart';
 import 'package:get/get.dart';
-
 import 'package:intl/intl.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Initialize localization for date formatting
@@ -30,36 +30,33 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScopedModel<UserModel>(
-      model: UserModel(),
-      child: ScopedModelDescendant<UserModel>(
-        builder: (context, child, model){
-          return ScopedModel<CartModel>(
-            model: CartModel(model),
-            child: ScopedModel<ProductModel>(
-              model: ProductModel(),
-              child: ScopedModel<DialogDefault>(
-                model: DialogDefault(),
-                child: ScopedModel<ClienteModel>(
-                  model: ClienteModel(),
-                  child: ScopedModel<ReportModel>(
-                    model: ReportModel(),
-                    child: GetMaterialApp(
-                      title: 'Flutter Demo',
-                      theme: ThemeData(
-                        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
-                        primaryColor: Colors.red,
-                        useMaterial3: true,
-                      ),
-                      home: InitPage(),
-                      //HomeScreen()
-                    ),
-                  )
-                )
-              )
-            ),
-          );
-        },
-      )
-    );
+        model: UserModel(),
+        child: ScopedModelDescendant<UserModel>(
+          builder: (context, child, model) {
+            return ScopedModel<CartModel>(
+              model: CartModel(model),
+              child: ScopedModel<ProductModel>(
+                  model: ProductModel(),
+                  child: ScopedModel<DialogDefault>(
+                      model: DialogDefault(),
+                      child: ScopedModel<ClienteModel>(
+                          model: ClienteModel(),
+                          child: ScopedModel<ReportModel>(
+                            model: ReportModel(),
+                            child: GetMaterialApp(
+                              title: 'Flutter Demo',
+                              theme: ThemeData(
+                                colorScheme:
+                                    ColorScheme.fromSeed(seedColor: Colors.red),
+                                primaryColor: Colors.red,
+                                useMaterial3: true,
+                              ),
+                              home: InitPage(),
+                              //HomeScreen()
+                            ),
+                          )))),
+            );
+          },
+        ));
   }
 }

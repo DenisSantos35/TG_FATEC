@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:tg_fatec/atoms/containers/containers_atoms.dart';
 import 'package:tg_fatec/atoms/imagens/images_atoms.dart';
 import 'package:tg_fatec/datas_class/colors.dart';
@@ -19,7 +20,10 @@ class ProductsPage extends StatelessWidget {
             context: context,
             image: "assets/images/tomate_desenho.png",
             opacity: 0.2),
-        ListView(
+        GridView(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+             crossAxisCount:3,   mainAxisSpacing: 2,   crossAxisSpacing: 2,  childAspectRatio : 1.0,mainAxisExtent: 200
+          ),
           children: [
             cardProducts(
                 context: context,

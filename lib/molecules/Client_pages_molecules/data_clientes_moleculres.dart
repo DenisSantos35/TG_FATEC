@@ -69,32 +69,35 @@ class _ClientesPagesMoleculesState extends State<ClientesPagesMolecules> {
                         color: Colors.black,
                       ),
                       SizeHeight(height: size.width, multiplier: 0.07),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          containerMenuCliente(
-                              icon: Icons.person_pin_outlined,
-                              title: "Visualizar \nCliente",
-                              page: Page.visualizar),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          containerMenuCliente(
-                              icon: Icons.edit_note,
-                              title: "Editar \nCliente",
-                              page: Page.editar),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          containerMenuCliente(
-                              icon: Icons.person_remove_alt_1_outlined,
-                              title: "Remover \nCliente",
-                              page: Page.remover),
-                          SizedBox(
-                            width: 10,
-                          ),
-                        ],
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            containerMenuCliente(
+                                icon: Icons.person_pin_outlined,
+                                title: "Visualizar \nCliente",
+                                page: Page.visualizar),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            containerMenuCliente(
+                                icon: Icons.edit_note,
+                                title: "Editar \nCliente",
+                                page: Page.editar),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            containerMenuCliente(
+                                icon: Icons.person_remove_alt_1_outlined,
+                                title: "Remover \nCliente",
+                                page: Page.remover),
+                            SizedBox(
+                              width: 10,
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -113,32 +116,44 @@ class _ClientesPagesMoleculesState extends State<ClientesPagesMolecules> {
       onTap: () {
         controller.acessPage(page: page);
       },
-      child: Container(
-        alignment: Alignment.center,
-        padding: EdgeInsets.all(8),
-        height: 145,
-        width: 115,
-        decoration: BoxDecoration(
-          color: ColorsApp.blueColorOpacity(),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              icon,
-              size: 40,
-              color: Colors.white,
-            ),
-            SizedBox(
-              height: Get.height * 0.01,
-            ),
-            Text(
-              title,
-              style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
-              textAlign: TextAlign.center,
-            ),
-          ],
+      child: Card(
+        elevation: 3,
+        shadowColor: Colors.black,
+        child: Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.all(8),
+          height: 145,
+          width: 108,
+          decoration: BoxDecoration(
+            color: ColorsApp.blueColorOpacity(),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.8), // Cor da sombra com opacidade
+                spreadRadius: 0, // Não espalha a sombra
+                blurRadius: 5, // Define a intensidade da sombra
+                offset: Offset(0, 2), // Define a posição da sombra
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                icon,
+                size: 40,
+                color: Colors.white,
+              ),
+              SizedBox(
+                height: Get.height * 0.01,
+              ),
+              Text(
+                title,
+                style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ),
       ),
     );
