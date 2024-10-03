@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:logger/logger.dart';
 import 'package:tg_fatec/controllers/reporte_controller.dart';
 
 import '../atoms/texts/texts_atoms.dart';
@@ -92,14 +93,16 @@ class _UpdateStateSalesState extends State<UpdateStateSales> {
               child: FutureBuilder<List<Map<String, dynamic>>>(
                 future: widget.controller.getSalesPrazo(),
                 builder: (context, snapshot) {
+                  Logger().e(snapshot.data);
                   if (!snapshot.hasData) {
                     return Center(
                       child: CircularProgressIndicator(),
                     );
                   } else {
+
                     List<Map<String, dynamic>> filteredData =
                     snapshot.data!.where((doc) {
-                      // Filtro por data ou nome de cliente
+                      // Filtro por data ou nome de cliente;
                       String dataVenda = doc['date'];
                       String nomeCliente = doc['nameClient'].toUpperCase();
                       String payment = doc['paymentType'].toUpperCase();
@@ -114,6 +117,7 @@ class _UpdateStateSalesState extends State<UpdateStateSales> {
                       padding: EdgeInsets.all(4.0),
                       itemCount: filteredData.length,
                       itemBuilder: (context, index) {
+                        
                         return ReportSalesPrazoTile(ReportSalesClass.fromDocument(
                             filteredData[index]));
                       },

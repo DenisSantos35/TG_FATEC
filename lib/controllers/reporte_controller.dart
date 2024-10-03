@@ -32,11 +32,17 @@ class ReportController extends GetxController {
       List<Map<String, dynamic>> data = [];
       data.clear();
       result.docs.forEach((element) {
+
         if(element["paymentType"] == "A Prazo"){
-          data.add(element.data());
+          // Adicionando o userId ao mapa
+          Map<String, dynamic> dataMap = element.data();
+          // Adicionando a referência desejada ao mapa
+          dataMap["reference"] = element.reference.id;
+
+          // Adicionando ao array data
+          data.add(dataMap);
         }
       });
-      Logger().e(data);
       return data;
     }catch(err){
       rethrow;

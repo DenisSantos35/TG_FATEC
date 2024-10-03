@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:tg_fatec/controllers/edit_payment_controller.dart';
 import 'package:tg_fatec/datas_class/colors.dart';
 import 'package:tg_fatec/datas_class/product_data_class.dart';
 import 'package:tg_fatec/datas_class/report_sales_class.dart';
@@ -13,6 +15,7 @@ import '../../screens/product_one_screen.dart';
 
 class ReportSalesPrazoTile extends StatelessWidget {
   final ReportSalesClass product;
+
 
   ReportSalesPrazoTile(this.product);
 
@@ -116,11 +119,11 @@ class ReportSalesPrazoTile extends StatelessWidget {
                         ),
                         child: InkWell(
                           onTap: () {
-                            //continuar daqui
-                            Logger().e(
-                                'fazer pagina de editar o tipo de pagamento PARA ${product}');
-                            Get.to(EditPayment(
+
+                            Get.lazyPut(()=> EditPaymentController());
+                            Get.off(EditPayment(
                               product: product,
+                              controller: EditPaymentController(),
                             ));
                           },
                           child: const Row(

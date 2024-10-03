@@ -9,11 +9,17 @@ import 'package:tg_fatec/datas_class/colors.dart';
 import 'package:tg_fatec/datas_class/report_sales_class.dart';
 
 import '../../atoms/cards/cards.dart';
+import '../../atoms/dialog/dialog_atoms.dart';
+import '../../controllers/edit_payment_controller.dart';
+import '../../controllers/reporte_controller.dart';
+import '../../models/cart_model.dart';
+import '../../screens/UpdateStateSales.dart';
 
 class EditPayment extends StatelessWidget {
   ReportSalesClass product;
+  final EditPaymentController controller;
 
-  EditPayment({required this.product});
+  EditPayment({required this.product, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -77,8 +83,38 @@ class EditPayment extends StatelessWidget {
                 height: Get.height * 0.01,
               ),
               InkWell(
-                onTap: (){
-                  Logger().i(product.userId);
+                onTap: () async {
+                  final res = await DialogDefault.of(context).GetUpdate(
+                      context: context,
+                      title: "Deseja alterar o status de pagamento?",
+                      subTitle:
+                          "Ao confirmar os dados serão a ação não podera ser desfeita.");
+                  if (res) {
+                    await controller.editPaymentType(
+                        data: CartModel.of(context).paymentType,
+                        reference: product.reference ?? "");
+                    Get.showSnackbar(
+                      GetSnackBar(
+                        snackPosition: SnackPosition.BOTTOM,
+                        title: "Status de pagamento alterado com sucesso!",
+                        message: "Realize novas alterações",
+                        backgroundColor: ColorsApp.blueColor(),
+                        duration: Duration(seconds: 3),
+                      ),
+                    );
+                    Get.lazyPut(()=> ReportController());
+                    Get.off(UpdateStateSales(controller: ReportController(),));
+
+
+
+                  } else {
+                    Get.showSnackbar(GetSnackBar(
+                        snackPosition: SnackPosition.BOTTOM,
+                        title: "Erro ao salvar dados",
+                        message: "Tente novamente.",
+                        backgroundColor: Colors.red,
+                        duration: Duration(seconds: 3)));
+                  }
                 },
                 child: Padding(
                   padding: EdgeInsets.only(left: 32, right: 32),
@@ -87,18 +123,23 @@ class EditPayment extends StatelessWidget {
                     height: 40,
                     width: 150,
                     decoration: BoxDecoration(
-                      color: Colors.green,
-                      borderRadius: BorderRadius.circular(8)
-                    ),
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(8)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(Icons.save_outlined, color: Colors.white,),
+                        Icon(
+                          Icons.save_outlined,
+                          color: Colors.white,
+                        ),
                         SizedBox(
                           width: 3,
                         ),
-                        Text("SALVAR", style: TextStyle(color: Colors.white),),
+                        Text(
+                          "SALVAR",
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ],
                     ),
                   ),

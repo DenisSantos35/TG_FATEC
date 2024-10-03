@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
                             child: GetMaterialApp(
                               title: 'Flutter Demo',
                               theme: ThemeData(
+                                appBarTheme: AppBarTheme(iconTheme: IconThemeData(color: Colors.white)),
                                 colorScheme:
                                     ColorScheme.fromSeed(seedColor: Colors.red),
                                 primaryColor: Colors.red,

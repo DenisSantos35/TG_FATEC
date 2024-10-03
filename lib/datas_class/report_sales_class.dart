@@ -15,16 +15,19 @@ class ReportSalesClass {
   String? nameClient;
   String? paymentType;
   String? image;
+  String? reference;
 
   ReportSalesClass();
 
   ReportSalesClass.fromDocument(final snapshot) {
+    reference = snapshot["reference"];
     clienteId = snapshot["clientId"];
     date = snapshot["date"];
     hour = snapshot["hour"];
     nameClient = snapshot["nameClient"];
     paymentType = snapshot["paymentType"];
     discount = snapshot["discount"];
+    products = snapshot["products"];
     products = snapshot["products"];
     productsPrice = snapshot["productsPrice"];
     totalPrice = snapshot["totalPrice"];
@@ -34,7 +37,7 @@ class ReportSalesClass {
 
   Map<String, dynamic> toMap() {
     return {
-      "id": id,
+      "id": reference,
       "clienteId": clienteId,
       "discount": discount,
       "products": products,
