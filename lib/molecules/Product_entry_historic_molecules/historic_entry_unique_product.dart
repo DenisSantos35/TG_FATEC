@@ -17,16 +17,18 @@ class HistoricEntryUniqueProduct extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-      title: Text("HISTÓRICO",
-        style: TextStyle(color: Colors.white),),
-      backgroundColor: ColorsApp.blueColor(),
+          title: const Text(
+            "HISTÓRICO",
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: ColorsApp.blueColor(),
         ),
-          bottomNavigationBar: BottomAppBar(
-            height: 50,
+        bottomNavigationBar: BottomAppBar(
+          height: 50,
           color: ColorsApp.blueColor(),
           child: Container(
             alignment: Alignment.center,
-            child:const Text(
+            child: const Text(
               "Legumes do Chicão",
               style: TextStyle(
                 color: Colors.white,
@@ -34,39 +36,43 @@ class HistoricEntryUniqueProduct extends StatelessWidget {
             ),
           ),
         ),
-        bottomSheet: Stack(
-          children: [
-            Container(
+        bottomSheet: Stack(children: [
+          Container(
               height: 520,
               decoration: BoxDecoration(
-                  color:ColorsApp.blueColorOpacity2(),
-                  borderRadius: BorderRadius.only(
+                  color: ColorsApp.blueColorOpacity2(),
+                  borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(32),
                       topRight: Radius.circular(32))),
               child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Container(
                       width: Get.width * 0.9,
-                      child: Text(
-                        "Histórico de entrada de produtos".toUpperCase(),
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.white),
-                        textAlign: TextAlign.center,
-                      ),
                       decoration: BoxDecoration(
                         color: Colors.black,
                         borderRadius: BorderRadius.circular(8),
                       ),
+                      child: Text(
+                        "Histórico de entrada de produtos".toUpperCase(),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                    Divider(color: Colors.black, thickness: 3, indent: 16, endIndent: 16, ),
-                    SizedBox(height: 20),
+                    const Divider(
+                      color: Colors.black,
+                      thickness: 3,
+                      indent: 16,
+                      endIndent: 16,
+                    ),
+                    const SizedBox(height: 20),
                     ListView.separated(
-                      padding: EdgeInsets.only(left: 16, right: 16),
+                      padding: const EdgeInsets.only(left: 16, right: 16),
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       separatorBuilder: (context, index) => SizedBox(
                         height: Get.height * 0.01,
                       ),
@@ -75,32 +81,32 @@ class HistoricEntryUniqueProduct extends StatelessWidget {
                         return Card(
                           color: Colors.white,
                           child: Padding(
-                            padding: EdgeInsets.all(16.0),
+                            padding: const EdgeInsets.all(16.0),
                             child: Column(
                               children: [
                                 Row(
                                   children: [
                                     Expanded(
+                                      flex: 2,
                                       child: Text(
                                         "Data: ${historicProduct[index]["data"]}",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 14),
                                       ),
-                                      flex: 2,
                                     ),
                                     Expanded(
                                         child: Text(
-                                          "Hora: ${historicProduct[index]["hora"]}",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 14),
-                                        ))
+                                      "Hora: ${historicProduct[index]["hora"]}",
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14),
+                                    ))
                                   ],
                                 ),
                                 const Divider(),
                                 Row(children: [
-                                  Expanded(
+                                  const Expanded(
                                     child: Text(
                                       "Quantidade:",
                                       style: TextStyle(
@@ -111,7 +117,7 @@ class HistoricEntryUniqueProduct extends StatelessWidget {
                                   Expanded(
                                     child: Text(
                                       "${historicProduct[index]["quantidade"]}",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.w300,
                                           fontSize: 14),
                                       textAlign: TextAlign.end,
@@ -120,7 +126,7 @@ class HistoricEntryUniqueProduct extends StatelessWidget {
                                 ]),
                                 const Divider(),
                                 Row(children: [
-                                  Expanded(
+                                  const Expanded(
                                     child: Text(
                                       "Preço:",
                                       style: TextStyle(
@@ -131,7 +137,7 @@ class HistoricEntryUniqueProduct extends StatelessWidget {
                                   Expanded(
                                     child: Text(
                                       "R\$ ${historicProduct[index]["preco"]}",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.w300,
                                           fontSize: 14),
                                       textAlign: TextAlign.end,
@@ -140,7 +146,7 @@ class HistoricEntryUniqueProduct extends StatelessWidget {
                                 ]),
                                 const Divider(),
                                 Row(children: [
-                                  Expanded(
+                                  const Expanded(
                                     child: Text(
                                       "Valor Total:",
                                       style: TextStyle(
@@ -151,7 +157,7 @@ class HistoricEntryUniqueProduct extends StatelessWidget {
                                   Expanded(
                                     child: Text(
                                       "R\$ ${(historicProduct[index]["preco"] * historicProduct[index]["quantidade"]).toStringAsFixed(2)}",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 14),
                                       textAlign: TextAlign.end,
@@ -166,8 +172,8 @@ class HistoricEntryUniqueProduct extends StatelessWidget {
                     ),
                   ],
                 ),
-              )),]
-        ),
+              )),
+        ]),
         // Tela roxa
         body: Container(
           alignment: Alignment.topCenter,
@@ -181,5 +187,4 @@ class HistoricEntryUniqueProduct extends StatelessWidget {
       ),
     );
   }
-
 }

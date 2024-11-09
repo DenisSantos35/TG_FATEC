@@ -20,7 +20,8 @@ class CustomDrawer extends StatelessWidget {
       child: Stack(
         children: [
           buildBodyBack(
-              color1: ColorsApp.blueColor(), color2: ColorsApp.blueColorOpacity2()),
+              color1: ColorsApp.blueColor(),
+              color2: ColorsApp.blueColorOpacity2()),
           ListView(
             padding: const EdgeInsets.only(left: 15.0, top: 25.0),
             children: [
@@ -38,7 +39,7 @@ class CustomDrawer extends StatelessWidget {
                             size: 34.0,
                             fontWeight: FontWeight.bold,
                             color: Colors.white)),
-                    SizedBox(height: 17),
+                    const SizedBox(height: 17),
                     Positioned(
                       left: 0.0,
                       bottom: 0.0,
@@ -53,26 +54,35 @@ class CustomDrawer extends StatelessWidget {
                                   size: 18.0,
                                   fontWeight: FontWeight.bold,
                                   color: ColorsApp.orangeColor()),
-                              SizedBox(height: 8,),
+                              const SizedBox(
+                                height: 8,
+                              ),
                               TextTitle(
                                   label:
                                       "${!model.isLoggedIn() ? "" : model.userData["name"]}",
                                   size: 16.0,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xff0AE313)),
-                              SizedBox(height: 8,),
+                                  color: const Color(0xff0AE313)),
+                              const SizedBox(
+                                height: 8,
+                              ),
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: GestureDetector(
                                   child: Row(
                                     children: [
-                                      Text("Sair", style: TextStyle(color: Colors.white),),
-                                      Icon(Icons.logout, color: ColorsApp.whiteColor(),),
+                                      const Text(
+                                        "Sair",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      Icon(
+                                        Icons.logout,
+                                        color: ColorsApp.whiteColor(),
+                                      ),
                                     ],
                                   ),
                                   onTap: () {
                                     model.signOut();
-
                                   },
                                 ),
                               )
@@ -93,7 +103,7 @@ class CustomDrawer extends StatelessWidget {
                   text: "Home",
                   page: 0,
                   controller: pageController),
-              Divider(
+              const Divider(
                 endIndent: 20,
                 height: 5,
               ),
@@ -112,7 +122,7 @@ class CustomDrawer extends StatelessWidget {
                   text: "Financeiro",
                   page: 3,
                   controller: pageController),
-              Divider(
+              const Divider(
                 endIndent: 20,
                 height: 5,
               ),

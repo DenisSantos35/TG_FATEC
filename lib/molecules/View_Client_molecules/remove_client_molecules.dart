@@ -12,8 +12,9 @@ import '../../datas_class/client.dart';
 import '../../datas_class/colors.dart';
 
 class RemoveClienteMolecules extends StatefulWidget {
-  DataClientesController controller ;
-  RemoveClienteMolecules({Key? key, required this.controller}) : super(key: key);
+  DataClientesController controller;
+  RemoveClienteMolecules({Key? key, required this.controller})
+      : super(key: key);
 
   @override
   State<RemoveClienteMolecules> createState() => _RemoveClienteMoleculesState();
@@ -62,14 +63,14 @@ class _RemoveClienteMoleculesState extends State<RemoveClienteMolecules> {
               image: "assets/images/tomate_desenho.png",
               opacity: 0.2),
           Padding(
-            padding: EdgeInsets.only(left: 10, top: 10, right: 10),
+            padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
             child: Column(
               children: [
                 Container(
                   height: 50,
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: TextField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         label: Text(
                           "PESQUISAR",
@@ -78,7 +79,7 @@ class _RemoveClienteMoleculesState extends State<RemoveClienteMolecules> {
                     onChanged: _updateSearch,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Container(
@@ -96,7 +97,7 @@ class _RemoveClienteMoleculesState extends State<RemoveClienteMolecules> {
                         fontSize: 14),
                   ),
                 ),
-                Divider(
+                const Divider(
                   color: Colors.black,
                   thickness: 2,
                 ),
@@ -108,12 +109,12 @@ class _RemoveClienteMoleculesState extends State<RemoveClienteMolecules> {
                         .get(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
-                        return Center(
+                        return const Center(
                           child: CircularProgressIndicator(),
                         );
                       } else {
                         List<QueryDocumentSnapshot> filteredData =
-                        snapshot.data!.docs.where((doc) {
+                            snapshot.data!.docs.where((doc) {
                           String razaoSocial = doc['razao_social'];
                           String nomeCliente = doc['nome'].toUpperCase();
                           String cpfCnpj = doc['cpfCnpj'].toUpperCase();
@@ -124,14 +125,14 @@ class _RemoveClienteMoleculesState extends State<RemoveClienteMolecules> {
                               email.contains(_searchText.toUpperCase());
                         }).toList();
                         return ListView.builder(
-                          padding: EdgeInsets.all(4.0),
+                          padding: const EdgeInsets.all(4.0),
                           itemCount: filteredData.length,
                           itemBuilder: (context, index) {
                             return RemoveClientTile(
                               data: Client.fromDocument(
-                                  filteredData[index].data()),contoller: widget.controller,
+                                  filteredData[index].data()),
+                              contoller: widget.controller,
                               reference: filteredData[index].reference.id,
-
                             );
                           },
                         );

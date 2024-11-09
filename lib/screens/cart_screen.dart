@@ -32,11 +32,11 @@ class CartScreen extends StatelessWidget {
             )),
         title: Text(
           "Meu Carrinho".toUpperCase(),
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
         actions: [
           Container(
-            padding: EdgeInsets.only(right: 40.0),
+            padding: const EdgeInsets.only(right: 40.0),
             child: ScopedModelDescendant<CartModel>(
               builder: (context, child, model) {
                 int quantProduct = model.products.length;
@@ -57,7 +57,7 @@ class CartScreen extends StatelessWidget {
         color: ColorsApp.blueColor(),
         child: Container(
           alignment: Alignment.center,
-          child:const Text(
+          child: const Text(
             "Legumes do Chicão",
             style: TextStyle(
               color: Colors.white,
@@ -74,7 +74,7 @@ class CartScreen extends StatelessWidget {
           } else if (!UserModel.of(context).isLoggedIn()) {
             return const buttonReturnLogin();
           } else if (model.products == null || model.products.length == 0) {
-            return Center(
+            return const Center(
               child: Text("Nenhum produto no carrinho!"),
             );
           } else {
@@ -83,12 +83,17 @@ class CartScreen extends StatelessWidget {
                   children: model.products.map((product) {
                 return CartTile(product);
               }).toList()),
-              SizedBox(height: 16),
-              ReturnButton(),
-              SizedBox(height: 25),
-              Divider(thickness: 3, color: Colors.black, indent: 16, endIndent: 16,),
+              const SizedBox(height: 16),
+              const ReturnButton(),
+              const SizedBox(height: 25),
+              const Divider(
+                thickness: 3,
+                color: Colors.black,
+                indent: 16,
+                endIndent: 16,
+              ),
               Padding(
-                padding: EdgeInsets.only(left: 16, right:16),
+                padding: const EdgeInsets.only(left: 16, right: 16),
                 child: Container(
                   height: Get.height * 0.04,
                   alignment: Alignment.center,
@@ -104,14 +109,23 @@ class CartScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Divider(thickness: 3, color: Colors.black, indent: 16, endIndent: 16,),
-              SizedBox(height: 3),
+              const Divider(
+                thickness: 3,
+                color: Colors.black,
+                indent: 16,
+                endIndent: 16,
+              ),
+              const SizedBox(height: 3),
               SelectClient(),
-              DiscountCard(),
+              const DiscountCard(),
               SelectPayment(),
-              Divider(thickness: 3, color: Colors.black, indent: 16, endIndent: 16,),
+              const Divider(
+                thickness: 3,
+                color: Colors.black,
+                indent: 16,
+                endIndent: 16,
+              ),
               CardPrice(() async {
-
                 String orderId = await model.finishOrder();
                 if (orderId == "") return;
                 if (orderId != null)

@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
-Widget imageDefault({required BuildContext context, required String image,required double opacity}){
+Widget imageDefault(
+    {required BuildContext context,
+    required String image,
+    required double opacity}) {
   var size = MediaQuery.of(context).size;
 
-  return  Center(
+  return Center(
     child: Container(
       width: size.width * 0.9,
-      height: size.height * 0.8,
+      height: size.height * 0.7,
       decoration: BoxDecoration(
         image: DecorationImage(
           opacity: opacity,
@@ -20,10 +23,13 @@ Widget imageDefault({required BuildContext context, required String image,requir
   );
 }
 
-Widget imageCard({required BuildContext context, required String image,required double opacity}){
+Widget imageCard(
+    {required BuildContext context,
+    required String image,
+    required double opacity}) {
   var size = MediaQuery.of(context).size;
 
-  return  Center(
+  return Center(
     child: Container(
       padding: EdgeInsets.all(16),
       width: size.height * 0.08,
@@ -41,10 +47,13 @@ Widget imageCard({required BuildContext context, required String image,required 
   );
 }
 
-Widget imageCardSale({required BuildContext context, required String image,required double opacity}){
+Widget imageCardSale(
+    {required BuildContext context,
+    required String image,
+    required double opacity}) {
   var size = MediaQuery.of(context).size;
 
-  return  Center(
+  return Center(
     child: Container(
       width: size.width * 0.4,
       height: size.height * 0.2,
@@ -59,10 +68,13 @@ Widget imageCardSale({required BuildContext context, required String image,requi
   );
 }
 
-Widget viewImageCardSale({required BuildContext context, required String image,required double opacity}){
+Widget viewImageCardSale(
+    {required BuildContext context,
+    required String image,
+    required double opacity}) {
   var size = MediaQuery.of(context).size;
 
-  return  Center(
+  return Center(
     child: Container(
       width: size.width * 0.4,
       height: size.height * 0.10,
@@ -77,14 +89,14 @@ Widget viewImageCardSale({required BuildContext context, required String image,r
   );
 }
 
-Widget imageLogin({required BuildContext context, required String image}){
+Widget imageLogin({required BuildContext context, required String image}) {
   var size = MediaQuery.of(context).size;
   return Container(
     height: 150,
     width: size.width,
     decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(image),
-        )),
+      image: AssetImage(image),
+    )),
   );
 }

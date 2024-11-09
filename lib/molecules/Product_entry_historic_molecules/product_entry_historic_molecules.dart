@@ -15,10 +15,8 @@ class ProductEntryHistory extends StatefulWidget {
 }
 
 class _ProductEntryHistoryState extends State<ProductEntryHistory> {
-
   void _updateSearch(String newText) {
-    setState(() {
-    });
+    setState(() {});
   }
 
   @override
@@ -41,7 +39,7 @@ class _ProductEntryHistoryState extends State<ProductEntryHistory> {
         color: ColorsApp.blueColor(),
         child: Container(
           alignment: Alignment.center,
-          child:const Text(
+          child: const Text(
             "Legumes do Chicão",
             style: TextStyle(
               color: Colors.white,
@@ -53,18 +51,6 @@ class _ProductEntryHistoryState extends State<ProductEntryHistory> {
         padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
         child: Column(
           children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: TextField(
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    label: Text(
-                      "PESQUISAR",
-                    ),
-                    suffixIcon: Icon(Icons.search)),
-                onChanged: _updateSearch,
-              ),
-            ),
             Expanded(
               child: FutureBuilder<QuerySnapshot>(
                 future: FirebaseFirestore.instance.collection("PRODUTOS").get(),
@@ -127,14 +113,17 @@ class _ProductEntryHistoryState extends State<ProductEntryHistory> {
                                                         historic.add(
                                                             element.data()),
                                                         nameProduct = element
-                                                            .data()["images"].toString(),
+                                                            .data()["images"]
+                                                            .toString(),
                                                       }
                                                   })
                                               .toList();
-                                          if(historic.isEmpty){
-                                            Get.showSnackbar(GetSnackBar(
-                                              title: "Não há histórico para este produto!",
-                                              message: "Cadastre um estoque para verificar o histórico.",
+                                          if (historic.isEmpty) {
+                                            Get.showSnackbar(const GetSnackBar(
+                                              title:
+                                                  "Não há histórico para este produto!",
+                                              message:
+                                                  "Cadastre um estoque para verificar o histórico.",
                                               backgroundColor: Colors.red,
                                               duration: Duration(seconds: 2),
                                             ));
@@ -142,8 +131,7 @@ class _ProductEntryHistoryState extends State<ProductEntryHistory> {
                                           }
                                           Get.to(HistoricEntryUniqueProduct(
                                               historicProduct: historic,
-                                              title:
-                                                  nameProduct));
+                                              title: nameProduct));
                                         },
                                         child: Container(
                                           padding: const EdgeInsets.all(3),
@@ -192,22 +180,28 @@ class _ProductEntryHistoryState extends State<ProductEntryHistory> {
                                         child: Text(
                                           "${snapshot.data!.docs[index]["titulo"].toUpperCase()}",
                                           style: const TextStyle(
-                                              fontWeight: FontWeight.bold, color: Colors.white),
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
                                           textAlign: TextAlign.center,
                                         ),
                                         width: 200,
                                         decoration: BoxDecoration(
                                           color: Colors.black,
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                         ),
                                       ),
-                                      SizedBox(height: 5,),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
                                       Container(
                                         color: Colors.black,
                                         width: 200,
                                         height: 2,
                                       ),
-                                      SizedBox(height: 15,),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
                                       Text(
                                         "Valor: R\$ ${snapshot.data!.docs[index]["preco"].toStringAsFixed(2).replaceAll(".", ",")}",
                                         style: const TextStyle(
@@ -219,20 +213,26 @@ class _ProductEntryHistoryState extends State<ProductEntryHistory> {
                                         width: 200,
                                         height: 1,
                                       ),
-                                      SizedBox(height: 5,),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
                                       Text(
                                         "Estoque: ${snapshot.data!.docs[index]["quantidade"].toStringAsFixed(0)} Caixas",
                                         style: const TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.normal),
                                       ),
-                                      SizedBox(height: 15,),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
                                       Container(
                                         color: Colors.green,
                                         width: 200,
                                         height: 3,
                                       ),
-                                      SizedBox(height: 5,),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
                                       Text(
                                         "Total:   R\$ ${(snapshot.data!.docs[index]["quantidade"] * snapshot.data!.docs[index]["preco"]).toStringAsFixed(2).replaceAll('.', ',')} ",
                                         style: const TextStyle(

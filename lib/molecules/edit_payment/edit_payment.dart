@@ -32,7 +32,7 @@ class EditPayment extends StatelessWidget {
             label: "LEGUMES DO CHICÃO",
             size: 22,
             fontWeight: FontWeight.bold,
-            color: Color(0xffffffff)),
+            color: const Color(0xffffffff)),
         centerTitle: true,
       ),
       bottomNavigationBar: BottomAppBar(
@@ -40,8 +40,8 @@ class EditPayment extends StatelessWidget {
         height: 50,
         child: Container(
           alignment: Alignment.center,
-          child:
-              Text("Legumes do Chicão", style: TextStyle(color: Colors.white)),
+          child: const Text("Legumes do Chicão",
+              style: TextStyle(color: Colors.white)),
         ),
       ),
       body: SingleChildScrollView(
@@ -74,7 +74,7 @@ class EditPayment extends StatelessWidget {
                 thickness: 2,
               ),
               Padding(
-                padding: EdgeInsets.only(left: 16, right: 16),
+                padding: const EdgeInsets.only(left: 16, right: 16),
                 child: EditTypePayment(
                   type: product.typePayment(product),
                 ),
@@ -99,16 +99,15 @@ class EditPayment extends StatelessWidget {
                         title: "Status de pagamento alterado com sucesso!",
                         message: "Realize novas alterações",
                         backgroundColor: ColorsApp.blueColor(),
-                        duration: Duration(seconds: 3),
+                        duration: const Duration(seconds: 3),
                       ),
                     );
-                    Get.lazyPut(()=> ReportController());
-                    Get.off(UpdateStateSales(controller: ReportController(),));
-
-
-
+                    Get.lazyPut(() => ReportController());
+                    Get.off(UpdateStateSales(
+                      controller: ReportController(),
+                    ));
                   } else {
-                    Get.showSnackbar(GetSnackBar(
+                    Get.showSnackbar(const GetSnackBar(
                         snackPosition: SnackPosition.BOTTOM,
                         title: "Erro ao salvar dados",
                         message: "Tente novamente.",
@@ -117,7 +116,7 @@ class EditPayment extends StatelessWidget {
                   }
                 },
                 child: Padding(
-                  padding: EdgeInsets.only(left: 32, right: 32),
+                  padding: const EdgeInsets.only(left: 32, right: 32),
                   child: Container(
                     alignment: Alignment.center,
                     height: 40,
@@ -125,7 +124,7 @@ class EditPayment extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: Colors.green,
                         borderRadius: BorderRadius.circular(8)),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -172,7 +171,7 @@ class EditPayment extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(
                   "CLIENTE: ${product!.nameClient!.toUpperCase()} ",
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w900,
                       fontSize: 20),
@@ -230,10 +229,11 @@ class EditPayment extends StatelessWidget {
                               child: Text(
                                 product!.products![index]["product"]["titulo"]
                                     .toUpperCase(),
-                                style: TextStyle(fontWeight: FontWeight.w500),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w500),
                                 textAlign: TextAlign.left,
                               ),
-                              padding: EdgeInsets.only(left: 60),
+                              padding: const EdgeInsets.only(left: 60),
                               alignment: Alignment.centerLeft,
                             ),
                           ),
@@ -249,13 +249,13 @@ class EditPayment extends StatelessWidget {
                           child: Container(
                             child: Text(
                               "Preço Cx: R\$ ${product!.products![index]["product"]["price"].toStringAsFixed(2).replaceAll(".", ",")} ",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   color: Colors.green,
                                   fontSize: 10),
                               textAlign: TextAlign.left,
                             ),
-                            padding: EdgeInsets.only(left: 60),
+                            padding: const EdgeInsets.only(left: 60),
                             alignment: Alignment.centerLeft,
                           ),
                         ),
@@ -263,26 +263,27 @@ class EditPayment extends StatelessWidget {
                           child: Container(
                             child: Text(
                               "Total: R\$ ${product?.totalParcial(product!.products![index])} ",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w900,
                                   color: Colors.black,
                                   fontSize: 10),
                               textAlign: TextAlign.right,
                             ),
-                            padding: EdgeInsets.only(left: 60),
+                            padding: const EdgeInsets.only(left: 60),
                             alignment: Alignment.centerLeft,
                           ),
                         ),
                       ]),
                       lastValue - 1 == index
-                          ? SizedBox(
+                          ? const SizedBox(
                               height: 20,
                             )
                           : Container(
                               child: Divider(
                                 color: Colors.black.withOpacity(0.3),
                               ),
-                              margin: EdgeInsets.symmetric(horizontal: 40),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 40),
                             ),
                     ]);
                   }),
@@ -314,7 +315,7 @@ class EditPayment extends StatelessWidget {
                 endIndent: 32,
                 thickness: 2,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
@@ -324,12 +325,12 @@ class EditPayment extends StatelessWidget {
                     child: Container(
                       child: Text(
                         "Data: ${product!.date} ",
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.deepPurple,
                             fontWeight: FontWeight.w900),
                         textAlign: TextAlign.left,
                       ),
-                      padding: EdgeInsets.only(left: 60),
+                      padding: const EdgeInsets.only(left: 60),
                       alignment: Alignment.centerLeft,
                     ),
                   ),
@@ -337,7 +338,7 @@ class EditPayment extends StatelessWidget {
                     child: Text(
                       "Hora: ${product!.hour}",
                       textAlign: TextAlign.left,
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.deepPurple,
                           fontWeight: FontWeight.w900),
                     ),
@@ -348,18 +349,18 @@ class EditPayment extends StatelessWidget {
                 child: Divider(
                   color: Colors.black.withOpacity(0.3),
                 ),
-                margin: EdgeInsets.symmetric(horizontal: 40),
+                margin: const EdgeInsets.symmetric(horizontal: 40),
               ),
               Row(
                 children: [
                   Expanded(
                     child: Container(
-                      child: Text(
+                      child: const Text(
                         "Pagamento: ",
                         style: TextStyle(fontWeight: FontWeight.w500),
                         textAlign: TextAlign.left,
                       ),
-                      padding: EdgeInsets.only(left: 60),
+                      padding: const EdgeInsets.only(left: 60),
                       alignment: Alignment.centerLeft,
                     ),
                   ),
@@ -367,7 +368,7 @@ class EditPayment extends StatelessWidget {
                     child: Text(
                       "${product!.typePayment(product!)}",
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
@@ -376,18 +377,18 @@ class EditPayment extends StatelessWidget {
                 child: Divider(
                   color: Colors.black.withOpacity(0.3),
                 ),
-                margin: EdgeInsets.symmetric(horizontal: 40),
+                margin: const EdgeInsets.symmetric(horizontal: 40),
               ),
               Row(
                 children: [
                   Expanded(
                     child: Container(
-                      child: Text(
+                      child: const Text(
                         "Sub-Total: ",
                         style: TextStyle(fontWeight: FontWeight.w500),
                         textAlign: TextAlign.left,
                       ),
-                      padding: EdgeInsets.only(left: 60),
+                      padding: const EdgeInsets.only(left: 60),
                       alignment: Alignment.centerLeft,
                     ),
                   ),
@@ -403,18 +404,18 @@ class EditPayment extends StatelessWidget {
                 child: Divider(
                   color: Colors.black.withOpacity(0.3),
                 ),
-                margin: EdgeInsets.symmetric(horizontal: 40),
+                margin: const EdgeInsets.symmetric(horizontal: 40),
               ),
               Row(
                 children: [
                   Expanded(
                     child: Container(
-                      child: Text(
+                      child: const Text(
                         "Desconto: ",
                         style: TextStyle(fontWeight: FontWeight.w500),
                         textAlign: TextAlign.left,
                       ),
-                      padding: EdgeInsets.only(left: 60),
+                      padding: const EdgeInsets.only(left: 60),
                       alignment: Alignment.centerLeft,
                     ),
                   ),
@@ -429,25 +430,25 @@ class EditPayment extends StatelessWidget {
                 child: Divider(
                   color: Colors.black.withOpacity(0.3),
                 ),
-                margin: EdgeInsets.symmetric(horizontal: 40),
+                margin: const EdgeInsets.symmetric(horizontal: 40),
               ),
               Row(
                 children: [
                   Expanded(
                     child: Container(
-                      child: Text(
+                      child: const Text(
                         "Total: ",
                         style: TextStyle(fontWeight: FontWeight.w900),
                         textAlign: TextAlign.left,
                       ),
-                      padding: EdgeInsets.only(left: 60),
+                      padding: const EdgeInsets.only(left: 60),
                       alignment: Alignment.centerLeft,
                     ),
                   ),
                   Expanded(
                       child: Text(
                     "R\$ ${product!.total(product!.products!, product!)}",
-                    style: TextStyle(fontWeight: FontWeight.w900),
+                    style: const TextStyle(fontWeight: FontWeight.w900),
                     textAlign: TextAlign.center,
                   )),
                 ],
@@ -456,7 +457,7 @@ class EditPayment extends StatelessWidget {
                 child: Divider(
                   color: Colors.black.withOpacity(0.3),
                 ),
-                margin: EdgeInsets.symmetric(horizontal: 40),
+                margin: const EdgeInsets.symmetric(horizontal: 40),
               ),
             ],
           ),

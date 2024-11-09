@@ -26,13 +26,13 @@ class ReportSalesTile extends StatelessWidget {
       child: Card(
         color: ColorsApp.blueColorOpacity2(),
         child: Padding(
-          padding: EdgeInsets.only(top: 5),
+          padding: const EdgeInsets.only(top: 5),
           child: Row(
             children: [
               Expanded(
                 flex: 1,
                 child: Container(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -42,7 +42,7 @@ class ReportSalesTile extends StatelessWidget {
                             child: Container(
                               child: Text(
                                 "DATA: ${product!.date}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.w900,
                                     color: Colors.white),
                               ),
@@ -53,7 +53,7 @@ class ReportSalesTile extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Expanded(
@@ -65,7 +65,7 @@ class ReportSalesTile extends StatelessWidget {
                               ),
                               child: Text(
                                 "HORARIO: ${product!.hour}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.w900,
                                     color: Colors.white),
                               ),
@@ -73,21 +73,34 @@ class ReportSalesTile extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Divider(color: Colors.black, thickness: 2,),
+                      const Divider(
+                        color: Colors.black,
+                        thickness: 2,
+                      ),
                       Text(
                         "NOME CLIENTE: ${product!.nameClient!.toUpperCase()}",
-                        style: TextStyle(fontWeight: FontWeight.w900),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                            decoration: TextDecoration.underline,
+                            decorationColor: Colors.white),
                       ),
                       Text(
                         "PRODUTOS: ${product!.products!.map((e) => e["product"]["titulo"]).toString().replaceAll("(", "").replaceAll(")", "").toUpperCase()}",
-                        style: TextStyle(fontWeight: FontWeight.w900),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w300, color: Colors.white),
                       ),
                       Text(
                         "PREÇO TOTAL: ${product!.totalPrice!.toStringAsFixed(2)}",
-                        style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.w900),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w300,
+                        ),
                       ),
-                      Divider(color: Colors.black, thickness: 2,),
+                      const Divider(
+                        color: Colors.black,
+                        thickness: 2,
+                      ),
                       Container(
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
@@ -97,10 +110,14 @@ class ReportSalesTile extends StatelessWidget {
                         child: Text(
                           "TIPO DE PAGAMENTO: ${product!.paymentType!.toUpperCase()}",
                           style: TextStyle(
-                              color: ColorsApp.whiteColor(), fontWeight: FontWeight.w900),
+                              color: ColorsApp.whiteColor(),
+                              fontWeight: FontWeight.w900),
                         ),
                       ),
-                      Divider(color: Colors.black, thickness: 2,),
+                      const Divider(
+                        color: Colors.black,
+                        thickness: 2,
+                      ),
                       Center(
                         child: Container(
                           alignment: Alignment.center,
@@ -109,10 +126,11 @@ class ReportSalesTile extends StatelessWidget {
                             color: ColorsApp.orangeColor(),
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Text(
+                          child: const Text(
                             "VER RELATÓRIO +",
                             style: TextStyle(
-                                color: Colors.black, fontWeight: FontWeight.w900),
+                                color: Colors.black,
+                                fontWeight: FontWeight.w900),
                           ),
                         ),
                       ),

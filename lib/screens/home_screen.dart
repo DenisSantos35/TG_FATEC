@@ -24,19 +24,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final _pageController = PageController();
 
-
-
   @override
   Widget build(BuildContext context) {
-
     return PageView(
       controller: _pageController,
       //animate to page jupin to page mudam as paginas
       physics: const NeverScrollableScrollPhysics(),
       children: <Widget>[
         PopScope(
-         canPop: false,
-          onPopInvoked: (didPop) => false,
+          canPop: false,
           child: Scaffold(
             appBar: AppBar(
               backgroundColor: ColorsApp.blueColor(),
@@ -46,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   label: "LEGUMES DO CHICÃO",
                   size: 22,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xffffffff)),
+                  color: const Color(0xffffffff)),
               centerTitle: true,
             ),
             bottomNavigationBar: BottomAppBar(
@@ -54,12 +50,13 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 50,
               child: Container(
                 alignment: Alignment.center,
-                child: Text("Legumes do Chicão", style: TextStyle(color: Colors.white)),
+                child: const Text("Legumes do Chicão",
+                    style: TextStyle(color: Colors.white)),
               ),
             ),
             body: HomeTab(),
             drawer: CustomDrawer(_pageController),
-            floatingActionButton: CartButton(),
+            floatingActionButton: const CartButton(),
           ),
         ),
         Scaffold(
@@ -79,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
             color: ColorsApp.blueColor(),
             child: Container(
               alignment: Alignment.center,
-              child:const Text(
+              child: const Text(
                 "Legumes do Chicão",
                 style: TextStyle(
                   color: Colors.white,
@@ -110,13 +107,13 @@ class _HomeScreenState extends State<HomeScreen> {
             imageCardTwo: "assets/images/visualizar_vendas.png",
             imageCardThree: "assets/images/contabilidade.png",
             labelOne: "Realizar Vendas",
-            labelTwo: "Visualisar Vendas",
+            labelTwo: "Visualizar Vendas",
             labelThree: "Atualizar Status Pagamento",
             firstPage: 0,
             lastPage: 1,
             midllePage: 4,
           ),
-          floatingActionButton: CartButton(),
+          floatingActionButton: const CartButton(),
         ),
         Scaffold(
           appBar: AppBar(
@@ -159,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
             color: ColorsApp.blueColor(),
             child: Container(
               alignment: Alignment.center,
-              child:const Text(
+              child: const Text(
                 "Legumes do Chicão",
                 style: TextStyle(
                   color: Colors.white,
@@ -190,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
             color: ColorsApp.blueColor(),
             child: Container(
               alignment: Alignment.center,
-              child:const Text(
+              child: const Text(
                 "Legumes do Chicão",
                 style: TextStyle(
                   color: Colors.white,

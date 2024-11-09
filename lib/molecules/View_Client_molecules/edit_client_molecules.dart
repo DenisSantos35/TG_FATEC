@@ -61,14 +61,14 @@ class _EditClienteMoleculesState extends State<EditClienteMolecules> {
               image: "assets/images/tomate_desenho.png",
               opacity: 0.2),
           Padding(
-            padding: EdgeInsets.only(left: 10, top: 10, right: 10),
+            padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
             child: Column(
               children: [
                 Container(
                   height: 50,
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: TextField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         label: Text(
                           "PESQUISAR",
@@ -77,7 +77,7 @@ class _EditClienteMoleculesState extends State<EditClienteMolecules> {
                     onChanged: _updateSearch,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Container(
@@ -95,7 +95,7 @@ class _EditClienteMoleculesState extends State<EditClienteMolecules> {
                         fontSize: 14),
                   ),
                 ),
-                Divider(
+                const Divider(
                   color: Colors.black,
                   thickness: 2,
                 ),
@@ -107,12 +107,12 @@ class _EditClienteMoleculesState extends State<EditClienteMolecules> {
                         .get(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
-                        return Center(
+                        return const Center(
                           child: CircularProgressIndicator(),
                         );
                       } else {
                         List<QueryDocumentSnapshot> filteredData =
-                        snapshot.data!.docs.where((doc) {
+                            snapshot.data!.docs.where((doc) {
                           String razaoSocial = doc['razao_social'];
                           String nomeCliente = doc['nome'].toUpperCase();
                           String cpfCnpj = doc['cpfCnpj'].toUpperCase();
@@ -123,13 +123,14 @@ class _EditClienteMoleculesState extends State<EditClienteMolecules> {
                               email.contains(_searchText.toUpperCase());
                         }).toList();
                         return ListView.builder(
-                          padding: EdgeInsets.all(4.0),
+                          padding: const EdgeInsets.all(4.0),
                           itemCount: filteredData.length,
                           itemBuilder: (context, index) {
                             return EditClientTile(
                               data: Client.fromDocument(
-                                  filteredData[index].data(),
-                              ),reference: filteredData[index].reference.id,
+                                filteredData[index].data(),
+                              ),
+                              reference: filteredData[index].reference.id,
                             );
                           },
                         );

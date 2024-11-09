@@ -16,7 +16,6 @@ import '../../screens/product_one_screen.dart';
 class ReportSalesPrazoTile extends StatelessWidget {
   final ReportSalesClass product;
 
-
   ReportSalesPrazoTile(this.product);
 
   @override
@@ -24,13 +23,13 @@ class ReportSalesPrazoTile extends StatelessWidget {
     return Card(
       color: ColorsApp.blueColorOpacity2(),
       child: Padding(
-        padding: EdgeInsets.only(top: 5),
+        padding: const EdgeInsets.only(top: 5),
         child: Row(
           children: [
             Expanded(
               flex: 1,
               child: Container(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -40,7 +39,7 @@ class ReportSalesPrazoTile extends StatelessWidget {
                           child: Container(
                             child: Text(
                               "DATA: ${product!.date}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w900,
                                   color: Colors.white),
                             ),
@@ -51,7 +50,7 @@ class ReportSalesPrazoTile extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Expanded(
@@ -63,7 +62,7 @@ class ReportSalesPrazoTile extends StatelessWidget {
                             ),
                             child: Text(
                               "HORARIO: ${product!.hour}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w900,
                                   color: Colors.white),
                             ),
@@ -71,24 +70,31 @@ class ReportSalesPrazoTile extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Divider(
+                    const Divider(
                       color: Colors.black,
                       thickness: 2,
                     ),
                     Text(
                       "NOME CLIENTE: ${product!.nameClient!.toUpperCase()}",
-                      style: TextStyle(fontWeight: FontWeight.w900),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                          decoration: TextDecoration.underline,
+                          decorationColor: Colors.white),
                     ),
                     Text(
                       "PRODUTOS: ${product!.products!.map((e) => e["product"]["titulo"]).toString().replaceAll("(", "").replaceAll(")", "").toUpperCase()}",
-                      style: TextStyle(fontWeight: FontWeight.w900),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w300, color: Colors.white),
                     ),
                     Text(
                       "PREÇO TOTAL: ${product!.totalPrice!.toStringAsFixed(2)}",
-                      style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.w900),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w300,
+                      ),
                     ),
-                    Divider(
+                    const Divider(
                       color: Colors.black,
                       thickness: 2,
                     ),
@@ -105,7 +111,7 @@ class ReportSalesPrazoTile extends StatelessWidget {
                             fontWeight: FontWeight.w900),
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       color: Colors.black,
                       thickness: 2,
                     ),
@@ -119,8 +125,7 @@ class ReportSalesPrazoTile extends StatelessWidget {
                         ),
                         child: InkWell(
                           onTap: () {
-
-                            Get.lazyPut(()=> EditPaymentController());
+                            Get.lazyPut(() => EditPaymentController());
                             Get.off(EditPayment(
                               product: product,
                               controller: EditPaymentController(),

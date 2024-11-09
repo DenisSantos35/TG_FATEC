@@ -58,14 +58,14 @@ class _ViewClienteMoleculesState extends State<ViewClienteMolecules> {
               image: "assets/images/tomate_desenho.png",
               opacity: 0.2),
           Padding(
-            padding: EdgeInsets.only(left: 10, top: 10, right: 10),
+            padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
             child: Column(
               children: [
                 Container(
                   height: 50,
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: TextField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         label: Text(
                           "PESQUISAR",
@@ -74,7 +74,7 @@ class _ViewClienteMoleculesState extends State<ViewClienteMolecules> {
                     onChanged: _updateSearch,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Container(
@@ -92,7 +92,7 @@ class _ViewClienteMoleculesState extends State<ViewClienteMolecules> {
                         fontSize: 14),
                   ),
                 ),
-                Divider(
+                const Divider(
                   color: Colors.black,
                   thickness: 2,
                 ),
@@ -104,7 +104,7 @@ class _ViewClienteMoleculesState extends State<ViewClienteMolecules> {
                         .get(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
-                        return Center(
+                        return const Center(
                           child: CircularProgressIndicator(),
                         );
                       } else {
@@ -120,7 +120,7 @@ class _ViewClienteMoleculesState extends State<ViewClienteMolecules> {
                               email.contains(_searchText.toUpperCase());
                         }).toList();
                         return ListView.builder(
-                          padding: EdgeInsets.all(4.0),
+                          padding: const EdgeInsets.all(4.0),
                           itemCount: filteredData.length,
                           itemBuilder: (context, index) {
                             return ViewClientTile(

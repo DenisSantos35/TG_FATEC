@@ -10,6 +10,7 @@ import '../datas_class/colors.dart';
 import '../datas_class/report_sales_class.dart';
 import '../molecules/Sales_page_molecules/report_sales_a_prazo.dart';
 import '../molecules/Tiles_molecules/report_sales_tile.dart';
+
 class UpdateStateSales extends StatefulWidget {
   ReportController controller;
   UpdateStateSales({super.key, required this.controller});
@@ -27,6 +28,7 @@ class _UpdateStateSalesState extends State<UpdateStateSales> {
       _searchText = newText;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +48,7 @@ class _UpdateStateSalesState extends State<UpdateStateSales> {
         color: ColorsApp.blueColor(),
         child: Container(
           alignment: Alignment.center,
-          child:const Text(
+          child: const Text(
             "Legumes do Chicão",
             style: TextStyle(
               color: Colors.white,
@@ -58,14 +60,14 @@ class _UpdateStateSalesState extends State<UpdateStateSales> {
       // fazer botao para acessar detalhado
       // atualizar status
       body: Padding(
-        padding: EdgeInsets.only(left: 10, top: 10, right: 10),
+        padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
         child: Column(
           children: [
             Container(
               height: 50,
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: TextField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     label: Text(
                       "PESQUISAR",
@@ -74,7 +76,9 @@ class _UpdateStateSalesState extends State<UpdateStateSales> {
                 onChanged: _updateSearch,
               ),
             ),
-            SizedBox(height: 15,),
+            const SizedBox(
+              height: 15,
+            ),
             Container(
               height: Get.height * 0.04,
               alignment: Alignment.center,
@@ -85,48 +89,51 @@ class _UpdateStateSalesState extends State<UpdateStateSales> {
               child: Text(
                 "PAGAMENTOS A PRAZO DE CLIENTES",
                 style: TextStyle(
-                    color: ColorsApp.whiteColor(), fontWeight: FontWeight.w900, fontSize: 14),
+                    color: ColorsApp.whiteColor(),
+                    fontWeight: FontWeight.w900,
+                    fontSize: 14),
               ),
             ),
-            Divider(color: Colors.black, thickness: 2,),
+            const Divider(
+              color: Colors.black,
+              thickness: 2,
+            ),
             Expanded(
               child: FutureBuilder<List<Map<String, dynamic>>>(
                 future: widget.controller.getSalesPrazo(),
                 builder: (context, snapshot) {
-                  Logger().e(snapshot.data);
                   if (!snapshot.hasData) {
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(),
                     );
                   } else {
-
                     List<Map<String, dynamic>> filteredData =
-                    snapshot.data!.where((doc) {
+                        snapshot.data!.where((doc) {
                       // Filtro por data ou nome de cliente;
                       String dataVenda = doc['date'];
                       String nomeCliente = doc['nameClient'].toUpperCase();
                       String payment = doc['paymentType'].toUpperCase();
-                      List listProduct =
-                      doc['products'].map((e)=> e["product"]["titulo"].toUpperCase()).toList();
+                      List listProduct = doc['products']
+                          .map((e) => e["product"]["titulo"].toUpperCase())
+                          .toList();
 
                       return dataVenda.contains(_searchText) ||
                           nomeCliente.contains(_searchText.toUpperCase()) ||
-                          payment.contains( _searchText.toUpperCase()) || listProduct.contains(_searchText.toUpperCase());
+                          payment.contains(_searchText.toUpperCase()) ||
+                          listProduct.contains(_searchText.toUpperCase());
                     }).toList();
                     return ListView.builder(
-                      padding: EdgeInsets.all(4.0),
+                      padding: const EdgeInsets.all(4.0),
                       itemCount: filteredData.length,
                       itemBuilder: (context, index) {
-                        
-                        return ReportSalesPrazoTile(ReportSalesClass.fromDocument(
-                            filteredData[index]));
+                        return ReportSalesPrazoTile(
+                            ReportSalesClass.fromDocument(filteredData[index]));
                       },
                     );
                   }
                 },
               ),
             ),
-
           ],
         ),
       ),

@@ -48,240 +48,247 @@ class _ProductTileState extends State<ProductTile> {
     return InkWell(
       child: Card(
         color: ColorsApp.blueColorOpacity2(),
-          shadowColor: Colors.black,
-          child: widget.type == 'grid'
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(8),
-                      child: AspectRatio(
-                        aspectRatio: 1,
-                        child: Image.network(
-                          widget.product.image!,
-                          fit: BoxFit.cover,
-                        ),
+        shadowColor: Colors.black,
+        child: widget.type == 'grid'
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: Image.network(
+                        widget.product.image!,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Text(
-                              widget.product.titulo!.toUpperCase(),
-                              style: TextStyle(fontWeight: FontWeight.w900),
+                  ),
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            widget.product.titulo!.toUpperCase(),
+                            style: const TextStyle(fontWeight: FontWeight.w900),
+                          ),
+                          const Divider(
+                            color: Colors.green,
+                            indent: 32,
+                            endIndent: 32,
+                            thickness: 2,
+                          ),
+                          Text(
+                            widget.product.quantidade! <= 0
+                                ? "Adicione produto\npara realizar venda! "
+                                : "Preço ${widget.product.unidadeMedida}:\n R\$ ${widget.product.price!.toStringAsFixed(2)}",
+                            style: TextStyle(
+                              color: ColorsApp.whiteColor(),
+                              fontWeight: FontWeight.bold,
                             ),
-                            Divider(color: Colors.green, indent: 32, endIndent: 32, thickness: 2,),
-                            Text(
-                              widget.product.quantidade! <= 0
-                                  ? "Adicione produto\npara realizar venda! "
-                                  : "Preço ${widget.product.unidadeMedida}:\n R\$ ${widget.product.price!.toStringAsFixed(2)}",
-                              style: TextStyle(
-                                color: ColorsApp.whiteColor(),
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        widget.product.quantidade! <= 0
-                            ? Get.showSnackbar(GetSnackBar(
-                                title: "Saldo insuficiente!",
-                                message:
-                                    "Produto não pode ser adicionado ao carrinho.",
-                                duration: Duration(seconds: 3),
-                                backgroundColor: Colors.red,
-                              ))
-                            : addCart(context);
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(left: 15, right: 15, bottom: 8),
-                        alignment: Alignment.center,
-                        height: Get.height * 0.05,
-                        width: Get.width * 0.02,
-                        decoration: BoxDecoration(
-                            color: widget.product.quantidade! <= 0
-                                ? Colors.red
-                                : Colors.green,
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Text(
-                          UserModel.of(context).isLoggedIn()
-                              ? widget.product.quantidade! <= 0
-                                  ? "Saldo\ninsuficiente".toUpperCase()
-                                  : "Adicionar\n ao Carrinho".toUpperCase()
-                              : "Realize o Login Para Continuar",
-                          style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      widget.product.quantidade! <= 0
+                          ? Get.showSnackbar(const GetSnackBar(
+                              title: "Saldo insuficiente!",
+                              message:
+                                  "Produto não pode ser adicionado ao carrinho.",
+                              duration: Duration(seconds: 3),
+                              backgroundColor: Colors.red,
+                            ))
+                          : addCart(context);
+                    },
+                    child: Container(
+                      margin:
+                          const EdgeInsets.only(left: 15, right: 15, bottom: 8),
+                      alignment: Alignment.center,
+                      height: Get.height * 0.05,
+                      width: Get.width * 0.02,
+                      decoration: BoxDecoration(
+                          color: widget.product.quantidade! <= 0
+                              ? Colors.red
+                              : Colors.green,
+                          borderRadius: BorderRadius.circular(8)),
+                      child: Text(
+                        UserModel.of(context).isLoggedIn()
+                            ? widget.product.quantidade! <= 0
+                                ? "Saldo\ninsuficiente".toUpperCase()
+                                : "Adicionar\n ao Carrinho".toUpperCase()
+                            : "Realize o Login Para Continuar",
+                        style: const TextStyle(
+                            fontSize: 10,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                  ],
-                )
-              : Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Image.network(
-                          widget.product.image!,
-                          fit: BoxFit.cover,
-                          height: 110.0,
-                        ),
+                  ),
+                ],
+              )
+            : Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration:
+                          BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                      child: Image.network(
+                        widget.product.image!,
+                        fit: BoxFit.cover,
+                        height: 110.0,
                       ),
                     ),
-                    Container(
-                      color: Colors.green,
-                      height: 110,
-                      width: 3,
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        padding: EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              widget.product.titulo!.toUpperCase(),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w900, fontSize: 14),
-                            ),
-                            Text(
-                              "Estoque: ${widget.product.quantidade!.toStringAsFixed(0)} ${widget.product.unidadeMedida}",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 12, color: ColorsApp.whiteColor()),
-                            ),
-                            widget.button == null
-                                ? Text(
-                                    widget.product.quantidade! <= 0
-                                        ? "Adicione produto\npara realizar venda! "
-                                        : "Preço ${widget.product.unidadeMedida}: R\$ ${widget.product.price!.toStringAsFixed(2)}",
-                                    style: TextStyle(
-                                        color: ColorsApp.whiteColor(),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12),
-                                  )
-                                : Text(
-                                    "Preço ${widget.product.unidadeMedida}: R\$ ${widget.product.price!.toStringAsFixed(2)}",
-                                    style: const TextStyle(
-                                        color: Color(0xff000000),
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 12),
-                                  ),
-                            Divider(
-                              color: Colors.green,
-                              thickness: 2,
-                            ),
-                            widget.button != null
-                                ? Container(
-                                    width: 150,
-                                    height: 25,
-                                    alignment: Alignment.center,
-                                    child: OutlinedButton(
-                                      style: OutlinedButton.styleFrom(
-                                        backgroundColor: widget.color,
-                                        elevation: 5,
-                                        shadowColor: Colors.black,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(8)),
-                                      ),
-                                      onPressed: () {
-                                        switch (widget.page) {
-                                          case 1:
-                                          case 6:
-                                            DialogDefault.of(context).GetDialog(
-                                                page: widget.page!,
-                                                context: context,
-                                                title: widget.title!,
-                                                subTitle: widget.subtitle!,
-                                                id: widget.product.id,
-                                                status: widget.page == 1
-                                                    ? false
-                                                    : true);
-                                            break;
-                                          case 2:
-                                            Get.to(EditProductMolecules(
-                                              product: ProductDataClass.fromMap(
-                                                widget.product.toMap(),
-                                              ),
-                                              reference:
-                                                  widget.product.references,
-                                            ));
-                                            break;
-                                          case 3:
-                                            Get.to(EditStockProductMolecules(
-                                              product: ProductDataClass.fromMap(
-                                                  widget.product.toMap()),
-                                              reference:
-                                                  widget.product.references,
-                                            ));
-                                        }
-                                      },
-                                      child: Text(
-                                        widget.label!,
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  )
-                                : SizedBox(),
-                            widget.button != null
-                                ? SizedBox()
-                                : GestureDetector(
-                                    onTap: () {
-                                      widget.product.quantidade! <= 0
-                                          ? null
-                                          : addCart(context);
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.only(
-                                          left: 2, right: 2, bottom: 8),
-                                      alignment: Alignment.center,
-                                      height: Get.height * 0.04,
-                                      width: Get.width * 0.5,
-                                      decoration: BoxDecoration(
-                                          color: widget.product.quantidade! <= 0
-                                              ? Colors.red
-                                              : Colors.green,
+                  ),
+                  Container(
+                    color: Colors.green,
+                    height: 110,
+                    width: 3,
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.product.titulo!.toUpperCase(),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w900, fontSize: 14),
+                          ),
+                          Text(
+                            "Estoque: ${widget.product.quantidade!.toStringAsFixed(0)} ${widget.product.unidadeMedida}",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12,
+                                color: ColorsApp.whiteColor()),
+                          ),
+                          widget.button == null
+                              ? Text(
+                                  widget.product.quantidade! <= 0
+                                      ? "Adicione produto\npara realizar venda! "
+                                      : "Preço ${widget.product.unidadeMedida}: R\$ ${widget.product.price!.toStringAsFixed(2)}",
+                                  style: TextStyle(
+                                      color: ColorsApp.whiteColor(),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12),
+                                )
+                              : Text(
+                                  "Preço ${widget.product.unidadeMedida}: R\$ ${widget.product.price!.toStringAsFixed(2)}",
+                                  style: const TextStyle(
+                                      color: Color(0xff000000),
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 12),
+                                ),
+                          const Divider(
+                            color: Colors.green,
+                            thickness: 2,
+                          ),
+                          widget.button != null
+                              ? Container(
+                                  width: 150,
+                                  height: 25,
+                                  alignment: Alignment.center,
+                                  child: OutlinedButton(
+                                    style: OutlinedButton.styleFrom(
+                                      backgroundColor: widget.color,
+                                      elevation: 5,
+                                      shadowColor: Colors.black,
+                                      shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(8)),
-                                      child: Text(
-                                        UserModel.of(context).isLoggedIn()
-                                            ? widget.product.quantidade! <= 0
-                                                ? "Saldo insuficiente"
-                                                    .toUpperCase()
-                                                : "Adicionar ao Carrinho"
-                                                    .toUpperCase()
-                                            : "Realize o Login Para Continuar",
-                                        style: TextStyle(
-                                            fontSize: 10,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.center,
+                                    ),
+                                    onPressed: () {
+                                      switch (widget.page) {
+                                        case 1:
+                                        case 6:
+                                          DialogDefault.of(context).GetDialog(
+                                              page: widget.page!,
+                                              context: context,
+                                              title: widget.title!,
+                                              subTitle: widget.subtitle!,
+                                              id: widget.product.id,
+                                              status: widget.page == 1
+                                                  ? false
+                                                  : true);
+                                          break;
+                                        case 2:
+                                          Get.to(EditProductMolecules(
+                                            product: ProductDataClass.fromMap(
+                                              widget.product.toMap(),
+                                            ),
+                                            reference:
+                                                widget.product.references,
+                                          ));
+                                          break;
+                                        case 3:
+                                          Get.to(EditStockProductMolecules(
+                                            product: ProductDataClass.fromMap(
+                                                widget.product.toMap()),
+                                            reference:
+                                                widget.product.references,
+                                          ));
+                                      }
+                                    },
+                                    child: Text(
+                                      widget.label!,
+                                      style: const TextStyle(
+                                        color: Colors.white,
                                       ),
+                                      textAlign: TextAlign.center,
                                     ),
                                   ),
-                          ],
-                        ),
+                                )
+                              : const SizedBox(),
+                          widget.button != null
+                              ? const SizedBox()
+                              : GestureDetector(
+                                  onTap: () {
+                                    widget.product.quantidade! <= 0
+                                        ? null
+                                        : addCart(context);
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 2, right: 2, bottom: 8),
+                                    alignment: Alignment.center,
+                                    height: Get.height * 0.04,
+                                    width: Get.width * 0.5,
+                                    decoration: BoxDecoration(
+                                        color: widget.product.quantidade! <= 0
+                                            ? Colors.red
+                                            : Colors.green,
+                                        borderRadius: BorderRadius.circular(8)),
+                                    child: Text(
+                                      UserModel.of(context).isLoggedIn()
+                                          ? widget.product.quantidade! <= 0
+                                              ? "Saldo insuficiente"
+                                                  .toUpperCase()
+                                              : "Adicionar ao Carrinho"
+                                                  .toUpperCase()
+                                          : "Realize o Login Para Continuar",
+                                      style: const TextStyle(
+                                          fontSize: 10,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
       ),
     );
   }
@@ -303,9 +310,9 @@ class _ProductTileState extends State<ProductTile> {
 
       CartModel.of(context).addCartItem(cartProduct, dataProduct);
 
-      Get.to(CartScreen());
+      Get.to(const CartScreen());
     } else {
-      Get.to(Login());
+      Get.to(const Login());
     }
   }
 }

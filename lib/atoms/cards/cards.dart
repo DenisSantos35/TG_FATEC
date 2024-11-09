@@ -47,7 +47,6 @@ Widget cardSales(
           color: color,
           child: Container(
             padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-
             child: Column(
               children: [
                 TextTitle(
@@ -70,13 +69,13 @@ Widget cardSales(
 
 Widget viewCardSales(
     {required BuildContext context,
-      required String image,
-      required double width,
-      required double height,
-      required String label,
-      required Color color,
-      required int page,
-      String? title}) {
+    required String image,
+    required double width,
+    required double height,
+    required String label,
+    required Color color,
+    required int page,
+    String? title}) {
   bool toque = false;
   return Center(
     child: InkWell(
@@ -92,7 +91,6 @@ Widget viewCardSales(
           color: color,
           child: Container(
             padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-
             child: Column(
               children: [
                 TextTitle(
@@ -199,8 +197,10 @@ _pages({required int page, String? title}) {
       Get.to(ProductPurchaseReport());
       break;
     case 4:
-      Get.lazyPut(()=> ReportController());
-      Get.to(UpdateStateSales(controller: ReportController(),));
+      Get.lazyPut(() => ReportController());
+      Get.to(UpdateStateSales(
+        controller: ReportController(),
+      ));
       Logger().i("criar a atualização de vendas");
       break;
   }
@@ -232,7 +232,7 @@ class _SelectClientState extends State<SelectClient> {
           return Center(
             child: DropdownButton<Client>(
               iconEnabledColor: ColorsApp.whiteColor(),
-              padding: EdgeInsets.only(left: 10, right: 10, top: 8, bottom: 8),
+              padding: EdgeInsets.only(left: 10, right: 10, top: 8, bottom: 0),
               value: _selectedItem,
               hint: Text(
                 hint!,
@@ -255,9 +255,14 @@ class _SelectClientState extends State<SelectClient> {
               items: client.map<DropdownMenuItem<Client>>((Client value) {
                 return DropdownMenuItem<Client>(
                     value: value,
-                    child: Text(
-                      "Razão Social: ${value.razao_social.toString()}",
-                      style: TextStyle(color: Colors.white),
+                    child: Container(
+                      height: 60,
+                      child: Text(
+                        "Razão Social: ${value.razao_social.toString()}",
+                        style: TextStyle(color: Colors.white),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ));
               }).toList(),
             ),
@@ -270,15 +275,13 @@ class _SelectClientState extends State<SelectClient> {
 
 class EditTypePayment extends StatefulWidget {
   final String type;
-  EditTypePayment({required this.type}) ;
+  EditTypePayment({required this.type});
 
   @override
   State<EditTypePayment> createState() => _EditTypePaymentState(type: type);
 }
 
 class _EditTypePaymentState extends State<EditTypePayment> {
-
-
   String type;
   _EditTypePaymentState({required this.type});
   late String? hint = type;
@@ -329,8 +332,6 @@ class _EditTypePaymentState extends State<EditTypePayment> {
     );
   }
 }
-
-
 
 class SelectPayment extends StatefulWidget {
   SelectPayment({Key? key}) : super(key: key);
@@ -525,16 +526,28 @@ class CardPrice extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Subtotal", style: TextStyle(color: ColorsApp.whiteColor()),),
-                    Text("R\$ ${price.toStringAsFixed(2)}", style: TextStyle(color: ColorsApp.whiteColor()),)
+                    Text(
+                      "Subtotal",
+                      style: TextStyle(color: ColorsApp.whiteColor()),
+                    ),
+                    Text(
+                      "R\$ ${price.toStringAsFixed(2)}",
+                      style: TextStyle(color: ColorsApp.whiteColor()),
+                    )
                   ],
                 ),
                 Divider(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Desconto", style: TextStyle(color: ColorsApp.whiteColor()),),
-                    Text("- R\$ ${discount.toStringAsFixed(2)}", style: TextStyle(color: ColorsApp.whiteColor()),)
+                    Text(
+                      "Desconto",
+                      style: TextStyle(color: ColorsApp.whiteColor()),
+                    ),
+                    Text(
+                      "- R\$ ${discount.toStringAsFixed(2)}",
+                      style: TextStyle(color: ColorsApp.whiteColor()),
+                    )
                   ],
                 ),
                 Divider(),

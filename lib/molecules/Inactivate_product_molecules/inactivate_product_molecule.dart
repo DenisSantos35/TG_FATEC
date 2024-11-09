@@ -10,7 +10,6 @@ import 'package:tg_fatec/datas_class/product_data_class.dart';
 import 'package:tg_fatec/helper/list_snapshot_status.dart';
 import '../Tiles_molecules/product_tile.dart';
 
-
 class InactivateProductScreen extends StatelessWidget {
   InactivateProductScreen({required this.title, this.product});
 
@@ -38,7 +37,7 @@ class InactivateProductScreen extends StatelessWidget {
               color: ColorsApp.blueColor(),
               child: Container(
                 alignment: Alignment.center,
-                child:const Text(
+                child: const Text(
                   "Legumes do Chicão",
                   style: TextStyle(
                     color: Colors.white,
@@ -55,7 +54,10 @@ class InactivateProductScreen extends StatelessWidget {
                   );
                 } else {
                   return _data.data(snapshot.data!.docs, true).length == 0
-                      ? MessageStatusProduct(image: 'assets/images/tomate_desenho.png', label: "Não há produtos cadastrados no momento",)
+                      ? MessageStatusProduct(
+                          image: 'assets/images/tomate_desenho.png',
+                          label: "Não há produtos cadastrados no momento",
+                        )
                       : ListView.builder(
                           padding: EdgeInsets.all(4.0),
                           itemCount: product == null
@@ -69,13 +71,16 @@ class InactivateProductScreen extends StatelessWidget {
                                 true);
                             return ProductTile(
                               page: 1,
-                              title: "Você deseja inativar o produto ${data[index]["titulo"]} ?",
-                              subtitle: "Para reativá-lo, consulte o histórico de inativos!",
+                              title:
+                                  "Você deseja inativar o produto ${data[index]["titulo"]} ?",
+                              subtitle:
+                                  "Para reativá-lo, consulte o histórico de inativos!",
                               label: "Inativar",
-                                color: Colors.red,
-                                button: true,
-                                "list",
-                                ProductDataClass.fromDocument(data[index]),);
+                              color: Colors.red,
+                              button: true,
+                              "list",
+                              ProductDataClass.fromDocument(data[index]),
+                            );
                           });
                 }
               },

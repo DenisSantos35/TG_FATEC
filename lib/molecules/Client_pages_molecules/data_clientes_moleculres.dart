@@ -15,7 +15,7 @@ import '../../atoms/containers/containers_atoms.dart';
 import '../../atoms/imagens/images_atoms.dart';
 import '../../atoms/sizedbox/SizedBox_atoms.dart';
 
-enum Page {visualizar, remover, editar}
+enum Page { visualizar, remover, editar }
 
 class ClientesPagesMolecules extends StatefulWidget {
   ClientesPagesMolecules({Key? key, required this.title, required this.page})
@@ -43,7 +43,7 @@ class _ClientesPagesMoleculesState extends State<ClientesPagesMolecules> {
           ),
           child: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Stack(
                 children: [
                   imageDefault(
@@ -62,7 +62,7 @@ class _ClientesPagesMoleculesState extends State<ClientesPagesMolecules> {
                             size: 20,
                             color: ColorsApp.whiteColor()),
                       ),
-                      Divider(
+                      const Divider(
                         indent: 4,
                         endIndent: 4,
                         thickness: 3,
@@ -79,21 +79,21 @@ class _ClientesPagesMoleculesState extends State<ClientesPagesMolecules> {
                                 icon: Icons.person_pin_outlined,
                                 title: "Visualizar \nCliente",
                                 page: Page.visualizar),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             containerMenuCliente(
                                 icon: Icons.edit_note,
                                 title: "Editar \nCliente",
                                 page: Page.editar),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             containerMenuCliente(
                                 icon: Icons.person_remove_alt_1_outlined,
                                 title: "Remover \nCliente",
                                 page: Page.remover),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                           ],
@@ -121,7 +121,7 @@ class _ClientesPagesMoleculesState extends State<ClientesPagesMolecules> {
         shadowColor: Colors.black,
         child: Container(
           alignment: Alignment.center,
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           height: 145,
           width: 108,
           decoration: BoxDecoration(
@@ -129,10 +129,11 @@ class _ClientesPagesMoleculesState extends State<ClientesPagesMolecules> {
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.8), // Cor da sombra com opacidade
+                color: Colors.black
+                    .withOpacity(0.8), // Cor da sombra com opacidade
                 spreadRadius: 0, // Não espalha a sombra
                 blurRadius: 5, // Define a intensidade da sombra
-                offset: Offset(0, 2), // Define a posição da sombra
+                offset: const Offset(0, 2), // Define a posição da sombra
               ),
             ],
           ),
@@ -149,7 +150,8 @@ class _ClientesPagesMoleculesState extends State<ClientesPagesMolecules> {
               ),
               Text(
                 title,
-                style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
+                style: const TextStyle(
+                    fontWeight: FontWeight.w600, color: Colors.white),
                 textAlign: TextAlign.center,
               ),
             ],

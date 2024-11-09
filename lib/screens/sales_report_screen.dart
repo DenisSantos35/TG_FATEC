@@ -39,14 +39,13 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
               onPressed: () {
                 Get.back();
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back,
                 color: Colors.white,
               )),
-
           title: (Text(
             widget.title,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           )),
           centerTitle: true,
           backgroundColor: ColorsApp.blueColor(),
@@ -56,7 +55,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
           color: ColorsApp.blueColor(),
           child: Container(
             alignment: Alignment.center,
-            child:const Text(
+            child: const Text(
               "Legumes do Chicão",
               style: TextStyle(
                 color: Colors.white,
@@ -65,14 +64,14 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
           ),
         ),
         body: Padding(
-          padding: EdgeInsets.only(left: 10, top: 10, right: 10),
+          padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
           child: Column(
             children: [
               Container(
                 height: 50,
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: TextField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       label: Text(
                         "PESQUISAR",
@@ -81,7 +80,9 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                   onChanged: _updateSearch,
                 ),
               ),
-              SizedBox(height: 15,),
+              const SizedBox(
+                height: 15,
+              ),
               Container(
                 height: Get.height * 0.04,
                 alignment: Alignment.center,
@@ -90,18 +91,26 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
-                  "RELATÓRIOS DETALHADO POR VENDA",
+                  "RELATÓRIO DETALHADO POR VENDA",
                   style: TextStyle(
-                      color: ColorsApp.whiteColor(), fontWeight: FontWeight.w900, fontSize: 14),
+                      color: ColorsApp.whiteColor(),
+                      fontWeight: FontWeight.w900,
+                      fontSize: 14),
                 ),
               ),
-              Divider(color: Colors.black, thickness: 2,),
+              const Divider(
+                color: Colors.black,
+                thickness: 2,
+              ),
               Expanded(
                 child: FutureBuilder<QuerySnapshot>(
-                  future: FirebaseFirestore.instance.collection("VENDAS").orderBy("date", descending: true).get(),
+                  future: FirebaseFirestore.instance
+                      .collection("VENDAS")
+                      .orderBy("date", descending: true)
+                      .get(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     } else {
@@ -111,15 +120,17 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                         String dataVenda = doc['date'];
                         String nomeCliente = doc['nameClient'].toUpperCase();
                         String payment = doc['paymentType'].toUpperCase();
-                        List listProduct =
-                            doc['products'].map((e)=> e["product"]["titulo"].toUpperCase()).toList();
+                        List listProduct = doc['products']
+                            .map((e) => e["product"]["titulo"].toUpperCase())
+                            .toList();
 
                         return dataVenda.contains(_searchText) ||
                             nomeCliente.contains(_searchText.toUpperCase()) ||
-                            payment.contains( _searchText.toUpperCase()) || listProduct.contains(_searchText.toUpperCase());
+                            payment.contains(_searchText.toUpperCase()) ||
+                            listProduct.contains(_searchText.toUpperCase());
                       }).toList();
                       return ListView.builder(
-                        padding: EdgeInsets.all(4.0),
+                        padding: const EdgeInsets.all(4.0),
                         itemCount: filteredData.length,
                         itemBuilder: (context, index) {
                           return ReportSalesTile(ReportSalesClass.fromDocument(
@@ -130,7 +141,6 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                   },
                 ),
               ),
-
             ],
           ),
         ),
